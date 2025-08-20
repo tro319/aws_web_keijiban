@@ -1,0 +1,54 @@
+| sys                |
++--------------------+
+5 rows in set (0.00 sec)
+
+mysql> cd public
+    -> exit;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQ
+L server version for the right syntax to use near 'cd public
+exit' at line 1
+mysql> clear
+mysql> SELECT * FROM users;
+ERROR 1146 (42S02): Table 'example_db.users' doesn't exist
+mysql> SHOW TABLES+
+    -> exit
+    -> exit;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQ
+L server version for the right syntax to use near '+
+exit
+exit' at line 1
+mysql> SHOW TABLES;
++----------------------+
+| Tables_in_example_db |
++----------------------+
+| access_logs          |
+| hogehoge             |
++----------------------+
+2 rows in set (0.01 sec)
+
+mysql> SELECT * FROM hogehoge;
++----------------------+---------------------+
+| text                 | created_at          |
++----------------------+---------------------+
+| hello world!!!!!!!!! | 2025-07-09 14:39:14 |
+| hello world!!!!!!!   | 2025-07-09 15:12:28 |
+| hello world!!!!!!!   | 2025-07-09 15:12:31 |
+| hello world!!!!!!!   | 2025-07-09 15:12:32 |
+| hello world!!!!!!!   | 2025-07-09 15:32:42 |
++----------------------+---------------------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT * FROM hogehoge;
++----------------------+---------------------+
+| text                 | created_at          |
++----------------------+---------------------+
+| hello world!!!!!!!!! | 2025-07-09 14:39:14 |
+| hello world!!!!!!!   | 2025-07-09 15:12:28 |
+| hello world!!!!!!!   | 2025-07-09 15:12:31 |
+| hello world!!!!!!!   | 2025-07-09 15:12:32 |
+| hello world!!!!!!!   | 2025-07-09 15:32:42 |
+| ???                  | 2025-07-16 14:25:00 |
++----------------------+---------------------+
+6 rows in set (0.00 sec)
+
+mysql>
