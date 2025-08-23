@@ -15,7 +15,7 @@ if (!empty($_SESSION["login_error"])) {
 
 
 
-<!DOCTYPE html>i
+<!DOCTYPE html>
 <html lang="ja">
 <head>
     <meta charset="UTF-8">

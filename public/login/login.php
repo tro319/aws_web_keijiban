@@ -8,11 +8,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 // セッションへの、データ登録処理
 
   $_SESSION["log_email"] = h_s($_POST["log_email"]);
-  $_SESSION["log_pass"] = h_s($_POST["log_pass"]);
 
 
   $email = $_SESSION["log_email"];
-  $pass = $_SESSION["log_pass"];
+  $pass = h_s($_POST["log_pass"]);
 
 
 // ログイン認証
@@ -34,12 +33,38 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   if (!empty($results_e)) {
 
-  
+    $cnt_p = 0;
+
+    foreach($results_e as $result) {
+
+      if (password_verify($pass, $result["pass"])) {
+
+        $cnt_p += 1;
+
+        $_SESSION["log_name"] = h_s($result["name"]);
+
+      }
+
+    }
   
   }
 
 
+  if ($cnt_p > 0) {
 
+    $_SESSION["login_result"] = "ようこそ、" . $_SESSION["log_name"] . "さん!";
+
+  
+  }
+
+  if ($cnt_p > 0) {
+    header("Location: ../index.php");
+    exit;
+  } else {
+    header("Location: form.php");
+    exit;
+
+  }
 
 }
 
