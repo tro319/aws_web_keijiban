@@ -28,7 +28,8 @@ if (!empty($_SESSION["login_error"])) {
 
   <?php if (!empty($err)): ?>
 
-    <p class="err"><?php echo $err ?></p>
+    <p class="err"><?php echo $err; ?></p>
+    <?php unset($_SESSION["login_error"]); ?>
 
   <?php endif; ?>
 

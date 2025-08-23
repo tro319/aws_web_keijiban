@@ -31,9 +31,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 // 一致するメールアドレスがあれば
 
+  $cnt_p = 0;
+
   if (!empty($results_e)) {
 
-    $cnt_p = 0;
 
     foreach($results_e as $result) {
 
@@ -47,6 +48,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     }
   
+  } else {
+
+    $_SESSION["login_error"] = "メールアドレスが正しくありません";
+
   }
 
 
@@ -55,6 +60,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $_SESSION["login_result"] = "ようこそ、" . $_SESSION["log_name"] . "さん!";
 
   
+  } elseif (!empty($results_e)) {
+
+    $_SESSION["login_error"] = "パスワードが正しくありません";
+
   }
 
   if ($cnt_p > 0) {
