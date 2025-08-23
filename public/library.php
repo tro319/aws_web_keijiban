@@ -7,6 +7,10 @@
   }
 
 
-?>
+  function db() {
 
+   	$dbh = new PDO("mysql:host=mysql;dbname=example_db", "root", ""); 
 
+    return $dbh;
+  
+  }
