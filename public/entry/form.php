@@ -9,6 +9,21 @@ if (!empty($_SESSION["user_error"])) {
 
 }
 
+// セッションデータがあるか確認
+
+$user_name = null;
+
+$email = null;
+
+if (!empty($_SESSION["entry_email"]) AND !empty($_SESSION["entry_name"])) {
+
+  $user_name = h_s($_SESSION["entry_name"]);
+
+  $email = h_s($_SESSION["entry_email"]);
+
+}
+
+
 ?>
 
 <!DOCTYPE html>
@@ -37,7 +52,7 @@ if (!empty($_SESSION["user_error"])) {
 
     <label for="entry_name"><span>ユーザーネーム</span>
 
-      <input type="text" name="entry_name" id="entry_name" maxlength="30" required />
+      <input type="text" name="entry_name" id="entry_name" maxlength="30" value="<?php echo h_s($user_name ?? ''); ?>" required />
 
     </label>
 
@@ -45,7 +60,7 @@ if (!empty($_SESSION["user_error"])) {
 
     <label for="entry_email"><span>メールアドレス</span>
 
-      <input type="email" name="entry_email" id="entry_email" maxlength="255" required />
+      <input type="email" name="entry_email" id="entry_email" maxlength="255" value="<?php echo h_s($email ?? ''); ?>" required />
     
     </label>
     

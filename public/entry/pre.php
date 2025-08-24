@@ -47,6 +47,7 @@ $pass = password_hash(h_s($_SESSION["entry_pass"]), PASSWORD_DEFAULT);
 
   </label>
 
+  <button type="button" onclick="location.href='form.php'">修正</button>
   <input type="submit" value="登録" />
 
 </form>
