@@ -10,6 +10,19 @@ if (!empty($_SESSION["post_error"])) {
 }
 
 
+$post_title = null;
+
+$post_text = null;
+
+
+if (!empty($_SESSION["post_title"])) {
+
+  $post_title = h_s($_SESSION["post_title"]);
+
+  $post_text = h_s($_SESSION["post_text"]);
+
+}
+
 ?>
 
 
@@ -32,7 +45,7 @@ if (!empty($_SESSION["post_error"])) {
 
     <label for="post_title"><span>タイトル</span>
 
-      <input type="text" name="post_title" id="post_title" maxlength="30" required />
+      <input type="text" name="post_title" id="post_title" maxlength="30" value="<?php echo $post_title ?? ''; ?>" required />
 
     </label>
 
@@ -40,7 +53,7 @@ if (!empty($_SESSION["post_error"])) {
 
     <label for="post_text"><span>投稿文</span>
 
-      <input type="text" name="post_text" id="post_text" maxlength="200" required />
+      <input type="text" name="post_text" id="post_text" maxlength="200" value="<?php echo $post_text ?? ''; ?>" required />
 
     </label>
 
