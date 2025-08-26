@@ -41,7 +41,7 @@ $posts = get_posts();
 
      <div class="post_img">
 
-      <img src="upload/images/<?php echo h_s($post["imgfilename"]); ?>" alt="投稿画像" />
+      <img src="upload/image/<?php echo h_s($post["imgfilename"]); ?>" alt="投稿画像" />
 
      </div>
 

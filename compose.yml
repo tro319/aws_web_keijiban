@@ -34,3 +34,8 @@ services:
 volumes:
   mysql:
   image:
+		driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ./public/upload/image

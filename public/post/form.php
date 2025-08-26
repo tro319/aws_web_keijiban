@@ -41,7 +41,7 @@ if (!empty($_SESSION["post_title"])) {
 
   <!-- 投稿フォーム -->
 
-  <form action="post.php" method="post">
+  <form action="post.php" method="post" enctype="multipart/form-data">
 
     <label for="post_title"><span>タイトル</span>
 
@@ -58,6 +58,15 @@ if (!empty($_SESSION["post_title"])) {
     </label>
 
     <br>
+
+    <label for="post_img"><span>画像選択</span>
+
+      <input type="file" accept="image/*" name="image" />
+
+    </label>
+
+    <br>
+
 
     <input type="submit" value="確認" />
 

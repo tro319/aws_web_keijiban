@@ -10,6 +10,8 @@ if (!empty($_SESSION["post_title"])) {
 
 	$post_text = h_s($_SESSION["post_text"]);
 
+  $post_img = $_SESSION["post_imgfilename"];
+ 
 } else {
 	header("Location: form.php");
 	exit;
@@ -45,6 +47,14 @@ if (!empty($_SESSION["post_title"])) {
 			<input type="hidden" name="post_text" id="post_text" value="<?php echo $post_text; ?>" required />
 
 		</label>
+
+    <br>
+
+    <label for="post_img"><span>画像: <img src="../upload/image/<?php echo $post_img; ?>" alt="画像投稿確認" ></span>
+
+      <input type="hidden" name="post_img" id="post_img" value="<?php echo $post_img; ?>" required />
+
+    </label>
 
 		<br>
 

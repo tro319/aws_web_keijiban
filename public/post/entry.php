@@ -42,11 +42,21 @@ if (!empty($_SESSION["log_name"])) {
 
 
 
-    $sql = "INSERT INTO posts2 VALUES(null, :text, null, :log_id, :title, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)";
+    $sql = "INSERT INTO posts2 VALUES(null, :text, :img, :log_id, :title, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)";
 
     $stmt = $pdo->prepare($sql);
 
     $stmt->bindParam(":text", $post_text, PDO::PARAM_STR);
+
+    if (!empty($_SESSION["post_imgfilename"])) {
+    
+      $stmt->bindParam(":img", $_SESSION["post_imgfilename"], PDO::PARAM_STR);
+
+    } else {
+
+      $stmt->bindParam(":img", null, PDO::PARAM_STR);
+
+    }
 
     $stmt->bindParam(":log_id", $log_id, PDO::PARAM_INT);
 
