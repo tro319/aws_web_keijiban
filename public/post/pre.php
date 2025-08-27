@@ -10,7 +10,15 @@ if (!empty($_SESSION["post_title"])) {
 
 	$post_text = h_s($_SESSION["post_text"]);
 
-  $post_img = $_SESSION["post_imgfilename"];
+  if (!empty($_SESSION["post_imgfilename"])) {
+
+    $post_img = $_SESSION["post_imgfilename"];
+
+  } else {
+
+    $post_img = null;
+
+ }
  
 } else {
 	header("Location: form.php");
@@ -49,14 +57,17 @@ if (!empty($_SESSION["post_title"])) {
 		</label>
 
     <br>
+<?php if ($post_img !== null): ?>
 
     <label for="post_img"><span>画像: <img src="../upload/image/<?php echo $post_img; ?>" alt="画像投稿確認" ></span>
 
-      <input type="hidden" name="post_img" id="post_img" value="<?php echo $post_img; ?>" required />
+      <input type="hidden" name="post_img" id="post_img" value="<?php echo $post_img; ?>" />
 
     </label>
 
 		<br>
+
+<?php endif; ?>
 
 		<button type="button" onclick="location.href='form.php'">修正</button>
 
