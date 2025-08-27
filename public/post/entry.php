@@ -73,9 +73,8 @@ if (!empty($_SESSION["log_name"])) {
   exit;
 
 } else {
-  header("Location: ../login/form.php");
+  header("Location: ../index.php");
   exit;
 
 }
-
 

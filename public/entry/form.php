@@ -9,6 +9,13 @@ if (!empty($_SESSION["user_error"])) {
 
 }
 
+if (!empty($_SESSION["log_name"])) {
+  header("Location: ../index.php");
+  exit;
+
+}
+
+
 // セッションデータがあるか確認
 
 $user_name = null;
@@ -22,6 +29,7 @@ if (!empty($_SESSION["entry_email"]) AND !empty($_SESSION["entry_name"])) {
   $email = h_s($_SESSION["entry_email"]);
 
 }
+
 
 
 ?>
@@ -77,6 +85,9 @@ if (!empty($_SESSION["entry_email"]) AND !empty($_SESSION["entry_name"])) {
     <input type="submit" value="確認" />
 
   </form>
+
+  <p><a href="../login/form.php">ログイン</a></p>
+  <p><a href="../index.php">投稿一覧へ</a></p>
 
 </body>
 

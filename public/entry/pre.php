@@ -4,6 +4,16 @@ session_start();
 
 require("../library.php");
 
+if (!empty($_SESSION["log_name"])) {
+  header("Location: ../index.php");
+  exit;
+
+} else if (empty($_SESSION["entry_name"])) {
+  header("Location: ../index.php");
+  exit;
+
+}
+
 $user_name = h_s($_SESSION["entry_name"]);
 
 $email = h_s($_SESSION["entry_email"]);

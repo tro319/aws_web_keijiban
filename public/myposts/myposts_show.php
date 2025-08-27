@@ -14,7 +14,7 @@ require_once("myposts.php");
     $posts = get_myposts($user_name);
 
   } else {
-    header("Location: ../login/form.php");
+    header("Location: ../index.php");
     exit;
 
   }
@@ -33,6 +33,8 @@ require_once("myposts.php");
 
 <h2 class="sub_title">my投稿一覧</h2>
 
+<p><a href="../post/form.php">新規投稿</a></p>
+<p><a href="../index.php">投稿一覧へ</a></p>
 
 <div class="posts">
 
@@ -46,7 +48,7 @@ require_once("myposts.php");
 
           <div class="post_img">
 
-            <img src="upload/images/<?php echo h_s($post["imgfilename"]); ?>" alt="投稿画像" />
+            <img src="../upload/image/<?php echo h_s($post["imgfilename"]); ?>" alt="投稿画像" />
 
           </div>
 

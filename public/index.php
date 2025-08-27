@@ -12,6 +12,8 @@ if (!empty($_SESSION["login_result"])) {
 
 }
 
+unset($_SESSION["login_result"]);
+
 // データ取得
 
 $posts = get_posts();
@@ -28,7 +30,20 @@ $posts = get_posts();
 <body>
 
 <h2 class="sub_title">投稿一覧</h2>
-    
+  
+
+
+<?php if (!empty($_SESSION["log_name"])): ?>
+  <p><a href="post/form.php">新規投稿</a></p>
+  <p><a href="myposts/myposts_show.php">my投稿一覧へ</a></p>
+ 
+<?php else: ?>
+
+  <p><a href="login/form.php">ログイン</a></p>
+
+<?php endif; ?>
+
+
  <!-- 投稿一覧表示 -->
 
  <?php foreach ($posts as $post): ?>
@@ -84,5 +99,9 @@ $posts = get_posts();
 
 </script>
 
+<?php
 
+  unset($result);
+
+?>
 

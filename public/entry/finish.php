@@ -3,6 +3,16 @@ session_start();
 
 require("../library.php");
 
+if (!empty($_SESSION["log_name"])) {
+  header("Location: ../index.php");
+  exit;
+} else if (empty($_SESSION["entry_result"])) {
+  header("Location: ../index.php");
+  exit;
+ 
+}
+
+
 $result = h_s($_SESSION["entry_result"]);
 
 session_destroy();
@@ -20,6 +30,7 @@ session_destroy();
 <body>
 
 	<p><?php echo $result; ?></p>
+  <p><a href="../login/form.php">ログイン</a></p>
 
 </body>
 

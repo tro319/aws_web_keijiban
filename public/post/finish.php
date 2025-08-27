@@ -13,7 +13,7 @@ if (!empty($_SESSION["log_name"])) {
   }
 
 } else {
-  header("Location: ../login/form.php");
+  header("Location: ../index.php");
   exit;
 
 }
@@ -25,3 +25,4 @@ unset($_SESSION["post_text"]);
 
 <p><?php echo $result; ?></p>
 
+<p><a href="../index.php">投稿一覧へ</a></p>

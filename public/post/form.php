@@ -23,6 +23,12 @@ if (!empty($_SESSION["post_title"])) {
 
 }
 
+if (empty($_SESSION["log_name"])) {
+  header("Location: ../index.php");
+  exit;
+
+}
+
 ?>
 
 
@@ -71,6 +77,8 @@ if (!empty($_SESSION["post_title"])) {
     <input type="submit" value="確認" />
 
   </form>
+
+  <p><a href="../index.php">投稿一覧へ</a></p>
 
 </body>
 </html>

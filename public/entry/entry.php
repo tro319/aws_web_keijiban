@@ -29,6 +29,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   $_SESSION["entry_result"] = "会員登録に成功しました";
 
+} else {
+  header("Location: ../index.php");
+  exit;
+
 }
 
 if ($_SESSION["entry_result"]) {

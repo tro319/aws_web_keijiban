@@ -10,6 +10,12 @@ if (!empty($_SESSION["login_error"])) {
 
 }
 
+if (!empty($_SESSION["log_name"])) {
+  header("Location: ../index.php");
+  exit;
+
+}
+
 
 ?>
 
@@ -57,5 +63,7 @@ if (!empty($_SESSION["login_error"])) {
 
 	</form>
     
+  <p><a href="../index.php">投稿一覧へ</a></p>
+  <p><a href="../entry/form.php">会員登録</a></p>
 </body>
 </html>

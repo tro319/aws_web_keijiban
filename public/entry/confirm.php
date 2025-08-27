@@ -71,4 +71,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   exit;
 
 
+} else {
+  header("Location: ../index.php");
+  exit;
+
 }
