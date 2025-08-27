@@ -32,9 +32,9 @@ services:
       --collation-server=utf8mb4_unicode_ci
       --max_allowed_packet=4MB
 volumes:
-  mysql:
+  mysql: {}
   image:
-		driver: local
+    driver: local
     driver_opts:
       type: none
       o: bind
