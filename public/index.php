@@ -37,7 +37,8 @@ $posts = get_posts();
   <p><a href="post/form.php">新規投稿</a></p>
   <p><a href="myposts/myposts_show.php">my投稿一覧へ</a></p>
   <p><a href="login/logout.php">ログアウト</a></p>
- 
+	<p><?php echo h_s($_SESSION["log_name"]); ?> さんのページ</p>  
+
 <?php else: ?>
 
   <p><a href="login/form.php">ログイン</a></p>

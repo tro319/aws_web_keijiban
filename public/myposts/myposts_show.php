@@ -36,6 +36,7 @@ require_once("myposts.php");
 <p><a href="../post/form.php">新規投稿</a></p>
 <p><a href="../index.php">投稿一覧へ</a></p>
 <p><a href="../login/logout.php">ログアウト</a></p>
+<p><?php echo $user_name; ?> さんのページ</p>
 
 <div class="posts">
 
