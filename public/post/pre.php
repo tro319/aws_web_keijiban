@@ -21,6 +21,7 @@ if (!empty($_SESSION["post_title"])) {
  }
  
 } else {
+  header("HTTP/1.1 302 Found");
 	header("Location: form.php");
 	exit;
 

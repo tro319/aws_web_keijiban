@@ -52,7 +52,6 @@ if (!empty($_SESSION["log_name"])) {
     $stmt->bindParam(":img", $_SESSION["post_imgfilename"], PDO::PARAM_STR);
 
 
-    $stmt->bindParam(":img", null, PDO::PARAM_STR);
 
 
     $stmt->bindParam(":log_id", $log_id, PDO::PARAM_INT);
@@ -83,10 +82,12 @@ if (!empty($_SESSION["log_name"])) {
 
 
   }
+  header("HTTP/1.1 302 Found");
   header("Location: finish.php");
   exit;
 
 } else {
+  header("HTTP/1.1 302 Found");
   header("Location: ../index.php");
   exit;
 

@@ -67,9 +67,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   }
 
   if ($cnt_p > 0) {
+    header("HTTP/1.1 302 Found");
     header("Location: ../index.php");
     exit;
   } else {
+    header("HTTP/1.1 302 Found");
     header("Location: form.php");
     exit;
 

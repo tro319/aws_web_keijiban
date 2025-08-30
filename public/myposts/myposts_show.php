@@ -14,6 +14,7 @@ require_once("myposts.php");
     $posts = get_myposts($user_name);
 
   } else {
+    header("HTTP/1.1 302 Found");
     header("Location: ../index.php");
     exit;
 

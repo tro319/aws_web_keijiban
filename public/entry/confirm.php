@@ -55,6 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
   if ($e_count["count"] < 1 && $n_count["count"] < 1) {
+    header("HTTP/1.1 302 Found");
     header("Location: pre.php");
     exit;
 
@@ -67,11 +68,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $_SESSION["user_error"] = "入力されたメールアドレスは、既に登録されています。";
 
   }
+  header("HTTP/1.1 302 Found");
   header("Location: form.php");
   exit;
 
 
 } else {
+  header("HTTP/1.1 302 Found");
   header("Location: ../index.php");
   exit;
 

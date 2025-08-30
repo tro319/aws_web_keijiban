@@ -36,13 +36,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
 } else {
+  header("HTTP/1.1 302 Found");
   header("Location: ../index.php");
   exit;
 
 }
-
-
-
+header("HTTP/1.1 302 Found");
 header("Location: pre.php");
 exit;
 
