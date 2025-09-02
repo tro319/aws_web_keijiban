@@ -81,5 +81,32 @@ if (empty($_SESSION["log_name"])) {
 
   <p><a href="../index.php">投稿一覧へ</a></p>
 
+  
+  <!-- アップロードされたファイルサイズチェック -->
+
+  <script>
+
+  document.querySelector("form").addEventListener("submit", function(e) {
+
+    const fileInput = document.querySelector('input[name="image"]');
+
+    if (fileInput.files.length > 0) {
+
+      const file = fileInput.files[0];
+
+      if (file.size > 5 * 1024 * 1024) {
+
+        alert("画像サイズは5MB以下にしてください。");
+        e.preventDefault();
+
+     }
+
+   }
+
+ });
+
+ </script>
+
+
 </body>
 </html>
