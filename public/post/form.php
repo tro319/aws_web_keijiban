@@ -23,12 +23,19 @@ if (!empty($_SESSION["post_title"])) {
 
 }
 
+if (!empty($_SESSION["post_imgfilename"])) {
+  
+  unset($_SESSION["post_imgfilename"]);
+
+}
+
 if (empty($_SESSION["log_name"])) {
   header("HTTP/1.1 302 Found");
   header("Location: ../index.php");
   exit;
 
 }
+
 
 ?>
 

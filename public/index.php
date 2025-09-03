@@ -56,9 +56,9 @@ $posts = get_posts();
     
      <?php if (!empty($post["imgfilename"])): ?>
 
-     <div class="post_img">
+     <div class="post_img" style="width: 100%;">
 
-      <img src="upload/image/<?php echo h_s($post["imgfilename"]); ?>" alt="投稿画像" />
+      <img src="upload/image/<?php echo h_s($post["imgfilename"]); ?>" alt="投稿画像" style="max-width: 100%;" />
 
      </div>
 

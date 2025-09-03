@@ -60,7 +60,7 @@ if (!empty($_SESSION["post_title"])) {
     <br>
 <?php if ($post_img !== null): ?>
 
-    <label for="post_img"><span>画像: <img src="../upload/image/<?php echo $post_img; ?>" alt="画像投稿確認" ></span>
+    <label for="post_img"><span style="width: 100%;"><img src="../upload/image/<?php echo $post_img; ?>" alt="画像投稿確認" style="max-width: 100%"></span>
 
       <input type="hidden" name="post_img" id="post_img" value="<?php echo $post_img; ?>" />
 
