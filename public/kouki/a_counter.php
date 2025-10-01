@@ -1,15 +1,15 @@
 <?php
 
+$redis = new Redis();
+$redis->connect("redis", 6379);
 
-$apcu_key = "access_counter";
+$key = "access_count";
 
-$count = apcu_fetch($apcu_key);
-
-$count = is_numeric($count) ? $count : 0;
+$count = $redis->exists($key) ? intval($redis->get($key)) : 0;
 
 $count++;
 
-apcu_store($apcu_key, $count);
+$redis->set($key, strval($count));
 
 ?>
 
