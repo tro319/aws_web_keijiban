@@ -55,6 +55,7 @@ if (!empty($_POST["email"]) && !empty($_POST["password"])) {
 
   }
 
+}
 
   $session_cookie_name = "session_id";
 
@@ -79,13 +80,16 @@ $session_values = $redis->exists($session_key) ? json_decode($redis->get($sessio
 
 $session_values["login_user_id"] = $result["id"];
 
+$session_values["login_user_name"] = $result["name"];
+
 $session_values["login_success"] = "ログインしました";
 
-$redis->set($session_key, json_encode($session_values);
+$redis->set($session_key, json_encode($session_values));
 header("HTTP/1.1 303 See Other");
 header("Location: ./rename.php");
 return;
 
+}
 }
 
 ?>
