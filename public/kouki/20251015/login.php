@@ -76,7 +76,11 @@ $redis->connect("redis", "6379");
 
 $session_key = "session-" . $session_id;
 
-$session_values = $redis->exists($session_key) ? json_decode($redis->get($session_key), true) : [];
+if ($redis->exits($session_key) == 1) {
+
+  $session_values = json_decode($redis->get($session_key) ?? '[]', true);
+
+}
 
 $session_values["login_user_id"] = $result["id"];
 
