@@ -1,6 +1,8 @@
 <?php
 
-  
+// エラー有無格納変数初期化
+
+$err = null; 
 
 // DBに接続
 
@@ -8,6 +10,33 @@ $dbh = new PDO("mysql:host=mysql;dbname=example_db", "root", "");
 
 if (!empty($_POST["user_name"]) && !empty($_POST["email"]) && !empty($_POST["password"])) {
 
+
+  // メールアドレス重複チェック
+  
+  $sql_email = "SELECT email FROM users WHERE email = :email";
+
+  $stmt_email = $dbh->prepare($sql_email);
+
+  $stmt_email->execute([
+    ":email" => $_POST["email"],
+  
+  ]);
+
+  $result_check = $stmt_email->fetch();
+
+
+  if (!empty($result_check)) {
+
+    $err = "メールアドレスが重複しています。";
+
+    if (!empty($err)) {
+      header("HTTP/1.1 303 See Other");
+      header("Location: ./user_entry.php?err=1");
+      return;
+
+
+    }
+  }
 
 	// パスワードハッシュ化
 	
@@ -80,3 +109,13 @@ if (!empty($_POST["user_name"]) && !empty($_POST["email"]) && !empty($_POST["pas
 
 
 	</form>
+
+
+<?php if (!empty($_GET["err"]) && $_GET["err"] == 1): ?>
+
+  <p style="color: #F00;">入力されたメールアドレスはすでに登録されています。</p>
+
+<?php endif; ?>
+
+
+
