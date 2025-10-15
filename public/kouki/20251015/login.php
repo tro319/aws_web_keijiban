@@ -11,9 +11,7 @@ $dbh = new PDO("mysql:host=mysql;dbname=example_db", "root", "");
 if (!empty($_POST["email"]) && !empty($_POST["password"])) {
 
 
-	// パスワードハッシュ化
 	
-	$hash_pass = password_hash($_POST["password"], PASSWORD_DEFAULT);
 
 	// sql
 	
@@ -39,7 +37,6 @@ if (!empty($_POST["email"]) && !empty($_POST["password"])) {
       return;
 
   }
-
 
 
   $corre_pass = password_verify($_POST["password"], $result["password"]);
@@ -76,7 +73,9 @@ $redis->connect("redis", "6379");
 
 $session_key = "session-" . $session_id;
 
-if ($redis->exits($session_key) == 1) {
+$session_values = [];
+
+if ($redis->exists($session_key) == 1) {
 
   $session_values = json_decode($redis->get($session_key) ?? '[]', true);
 
@@ -120,7 +119,7 @@ return;
 
 			<span>パスワード</span>
 	
-			<input type"password" name="password" maxlength="30" minlength="4" required />
+			<input type="password" name="password" maxlength="30" minlength="4" required />
 
 		</label>
 
