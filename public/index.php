@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+echo ("こんにちは");
 
 require_once("library.php");
 require("posts.php");
