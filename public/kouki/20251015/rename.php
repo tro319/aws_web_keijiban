@@ -40,8 +40,6 @@ $stmt_get = $dbh->prepare($sql_get);
 $stmt_get->execute([":id" => $_SESSION["login_id"]]);
 $result_get = $stmt_get->fetch(PDO::FETCH_ASSOC);
 
-print_r($_SESSION);
-echo session_id();
 ?>
 
 <h1>ユーザー名更新</h1>
