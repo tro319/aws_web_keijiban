@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 // エラー有無格納変数初期化
 

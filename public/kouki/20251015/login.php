@@ -1,4 +1,11 @@
 <?php
+error_reporting(E_ALL);
+ini_set("display_errors", 1);
+
+
+// セッションの開始
+session_start();
+
 // エラー有無格納変数初期化
 $err = null;
 
@@ -27,31 +34,11 @@ if (!empty($_POST["email"]) && !empty($_POST["password"])) {
         exit;
     }
 
-    // セッションID処理
-    $session_cookie_name = "session_id";
-    $session_id = $_COOKIE[$session_cookie_name] ?? base64_encode(random_bytes(64));
-    if (!isset($_COOKIE[$session_cookie_name])) {
-        // 必要なら第3引数で有効期限等を指定
-        setcookie($session_cookie_name, $session_id, time() + 3600, "/");
-    }
 
-    // Redis接続
-    $redis = new Redis();
-    $redis->connect("redis", 6379);
+    $_SESSION["login_id"] = $result["id"];
+    $_SESSION["login_user_name"] = $result["name"];
+    $_SESSION["login_msg"] = "ログインしました";
 
-    $session_key = "session-" . $session_id;
-
-    $session_values = [];
-    if ($redis->exists($session_key)) {
-        $session_values = json_decode($redis->get($session_key) ?? '[]', true);
-    }
-
-    // セッション更新
-    $session_values["login_user_id"] = $result["id"];
-    $session_values["login_user_name"] = $result["name"];
-    $session_values["login_success"] = "ログインしました";
-
-    $redis->set($session_key, json_encode($session_values));
 
     header("HTTP/1.1 303 See Other");
     header("Location: ./rename.php");
