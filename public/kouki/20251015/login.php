@@ -9,6 +9,7 @@ session_start();
 // エラー有無格納変数初期化
 $err = null;
 
+
 // DBに接続
 $dbh = new PDO("mysql:host=mysql;dbname=example_db", "root", "");
 

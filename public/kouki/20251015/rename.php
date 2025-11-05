@@ -48,6 +48,7 @@ echo session_id();
 
 <?php if (!empty($_SESSION["update_success"])): ?>
     <p style="color:green;"><?php echo $_SESSION["update_success"]; ?></p>
+    <?php unset($_SESSION["update_success"]); ?>
 <?php endif; ?>
 
 <div style="padding:20px;">
