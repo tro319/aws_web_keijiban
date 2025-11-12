@@ -20,7 +20,9 @@ if (empty($_SESSION["login_id"])) {
     exit;
 }
 
-if (!empty($_POST["img_base64"])) {
+echo $_POST["img_base64"] ?? "未設定です";
+
+if (!empty($_POST["img_input"])) {
 
     $imageFilename = null;
 
@@ -97,14 +99,14 @@ if (!empty($loginID)) {
 
 
 <div>
-  <?php if(empty($user['icon_filename'])): ?>
+  <?php if(empty($_SESSION["icon_name"])): ?>
   現在未設定
   <?php else: ?>
-  <img src="/image/<?= $user['icon_filename'] ?>"
+  <img src="/image/<?= $_SESSION['icon_name'] ?>"
     style="height: 5em; width: 5em; border-radius: 50%; object-fit: cover;">
   <?php endif; ?>
 </div>
-<form method="POST">
+<form method="POST" enctype="multipart/form-data">
   <div style="margin: 1em 0;">
     <input type="file" accept="image/*" name="image_input" id="image_input">
   </div>
@@ -190,6 +192,9 @@ document.addEventListener("DOMContentLoaded", () => {
     reader.readAsDataURL(file);
   });
 });
+
+console.log(imageBase64Input.value);
+
 </script>
 
 
