@@ -31,9 +31,9 @@ if (!empty($_POST["image_base64"])) {
 
     $image_name = strval(time()) . bin2hex(random_bytes(25)) . ".png";
 
-    $filePath = "var/www/upload/image/" . $image_name;    
+    $filePath = "/var/www/upload/image/" . $image_name;    
     
-    file_put_contents($filePath, $image_name);
+    file_put_contents($filePath, $image_bina);
 
 
     $sql_update = "UPDATE users SET img_name = :img WHERE id = :id";
