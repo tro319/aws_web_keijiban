@@ -20,7 +20,7 @@ if (empty($_SESSION["login_id"])) {
     exit;
 }
 
-echo $_POST["img_base64"] ?? "未設定です";
+echo $_POST["image_base64"] ?? "未設定です";
 
 if (!empty($_POST["image_base64"])) {
 
@@ -101,7 +101,7 @@ if (!empty($loginID)) {
   <?php if(empty($_SESSION["icon_name"])): ?>
   現在未設定
   <?php else: ?>
-  <img src="/image/<?= $_SESSION['icon_name'] ?>"
+  <img src="/var/www/upload/image/<?= $_SESSION['icon_name'] ?>"
     style="height: 5em; width: 5em; border-radius: 50%; object-fit: cover;">
   <?php endif; ?>
 </div>
