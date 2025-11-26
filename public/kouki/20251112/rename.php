@@ -47,7 +47,7 @@ if (!empty($_POST["image_base64"])) {
     $_SESSION["icon_name"] = $image_name;
 
 		header("HTTP/1.1 302 Found");
-		header("Location: user_info.php");
+		header("Location: rename.php");
  		return;
 
 }
