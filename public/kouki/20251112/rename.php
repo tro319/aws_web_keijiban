@@ -100,7 +100,7 @@ if (!empty($loginID)) {
   <?php if(empty($_SESSION["icon_name"])): ?>
   現在未設定
   <?php else: ?>
-  <img src="/var/www/upload/image/<?= $_SESSION['icon_name'] ?>"
+  <img src="/upload/image/<?= $_SESSION['icon_name'] ?>"
     style="height: 5em; width: 5em; border-radius: 50%; object-fit: cover;">
   <?php endif; ?>
 </div>
