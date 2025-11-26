@@ -20,7 +20,6 @@ if (empty($_SESSION["login_id"])) {
     exit;
 }
 
-echo $_POST["image_base64"] ?? "未設定です";
 
 if (!empty($_POST["image_base64"])) {
 
