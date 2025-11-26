@@ -22,11 +22,10 @@ if (empty($_SESSION["login_id"])) {
 
 echo $_POST["img_base64"] ?? "未設定です";
 
-if (!empty($_POST["img_input"])) {
+if (!empty($_POST["image_base64"])) {
 
-    $imageFilename = null;
 
-    $base64 = preg_replace("/^data:.+base64,/", "", $_POST["img_base64"]);
+    $base64 = preg_replace("/^data:.+base64,/", "", $_POST["image_base64"]);
 
     $image_bina = base64_decode($base64);
 
@@ -34,7 +33,7 @@ if (!empty($_POST["img_input"])) {
 
     $filePath = "var/www/upload/image/" . $image_name;    
     
-    file_put_contents($filePath, $image_bina);
+    file_put_contents($filePath, $image_name);
 
 
     $sql_update = "UPDATE users SET img_name = :img WHERE id = :id";
