@@ -40,11 +40,11 @@ if (!empty($_POST["image_base64"])) {
     $stmt_update = $dbh->prepare($sql_update);
 
     $stmt_update->execute([
-      ":img" => $image_name,
+      ":img" => basename($image_name),
       ":id" => $loginID,
     ]);
 
-    $_SESSION["icon_name"] = $image_name;
+    $_SESSION["icon_name"] = basename($image_name);
 
 		header("HTTP/1.1 302 Found");
 		header("Location: rename.php");
@@ -100,7 +100,7 @@ if (!empty($loginID)) {
   <?php if(empty($_SESSION["icon_name"])): ?>
   現在未設定
   <?php else: ?>
-  <img src="/upload/image/<?= $_SESSION['icon_name'] ?>"
+  <img src="/upload/image/<?= htmlspecialchars(basename($_SESSION['icon_name'])) ?>"
     style="height: 5em; width: 5em; border-radius: 50%; object-fit: cover;">
   <?php endif; ?>
 </div>
