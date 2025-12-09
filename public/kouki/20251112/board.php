@@ -1,0 +1,76 @@
+<?php
+session_start();
+
+// セッションからログイン中ユーザーid取得
+$loginID = $_SESSION["login_id"] ?? "";
+
+// DB接続
+$dbh = new PDO("mysql:host=mysql;dbname=example_db", "root", "");
+
+// ログインしていなければログイン画面へ
+if (empty($loginID)) {
+    header("HTTP/1.1 303 See Other");
+    header("Location: ./login.php");
+    exit;
+}
+
+// 掲示板投稿取得（ユーザー情報 JOIN）
+$sql_get = "
+    SELECT 
+        board_posts.id,
+        board_posts.user_id,
+        board_posts.content,
+        board_posts.created_at,
+        users.name,
+        users.img_name
+    FROM board_posts
+    INNER JOIN users ON board_posts.user_id = users.id
+    ORDER BY board_posts.id DESC
+";
+
+$stmt_get = $dbh->prepare($sql_get);
+$stmt_get->execute();
+$posts = $stmt_get->fetchAll();
+
+?>
+<h1>掲示板</h1>
+
+<?php if (!empty($_SESSION["post_success"])): ?>
+    <p style="color:green;"><?php echo $_SESSION["post_success"]; ?></p>
+    <?php unset($_SESSION["post_success"]); ?>
+<?php endif; ?>
+
+<!-- 投稿フォームは別ページ -->
+<p><a href="post.php">▶ 投稿する</a></p>
+
+<hr>
+
+<h2>投稿一覧</h2>
+
+<div class="inner">
+<?php foreach ($posts as $post): ?>
+    <div class="content" style="border:1px solid #ccc; padding:1em; margin-bottom:1em;">
+
+        <!-- 投稿内容 -->
+        <p><?= nl2br(htmlspecialchars($post["content"])) ?></p>
+        <p style="font-size:0.8em; color:#666;">投稿日時: <?= $post["created_at"] ?></p>
+
+        <hr>
+
+        <!-- 投稿者情報（アイコン＋名前）だけ表示してリンクにする -->
+        <a href="user.php?id=<?= $post['user_id'] ?>" style="text-decoration:none; color:inherit;">
+
+            <?php if (!empty($post["img_name"])): ?>
+                <img src="/upload/image/<?= htmlspecialchars($post["img_name"]) ?>"
+                    style="height: 3em; width: 3em; border-radius: 50%; object-fit: cover;">
+            <?php else: ?>
+                <div style="height:3em;width:3em;border-radius:50%;background:#ddd;display:inline-block;"></div>
+            <?php endif; ?>
+
+            <strong><?= htmlspecialchars($post["name"]) ?></strong>
+
+        </a>
+
+    </div>
+<?php endforeach; ?>
+</div>
