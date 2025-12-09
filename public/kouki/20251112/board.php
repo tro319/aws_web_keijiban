@@ -2,20 +2,20 @@
 session_start();
 
 // セッションからログイン中ユーザーid取得
-$loginID = $_SESSION["login_id"] ?? "";
+$loginId = $_SESSION["login_id"] ?? "";
 
 // DB接続
 $dbh = new PDO("mysql:host=mysql;dbname=example_db", "root", "");
 
 // ログインしていなければログイン画面へ
-if (empty($loginID)) {
+if (empty($loginId)) {
     header("HTTP/1.1 303 See Other");
-    header("Location: ./login.php");
+    header("Location: login.php");
     exit;
 }
 
 // 掲示板投稿取得（ユーザー情報 JOIN）
-$sql_get = "
+$sqlGet = "
     SELECT 
         board_posts.id,
         board_posts.user_id,
@@ -28,9 +28,9 @@ $sql_get = "
     ORDER BY board_posts.id DESC
 ";
 
-$stmt_get = $dbh->prepare($sql_get);
-$stmt_get->execute();
-$posts = $stmt_get->fetchAll();
+$stmtGet = $dbh->prepare($sqlGet);
+$stmtGet->execute();
+$posts = $stmtGet->fetchAll();
 
 ?>
 <h1>掲示板</h1>

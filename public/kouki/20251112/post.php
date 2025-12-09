@@ -1,13 +1,13 @@
 <?php
 session_start();
 
-$loginID = $_SESSION["login_id"] ?? "";
+$loginId = $_SESSION["login_id"] ?? "";
 
 $dbh = new PDO("mysql:host=mysql;dbname=example_db", "root", "");
 
-if (empty($loginID)) {
+if (empty($loginId)) {
     header("HTTP/1.1 303 See Other");
-    header("Location: ./login.php");
+    header("Location: login.php");
     exit;
 }
 
@@ -16,17 +16,17 @@ if (!empty($_POST["content"])) {
 
     $content = htmlspecialchars($_POST["content"]);
 
-    $sql_insert = "INSERT INTO board_posts (user_id, content) VALUES (:uid, :content)";
-    $stmt_insert = $dbh->prepare($sql_insert);
-    $stmt_insert->execute([
-        ":uid" => $loginID,
+    $sqlInsert = "INSERT INTO board_posts (user_id, content) VALUES (:uid, :content)";
+    $stmtInsert = $dbh->prepare($sqlInsert);
+    $stmtInsert->execute([
+        ":uid" => $loginId,
         ":content" => $content,
     ]);
 
     $_SESSION["post_success"] = "投稿しました。";
 
     header("HTTP/1.1 303 See Other");
-    header("Location: ./board.php");
+    header("Location: board.php");
     exit;
 }
 ?>

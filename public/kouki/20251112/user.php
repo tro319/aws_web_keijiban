@@ -23,6 +23,16 @@ $stmt->execute([":id" => $userId]);
 $userResult = $stmt->fetch();
 
 
+
+$sql = "SELECT * FROM board_posts JOIN users ON board_posts.user_id = users.id WHERE user_id = :id";
+
+$stmt = $dbh->prepare($sql);
+
+$stmt->execute([":id" => $userId]);
+
+$userPosts = $stmt->fetchAll();
+
+
 if (!$userResult) {
 
     echo "ユーザーが存在しません";
@@ -32,9 +42,12 @@ if (!$userResult) {
 
 ?>
 
+<!-- ユーザー情報 -->
+
+
 <h2 class="page_title">ユーザー情報</h2>
 
-<div class="article user_info" style="padding: 25px 40px">
+<div class="article user_info" style="padding: 25px 40px;">
 
     <?php if (!empty($userResult["img_name"])): ?>
 
@@ -45,15 +58,63 @@ if (!$userResult) {
     <p>ユーザーネーム: <?= htmlspecialchars($userResult["name"]) ?></p>
     <p>自己紹介: <?= nl2br(htmlspecialchars($userResult["introd"])) ?></p>
 
-    <div class="back_link">
-
-        <p><a href="board.php">◀ 掲示板に戻る</a></p>
-
-    </div>
 
 </div>
 
 
 
+<!-- ユーザーの投稿一覧 -->
 
+<h2 class="page_titile">ユーザーの投稿一覧</h2>
+
+<?php if (!empty($userPosts)): ?>
+
+  <?php foreach ($userPosts as $post): ?>
+
+    <div class="article board_info" style="padding: 25px 40px; marign: 30px auto;">
+
+      <p>投稿文: <?= nl2br(htmlspecialchars($post["content"])) ?></p>
+
+      <p class="board_datetime" style="font-size: 0.8rem; color: #666;">投稿日時: <?= $post["created_at"] ?></p>
+       
+      <hr>
+
+
+      <div class="user_link">
+
+        <a href="user.php?id=<?= $post["user_id"] ?>">
+
+          <?php if (!empty($post["img_name"])): ?>
+
+           <img src="/upload/image/<?= htmlspecialchars($post["img_name"]) ?>" width="80" height="60" />
+
+          <?php endif; ?>
+
+          <strong><?= htmlspecialchars($post["name"]) ?></strong>
+
+        </a>
+
+      </div>
+
+    </div>
+
+  
+
+  <?php endforeach; ?>
+
+<?php else: ?>
+
+  <div class="article board_info" style="padding: 25px 40px; margin: 30px auto;">
+
+    <p>投稿がありません</p>
+
+  </div>  
+
+<?php endif; ?>
+
+<div class="back_link">
+
+  <p><a href="board.php">◀ 掲示板に戻る</a></p>
+
+</div>
 
