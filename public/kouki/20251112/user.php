@@ -56,7 +56,12 @@ if (!$userResult) {
     <?php endif; ?>
 
     <p>ユーザーネーム: <?= htmlspecialchars($userResult["name"]) ?></p>
-    <p>自己紹介: <?= nl2br(htmlspecialchars($userResult["introd"])) ?></p>
+
+    <?php if (!empty($userResult["introd"])): ?>
+    
+        <p>自己紹介: <?= nl2br(htmlspecialchars($userResult["introd"])) ?></p>
+
+    <?php endif; ?>
 
 
 </div>
