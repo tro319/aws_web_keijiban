@@ -54,6 +54,15 @@ $posts = $stmtGet->fetchAll();
         <!-- 投稿内容 -->
         <p><?= nl2br(htmlspecialchars($post["content"])) ?></p>
         <p style="font-size:0.8em; color:#666;">投稿日時: <?= $post["created_at"] ?></p>
+        <div class="post_link">
+
+
+        <a href="board_single.php?id=<?= $post["id"] ?>">
+
+          <p>投稿詳細へ</p>
+
+        </a>
+          
 
         <hr>
 
