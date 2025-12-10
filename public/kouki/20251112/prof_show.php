@@ -80,6 +80,7 @@ $profilePosts = $stmt->fetchAll();
       <div class="post_info">
 
         <p><?= nl2br(htmlspecialchars($profPost["content"])) ?></p>
+        <p><?= htmlspecialchars($profPost["created_at"]) ?></p>
 
       </div>
 
