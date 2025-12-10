@@ -47,7 +47,7 @@ if (!empty($_POST["image_base64"])) {
     $_SESSION["icon_name"] = basename($image_name);
 
 		header("HTTP/1.1 302 Found");
-		header("Location: rename.php");
+		header("Location: profile_edit.php");
  		return;
 
 }
@@ -79,9 +79,11 @@ if (!empty($loginID)) {
     ":id" => $loginID,
   ]);
 
-  $userGet = $stmt_get->fetchAll();
+  $userGet = $stmt_get->fetch();
 
+  $profImg = $userGet["img_name"];
 
+  $_SESSION["prof_img"] = $profImg;
 
 
 }
@@ -97,13 +99,25 @@ if (!empty($loginID)) {
 
 
 <div>
-  <?php if(empty($_SESSION["icon_name"])): ?>
-  現在未設定
-  <?php else: ?>
-  <img src="/upload/image/<?= htmlspecialchars(basename($_SESSION['icon_name'])) ?>"
+
+  <?php if(empty($_SESSION["icon_name"]) && empty($_SESSIOIN["prof_img"])): ?>
+
+    <p>現在未設定</p>
+
+  <?php elseif(!empty($_SESSION["prof_img"])): ?>
+    
+    <img src="/upload/image/<?= htmlspecialchars(basename($_SESSION['prof_img'])) ?>"
     style="height: 5em; width: 5em; border-radius: 50%; object-fit: cover;">
+
+  <?php else: ?>
+
+    <img src="/upload/image/<?= htmlspecialchars(basename($_SESSION['icon_name'])) ?>" style="height: 5em; width: 5em; border-radius: 50%; object-fit: cover;">  
+
   <?php endif; ?>
+
 </div>
+
+
 <form method="POST" enctype="multipart/form-data">
   <div style="margin: 1em 0;">
     <input type="file" accept="image/*" name="image_input" id="image_input">
@@ -132,17 +146,17 @@ if (!empty($loginID)) {
 
 <div class="inner">
 
-  <?php foreach ($userGet as $user): ?>
+  <?php if (!empty(0$userGet)): ?>
 
     <div class="content">
-
+<?php print_r($userGet); ?>
       <p>ユーザーネーム: <?php echo $user["name"]; ?></p>
       <p>メールアドレス: <?php echo $user["email"]; ?></p>
       <p>自己紹介: <?php echo $user["introd"]; ?></p>
 
     </div>
 
-  <?php endforeach; ?>
+  <?php endif; ?>
 
 </div>
 
