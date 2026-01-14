@@ -90,6 +90,6 @@ $profilePosts = $stmt->fetchAll();
 
   <div class="edit_link">
 
-    <a href="prof_edit.php">プロフィール編集へ</a>
+    <a href="profile_edit.php">プロフィール編集へ</a>
 
   </div>

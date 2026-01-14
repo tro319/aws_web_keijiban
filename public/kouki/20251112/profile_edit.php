@@ -146,13 +146,14 @@ if (!empty($loginID)) {
 
 <div class="inner">
 
-  <?php if (!empty(0$userGet)): ?>
+  <?php if (!empty($userGet)): ?>
 
     <div class="content">
-<?php print_r($userGet); ?>
-      <p>ユーザーネーム: <?php echo $user["name"]; ?></p>
-      <p>メールアドレス: <?php echo $user["email"]; ?></p>
-      <p>自己紹介: <?php echo $user["introd"]; ?></p>
+
+      <p>ユーザーネーム: <?php echo $userGet["name"]; ?></p>
+      <p>メールアドレス: <?php echo $userGet["email"]; ?></p>
+      <p>自己紹介: <?php echo $userGet["introd"]; ?></p>
+
 
     </div>
 

@@ -85,21 +85,6 @@ if (!$userResult) {
       <hr>
 
 
-      <div class="user_link">
-
-        <a href="user.php?id=<?= $post["user_id"] ?>">
-
-          <?php if (!empty($post["img_name"])): ?>
-
-           <img src="/upload/image/<?= htmlspecialchars($post["img_name"]) ?>" width="80" height="60" />
-
-          <?php endif; ?>
-
-          <strong><?= htmlspecialchars($post["name"]) ?></strong>
-
-        </a>
-
-      </div>
 
     </div>
 
