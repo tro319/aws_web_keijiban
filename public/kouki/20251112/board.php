@@ -57,17 +57,17 @@ $posts = $stmtGet->fetchAll();
         <div class="post_link">
 
 
-        <a href="board_single.php?id=<?= $post["id"] ?>">
+          <a href="board_single.php?id=<?= $post["id"] ?>">
 
-          <p>投稿詳細へ</p>
+            <p>投稿詳細へ</p>
 
-        </a>
+          </a>
           
 
-        <hr>
+          <hr>
 
-        <!-- 投稿者情報（アイコン＋名前）だけ表示してリンクにする -->
-        <a href="user.php?id=<?= $post['user_id'] ?>" style="text-decoration:none; color:inherit;">
+          <!-- 投稿者情報（アイコン＋名前）だけ表示してリンクにする -->
+          <a href="user.php?id=<?= $post['user_id'] ?>" style="text-decoration:none; color:inherit;">
 
             <?php if (!empty($post["img_name"])): ?>
                 <img src="/upload/image/<?= htmlspecialchars($post["img_name"]) ?>"
@@ -78,8 +78,9 @@ $posts = $stmtGet->fetchAll();
 
             <strong><?= htmlspecialchars($post["name"]) ?></strong>
 
-        </a>
+          </a>
 
-    </div>
+      </div>
+
+    </div>  
 <?php endforeach; ?>
-</div>
