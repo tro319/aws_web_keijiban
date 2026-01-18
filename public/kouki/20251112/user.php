@@ -22,6 +22,23 @@ $stmt->execute([":id" => $userId]);
 
 $userResult = $stmt->fetch();
 
+$isFollowing = false;
+
+if (!empty($loginId) && $loginId != $userId) {
+
+  $sql = "SELECT 1 FROM followings WHERE follower_id = :my_id AND follow_id = :target_id";
+
+  $stmt = $dbh->prepare($sql);
+
+  $stmt->execute([
+    ":my_id" => $loginId,
+    ":target_id" => $userId
+  ]);
+
+  $isFollowing = $stmt->fetch() ? true : false;
+
+
+}
 
 
 $sql = "SELECT * FROM board_posts JOIN users ON board_posts.user_id = users.id WHERE user_id = :id";
@@ -67,6 +84,18 @@ if (!$userResult) {
 </div>
 
 
+<?php if (!empty($loginId) && $loginId != $userId): ?>
+
+
+  <div style="follow_btn_cover">
+
+    <button id="follow_btn" data-following="<?= $isFollowing ? '1' : '0' ?>" data-target="<?= $userId ?>"><?= $isFollowing ? "フォローをやめる" : "フォローする" ?></button>
+
+  </div>
+
+<?php endif; ?>
+
+
 
 <!-- ユーザーの投稿一覧 -->
 
@@ -108,3 +137,59 @@ if (!$userResult) {
 
 </div>
 
+<!-- JavaScript 非同期処理 -->
+
+<script>
+
+  document.addEventListener("DOMContentLoaded", () => {
+    
+    const btn = document.getElementById("follow_btn");
+
+    // フォローボタンが存在しなければ、処理終了
+
+    if (!btn) return;
+
+    // ボタンが押された時の処理
+
+    btn.addEventListener("click", () => {
+
+      const isFollowing = btn.dataset.following == 1;
+
+      const targetId = btn.dataset.target;
+
+      
+      const url = isFollowing ? "unfollow_api.php" : "follow_api.php";
+
+      
+      fetch(url, {
+        method: "POST",
+        headers: {"Content-Type": "application/x-www-form-urlencoded"},
+        body: "target_id=" + encodeURIComponent(targetId)
+      })
+      .then(res => res.text())
+      .then(text => {
+        if (text == "OK") {
+
+          if (isFollowing) {
+
+            btn.textContent = "フォローする";
+            btn.dataset.following = "0";
+          
+          } else {
+  
+            btn.textContent = "フォロー解除";
+            btn.dataset.following = "1";
+
+          }
+
+        }
+
+      });
+    
+    });
+
+  });
+
+</script>
+
+    
