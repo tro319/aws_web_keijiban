@@ -3,7 +3,7 @@ session_start();
 
 $loginId = $_SESSION["login_id"] ?? "";
 
-if (!loginId) exit("NG");
+if (!$loginId) exit("NG");
 
 $targetId = intval($_POST["target_id"] ?? 0);
 
