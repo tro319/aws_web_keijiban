@@ -184,7 +184,9 @@ document.querySelector("button[type='submit']").addEventListener("click", async(
       
       method: "POST",
       body: formData
-    }).then(() => window.location.href="profile_edit.php");
+    });
+
+    window.location.href = "profile_edit.php";
     return;
 
   }
@@ -224,7 +226,7 @@ document.querySelector("button[type='submit']").addEventListener("click", async(
   ctx.drawImage(bitmap, 0, 0, w, h);
 
 
-  canvas.toBlob(ansync (blob) => {
+  canvas.toBlob(async (blob) => {
     
     const formData = new FormData();
 
