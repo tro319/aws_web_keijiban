@@ -40,7 +40,7 @@ if (!empty($_FILES["image_file"])) {
     ":id" => $loginID,
   ]);
 
-  $_SESSION["icon_name"] = $imageName;
+  $_SESSION["prof_img"] = $imageName;
 
   header("HTTP/1.1 303 See Other");
   header("Location: profile_edit.php");
@@ -96,7 +96,7 @@ if (!empty($loginID)) {
 
 <div>
 
-  <?php if(empty($_SESSION["icon_name"]) && empty($_SESSION["prof_img"])): ?>
+  <?php if(empty($_SESSION["prof_img"])): ?>
 
     <p>現在未設定</p>
 
@@ -105,9 +105,6 @@ if (!empty($loginID)) {
     <img src="/upload/image/<?= htmlspecialchars($_SESSION["prof_img"]) ?>"
     style="height: 5em; width: 5em; border-radius: 50%; object-fit: cover;">
 
-  <?php elseif(!empty($_SESSION["icon_name"])): ?>
-
-    <img src="/upload/image/<?= htmlspecialchars($_SESSION["icon_name"]) ?>" style="height: 5em; width: 5em; border-radius: 50%; object-fit: cover;">  
 
   <?php endif; ?>
 
@@ -168,7 +165,7 @@ document.getElementById("image_input").addEventListener("change", async(e) => {
 
   if (!file) return;
 
-  const bitmap = await createImageBitMap(file);
+  const bitmap = await createImageBitmap(file);
 
   
   const max = 1000;
@@ -216,6 +213,10 @@ document.getElementById("image_input").addEventListener("change", async(e) => {
     
       method: "POST",
       body: formData
+
+    }).then(() => {
+      
+      location.reload();
 
     });
 
