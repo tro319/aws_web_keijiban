@@ -27,7 +27,7 @@ if (!empty($_FILES["image_file"])) {
 
   $imageName = time() . bin2hex(random_bytes(25)) . ".png";
 
-  $filePath = "/var/www/upload/" . $imageName;
+  $filePath = "/var/www/public/upload/image/" . $imageName;
 
   $success = move_uploaded_file($tmp, $filePath);
 
@@ -48,9 +48,6 @@ if (!empty($_FILES["image_file"])) {
 
   $_SESSION["prof_img"] = $imageName;
 
-  header("HTTP/1.1 303 See Other");
-  header("Location: profile_edit.php");
-  exit;
 
 }
 
