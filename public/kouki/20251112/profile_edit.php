@@ -166,7 +166,7 @@ if (!empty($loginID)) {
 <script>
 
 
-document.querySelector("form").addEventListener("submit", async(e) => {
+document.querySelector("button[type='submit']").addEventListener("click", async(e) => {
 
 
   const introdValue = document.getElementById("introd").value;
@@ -180,7 +180,7 @@ document.querySelector("form").addEventListener("submit", async(e) => {
     const formData = new FormData();
     
     formData.append("introd", introdValue);
-    fetch("profile_edit.php", {
+    await fetch("profile_edit.php", {
       
       method: "POST",
       body: formData
@@ -233,7 +233,7 @@ document.querySelector("form").addEventListener("submit", async(e) => {
     formData.append("introd", introdValue);
 
 
-    fetch("profile_edit.php", {
+    await fetch("profile_edit.php", {
     
       method: "POST",
       body: formData
