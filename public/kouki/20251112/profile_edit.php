@@ -27,7 +27,7 @@ if (!empty($_FILES["image_file"])) {
 
   $imageName = time() . bin2hex(random_bytes(25)) . ".png";
 
-  $filePath = "var/www/upload/image/" . $imageName;
+  $filePath = "/var/www/upload/image/" . $imageName;
 
   move_uploaded_file($tmp, $filePath);
 
@@ -96,18 +96,18 @@ if (!empty($loginID)) {
 
 <div>
 
-  <?php if(empty($_SESSION["icon_name"]) && empty($_SESSIOIN["prof_img"])): ?>
+  <?php if(empty($_SESSION["icon_name"]) && empty($_SESSION["prof_img"])): ?>
 
     <p>現在未設定</p>
 
   <?php elseif(!empty($_SESSION["prof_img"])): ?>
     
-    <img src="/upload/image/<?= htmlspecialchars($imageName) ?>"
+    <img src="/upload/image/<?= htmlspecialchars($_SESSION["prof_img"]) ?>"
     style="height: 5em; width: 5em; border-radius: 50%; object-fit: cover;">
 
   <?php elseif(!empty($_SESSION["icon_name"])): ?>
 
-    <img src="/upload/image/<?= htmlspecialchars($imageName) ?>" style="height: 5em; width: 5em; border-radius: 50%; object-fit: cover;">  
+    <img src="/upload/image/<?= htmlspecialchars($_SESSION["icon_name"]) ?>" style="height: 5em; width: 5em; border-radius: 50%; object-fit: cover;">  
 
   <?php endif; ?>
 
@@ -136,6 +136,8 @@ if (!empty($loginID)) {
 
 </form>
 
+<canvas id="canvas" style="display: none;"></canvas>
+
 
 <hr>
 
@@ -159,6 +161,47 @@ if (!empty($loginID)) {
 </div>
 
 <script>
+
+document.getElementById("image_input").addEventListener("change", async(e) => {
+
+  const file = e.target.files[0];
+
+  if (!file) return;
+
+  const bitmap = await createImageBitMap(file);
+
+  
+  const max = 1000;
+
+  let w = bitmap.width;
+
+  let h = bitmap.height;
+
+  if (w > h && w > max) {
+
+    h = h * ( max / w );
+
+    w = max;
+
+  } else if (h > max) {
+
+    w = w * ( max / h );
+    
+    h = max;
+
+  }
+
+  const canvas = document.getElementById("canvas");
+
+  canvas.width = w;
+
+  canvas.height = h;  
+
+
+  const ctx = canvas.getContext("2d");
+
+  ctx.drawImage(bitmap, 0, 0, w, h);
+
 
   canvas.toBlob((blob) => {
     
