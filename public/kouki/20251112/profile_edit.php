@@ -174,8 +174,9 @@ document.querySelector("form").addEventListener("submit", async(e) => {
 
   if (!file) {
 
-    const formData = new FormData(e.target);
-
+    const formData = new FormData();
+    
+    formData.append("introd", document.getElementById("introd").value);  :
     fetch("profile_edit.php", {
       
       method: "POST",
