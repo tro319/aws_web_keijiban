@@ -168,6 +168,9 @@ if (!empty($loginID)) {
 
 document.querySelector("form").addEventListener("submit", async(e) => {
 
+
+  const introdValue = document.getElementById("introd").value;
+
   e.preventDefault();
 
   const file = document.getElementById("image_input").files[0];
@@ -176,7 +179,7 @@ document.querySelector("form").addEventListener("submit", async(e) => {
 
     const formData = new FormData();
     
-    formData.append("introd", document.getElementById("introd").value);  :
+    formData.append("introd", introdValue);
     fetch("profile_edit.php", {
       
       method: "POST",
@@ -227,7 +230,7 @@ document.querySelector("form").addEventListener("submit", async(e) => {
 
     formData.append("image_file", blob, "upload.png");
 
-    formData.append("introd", document.getElementById("introd").value);
+    formData.append("introd", introdValue);
 
 
     fetch("profile_edit.php", {
