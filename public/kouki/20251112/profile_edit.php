@@ -114,7 +114,7 @@ if (!empty($loginID)) {
 <form method="POST" enctype="multipart/form-data">
   <div style="margin: 1em 0;">
 
-    <input type="file" accept="image/*" name="image_input" id="image_input">
+    <input type="file" accept="image/*" name="image_file" id="image_input">
 
   </div>
 
