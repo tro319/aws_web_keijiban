@@ -27,7 +27,7 @@ if (!empty($_FILES["image_file"])) {
 
   $imageName = time() . bin2hex(random_bytes(25)) . ".png";
 
-  $filePath = "/var/www/upload/" . $imageName;
+  $filePath = "/var/www/public/upload/image/" . $imageName;
 
   move_uploaded_file($tmp, $filePath);
 
