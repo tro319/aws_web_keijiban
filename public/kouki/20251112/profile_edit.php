@@ -27,7 +27,7 @@ if (!empty($_FILES["image_file"])) {
 
   $imageName = time() . bin2hex(random_bytes(25)) . ".png";
 
-  $filePath = "/var/www/public/upload/image/" . $imageName;
+  $filePath = "/var/www/upload/" . $imageName;
 
   $success = move_uploaded_file($tmp, $filePath);
 
@@ -170,7 +170,7 @@ document.querySelector("form").addEventListener("submit", async(e) => {
 
   e.preventDefault();
 
-  const file = e.target.files[0];
+  const file = document.getElementById("image_input").files[0];
 
   if (!file) {
 
@@ -242,6 +242,7 @@ document.querySelector("form").addEventListener("submit", async(e) => {
 
   }, "image/png", 0.9);
 
+});
 
 </script>
 
