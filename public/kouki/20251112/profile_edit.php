@@ -165,21 +165,25 @@ if (!empty($loginID)) {
 
 <script>
 
-document.querySelector("form").addEventListener("submit", e => {
-  
-  if (document.getElementById("image_input").files.length > 0) {
 
-    e.preventDefault();
+document.querySelector("form").addEventListener("submit", async(e) => {
 
-  }
-
-});
-
-document.getElementById("image_input").addEventListener("change", async(e) => {
+  e.preventDefault();
 
   const file = e.target.files[0];
 
-  if (!file) return;
+  if (!file) {
+
+    const formData = new FormData(e.target);
+
+    fetch("profile_edit.php", {
+      
+      method: "POST",
+      body: formData
+    }).then(() => window.location.href="profile_edit.php");
+    return;
+
+  }
 
   const bitmap = await createImageBitmap(file);
 
