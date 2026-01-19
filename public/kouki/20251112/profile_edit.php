@@ -102,7 +102,7 @@ if (!empty($loginID)) {
 
   <?php elseif(!empty($_SESSION["prof_img"])): ?>
     
-    <img src="/upload/image/<?= htmlspecialchars($_SESSION["prof_img"]) ?>"
+    <img src="/var/www/public/upload/image/<?= htmlspecialchars($_SESSION["prof_img"]) ?>"
     style="height: 5em; width: 5em; border-radius: 50%; object-fit: cover;">
 
 
@@ -159,7 +159,15 @@ if (!empty($loginID)) {
 
 <script>
 
-document.querySelector("form").addEventListener("submit", e => e.preventDefault());
+document.querySelector("form").addEventListener("submit", e => {
+  
+  if (document.getElementById("image_input").files.length > 0) {
+
+    e.preventDefault();
+
+  }
+
+});
 
 document.getElementById("image_input").addEventListener("change", async(e) => {
 
