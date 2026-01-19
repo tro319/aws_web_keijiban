@@ -29,7 +29,13 @@ if (!empty($_FILES["image_file"])) {
 
   $filePath = "/var/www/public/upload/image/" . $imageName;
 
-  move_uploaded_file($tmp, $filePath);
+  $success = move_uploaded_file($tmp, $filePath);
+
+  if (!$success) {
+    
+    var_dump("move_failed", $tmp, $filePath, error_get_last());
+
+  }
 
   $sql_update = "UPDATE users SET img_name = :img WHERE id = :id";
 
