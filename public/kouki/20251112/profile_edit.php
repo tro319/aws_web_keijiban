@@ -159,6 +159,8 @@ if (!empty($loginID)) {
 
 <script>
 
+document.querySelector("form").addEventListener("submit", e => e.preventDefault());
+
 document.getElementById("image_input").addEventListener("change", async(e) => {
 
   const file = e.target.files[0];
@@ -216,7 +218,7 @@ document.getElementById("image_input").addEventListener("change", async(e) => {
 
     }).then(() => {
       
-      location.reload();
+      window.location.href = "profile_edit.php";
 
     });
 
