@@ -21,34 +21,30 @@ if (empty($_SESSION["login_id"])) {
 }
 
 
-if (!empty($_POST["image_base64"])) {
+if (!empty($_FILES["image_file"])) {
 
+  $tmp = $_FILES["image_file"]["tmp_name"];
 
-    $base64 = preg_replace("/^data:.+base64,/", "", $_POST["image_base64"]);
+  $imageName = time() . bin2hex(random_bytes(25)) . ".png";
 
-    $image_bina = base64_decode($base64);
+  $filePath = "var/www/upload/image/" . $imageName;
 
-    $image_name = strval(time()) . bin2hex(random_bytes(25)) . ".png";
+  move_uploaded_file($tmp, $filePath);
 
-    $filePath = "/var/www/upload/image/" . $image_name;    
-    
-    file_put_contents($filePath, $image_bina);
+  $sql_update = "UPDATE users SET img_name = :img WHERE id = :id";
 
+  $stmt_update = $dbh->prepare($sql_update);
 
-    $sql_update = "UPDATE users SET img_name = :img WHERE id = :id";
+  $stmt_update->execute([
+    ":img" => $imageName,
+    ":id" => $loginID,
+  ]);
 
-    $stmt_update = $dbh->prepare($sql_update);
+  $_SESSION["icon_name"] = $imageName;
 
-    $stmt_update->execute([
-      ":img" => basename($image_name),
-      ":id" => $loginID,
-    ]);
-
-    $_SESSION["icon_name"] = basename($image_name);
-
-		header("HTTP/1.1 302 Found");
-		header("Location: profile_edit.php");
- 		return;
+  header("HTTP/1.1 303 See Other");
+  header("Location: profile_edit.php");
+  exit;
 
 }
 
@@ -106,12 +102,12 @@ if (!empty($loginID)) {
 
   <?php elseif(!empty($_SESSION["prof_img"])): ?>
     
-    <img src="/upload/image/<?= htmlspecialchars(basename($_SESSION['prof_img'])) ?>"
+    <img src="/upload/image/<?= htmlspecialchars($imageName) ?>"
     style="height: 5em; width: 5em; border-radius: 50%; object-fit: cover;">
 
-  <?php else: ?>
+  <?php elseif(!empty($_SESSION["icon_name"])): ?>
 
-    <img src="/upload/image/<?= htmlspecialchars(basename($_SESSION['icon_name'])) ?>" style="height: 5em; width: 5em; border-radius: 50%; object-fit: cover;">  
+    <img src="/upload/image/<?= htmlspecialchars($imageName) ?>" style="height: 5em; width: 5em; border-radius: 50%; object-fit: cover;">  
 
   <?php endif; ?>
 
@@ -120,23 +116,24 @@ if (!empty($loginID)) {
 
 <form method="POST" enctype="multipart/form-data">
   <div style="margin: 1em 0;">
-    <input type="file" accept="image/*" name="image_input" id="image_input">
-  </div>
-  <input id="imageBase64Input" type="hidden" name="image_base64"><!-- base64を送る用のinput (非表示) -->
-  <canvas id="imageCanvas" style="display: none;"></canvas><!-- 画像縮小に使うcanvas (非表示) -->
 
-<br>
+    <input type="file" accept="image/*" name="image_input" id="image_input">
+
+  </div>
+
+  <br>
 
   <label> 自己紹介
 
-    <textarea type="text" id="introd" name="introd" maxlength="1000" required></textarea>
+    <textarea id="introd" name="introd" maxlength="1000" required></textarea>
 
 
-</label>
+  </label>
 
-<br>
+  <br>
 
   <button type="submit">送信</button>
+
 </form>
 
 
@@ -162,51 +159,25 @@ if (!empty($loginID)) {
 </div>
 
 <script>
-document.addEventListener("DOMContentLoaded", () => {
-  const imageInput = document.getElementById("image_input");
-  imageInput.addEventListener("change", () => {
-    if (imageInput.files.length < 1) {
-      // 未選択の場合
-      return;
-    }
-    const file = imageInput.files[0];
-    if (!file.type.startsWith('image/')){ // 画像でなければスキップ
-      return;
-    }
-    // 画像縮小処理
-    const imageBase64Input = document.getElementById("imageBase64Input"); // base64を送るようのinput
-    const canvas = document.getElementById("imageCanvas"); // 描画するcanvas
-    const reader = new FileReader();
-    const image = new Image();
-    reader.onload = () => { // ファイルの読み込み完了したら動く処理を指定
-      image.onload = () => { // 画像として読み込み完了したら動く処理を指定
-        // 元の縦横比を保ったまま縮小するサイズを決めてcanvasの縦横に指定する
-        const originalWidth = image.naturalWidth; // 元画像の横幅
-        const originalHeight = image.naturalHeight; // 元画像の高さ
-        const maxLength = 1000; // 横幅も高さも1000以下に縮小するものとする
-        if (originalWidth <= maxLength && originalHeight <= maxLength) { // どちらもmaxLength以下の場合そのまま
-            canvas.width = originalWidth;
-            canvas.height = originalHeight;
-        } else if (originalWidth > originalHeight) { // 横長画像の場合
-            canvas.width = maxLength;
-            canvas.height = maxLength * originalHeight / originalWidth;
-        } else { // 縦長画像の場合
-            canvas.width = maxLength * originalWidth / originalHeight;
-            canvas.height = maxLength;
-        }
-        // canvasに実際に画像を描画 (canvasはdisplay:noneで隠れているためわかりにくいが...)
-        const context = canvas.getContext("2d");
-        context.drawImage(image, 0, 0, canvas.width, canvas.height);
-        // canvasの内容をbase64に変換しinputのvalueに設定
-        imageBase64Input.value = canvas.toDataURL();
-      };
-      image.src = reader.result;
-    };
-    reader.readAsDataURL(file);
-  });
-});
 
-console.log(imageBase64Input.value);
+  canvas.toBlob((blob) => {
+    
+    const formData = new FormData();
+
+    formData.append("image_file", blob, "upload.png");
+
+    formData.append("introd", document.getElementById("introd").value);
+
+
+    fetch("profile_edit.php", {
+    
+      method: "POST",
+      body: formData
+
+    });
+
+  }, "image/png", 0.9);
+
 
 </script>
 
