@@ -248,7 +248,7 @@ $get_result = $get_stmt->fetchAll();
   <div class="user-info">
 
 
-      <?php foreach ($get_result ->$profile): ?>
+      <?php foreach ($get_result as $profile): ?>
 
         <p>ユーザーネーム: <?= htmlspecialchars($profile["name"]) ?></p>
 
