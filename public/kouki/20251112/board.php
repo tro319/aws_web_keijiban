@@ -20,6 +20,7 @@ $sqlGet = "
         board_posts.id,
         board_posts.user_id,
         board_posts.content,
+        board_post.pic_name1,
         board_posts.created_at,
         users.name,
         users.img_name
@@ -52,6 +53,32 @@ $posts = $stmtGet->fetchAll();
     <div class="content" style="border:1px solid #ccc; padding:1em; margin-bottom:1em;">
 
         <!-- 投稿内容 -->
+
+        <?php if ($post["pic_name1"] != null): ?>
+
+            <div class="images-cover post-images-cover">
+    
+                <ul class="images post-images">
+
+                    <li>
+
+                        <div class="image-radius">
+
+                
+                            <img src="/upload/image/<?= htmlspecialchars($post["pic_name1"]) ?>">
+
+                
+                        </div>
+            
+                    </li>
+
+                </ul>
+
+            </div>
+
+        <?php endif; ?>
+    
+        
         <p><?= nl2br(htmlspecialchars($post["content"])) ?></p>
         <p style="font-size:0.8em; color:#666;">投稿日時: <?= $post["created_at"] ?></p>
         <div class="post_link">
