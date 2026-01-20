@@ -92,7 +92,7 @@ if (!empty($_POST["user_name"]) && !empty($_POST["email"])) {
 
 	$imageName = null;
 
-	if (!empty($_FILES["image_file"])) {
+	if (isset($_FILES["image_file"]) && $_FILES["image_file"]["error"] == 0) {
 
   		$tmp = $_FILES["image_file"]["tmp_name"];
 
