@@ -1,11 +1,8 @@
 <?php
 session_start();
 
+$success = null;
 
-
-// エラー有無格納変数初期化
-
-$err = null; 
 
 // ログインチェック
 
