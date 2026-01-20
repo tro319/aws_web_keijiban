@@ -164,6 +164,30 @@ $get_result = $get_stmt->fetchAll();
 
 <h1>ユーザー更新フォーム</h1>
 
+
+
+<?php if (!empty($_GET["result"]) && $_GET["result"] == "success"): ?>
+
+  <p style="color: #0F0;">ユーザー情報更新が完了しました。</p>
+
+<?php endif; ?>
+
+
+<?php if (!empty($_GET["err"]) && $_GET["err"] == "name"): ?>
+
+  <p style="color: #F00;">入力されたユーザーネームはすでに登録されています。</p>
+
+<?php endif; ?>
+
+
+<?php if (!empty($_GET["err"]) && $_GET["err"] == "email"): ?>
+
+  <p style="color: #F00;">入力されたメールアドレスはすでに登録されています。</p>
+
+<?php endif; ?>
+
+
+
 	<form method="post" enctype="multipart/form-data">
 
 		<label>
@@ -270,27 +294,6 @@ $get_result = $get_stmt->fetchAll();
       <?php endforeach; ?>
    
   </div>
-
-
-<?php if (!empty($_GET["result"]) && $_GET["result"] == "success"): ?>
-
-  <p style="color: #0F0;">ユーザー情報更新が完了しました。</p>
-
-<?php endif; ?>
-
-
-<?php if (!empty($_GET["err"]) && $_GET["err"] == "name"): ?>
-
-  <p style="color: #F00;">入力されたユーザーネームはすでに登録されています。</p>
-
-<?php endif; ?>
-
-
-<?php if (!empty($_GET["err"]) && $_GET["err"] == "email"): ?>
-
-  <p style="color: #F00;">入力されたメールアドレスはすでに登録されています。</p>
-
-<?php endif; ?>
 
 
 
