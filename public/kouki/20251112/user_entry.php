@@ -266,12 +266,12 @@ if (!empty($_POST["user_name"]) && !empty($_POST["email"]) && !empty($_POST["pas
 
 		}
 
-		await fetch("prof_update.php", {
+		await fetch("user_entry.php", {
 			method: "POST",
 			body: formData
 		});
 
-		window.location.href="prof_update.php";
+		window.location.href="user_entry.php";
 
 	});
 
