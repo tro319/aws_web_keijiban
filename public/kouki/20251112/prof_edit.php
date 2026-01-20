@@ -89,7 +89,7 @@ if (!empty($loginID)) {
 
 ?>
 
-<h1>プロフィール編集</h1>
+<h1>アイコン画像設定</h1>
 
 <?php if (!empty($_SESSION["update_success"])): ?>
 
