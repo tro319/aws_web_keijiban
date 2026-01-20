@@ -198,7 +198,7 @@ $get_result = $get_stmt->fetchAll();
 
 			<span>メールアドレス</span>
 	
-			<input type"email" name="email" maxlength="256" required />
+			<input type="email" name="email" maxlength="256" required />
 
 		</label>
 
