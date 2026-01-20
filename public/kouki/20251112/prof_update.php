@@ -1,8 +1,6 @@
 <?php
 session_start();
 
-$success = null;
-
 
 // ログインチェック
 
