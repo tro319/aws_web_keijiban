@@ -42,7 +42,7 @@ if (!empty($_POST["user_name"]) && !empty($_POST["email"]) && !empty($_POST["pas
 
 	// パスワードハッシュ化
 	
-	$hash_pass = password_hash($_POST["password"], PASSWORD_DEFAULT);
+	$hashPass = password_hash($_POST["password"], PASSWORD_DEFAULT);
 
 	// 画像取得
 
@@ -90,7 +90,7 @@ if (!empty($_POST["user_name"]) && !empty($_POST["email"]) && !empty($_POST["pas
 	$insert_stmt->execute([
 		":user_name" => $_POST["user_name"],
 		":email" => $_POST["email"],
-		":password" => $hash_pass,
+		":password" => $hashPass,
 		":introd" => $introd,
 		":img" => $imageName,
 	]);
