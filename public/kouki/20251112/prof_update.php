@@ -271,6 +271,16 @@ $get_result = $get_stmt->fetchAll();
 
       <?php foreach ($get_result as $profile): ?>
 
+	      <?php if ($profile["img_name"] != null): ?>
+
+          <div class="image-radius">
+
+            <img src="/upload/image/<?= htmlspecialchars($profile["img_name"]) ?>" style="height: 5em; width: 5em; border-radius: 50%; object-fit: cover;" />
+
+          </div>
+
+        <?php endif; ?>
+
         <p>ユーザーネーム: <?= htmlspecialchars($profile["name"]) ?></p>
 
         <p>メールアドレス: <?= htmlspecialchars($profile["email"]) ?></p>
@@ -281,15 +291,7 @@ $get_result = $get_stmt->fetchAll();
 
         <?php endif; ?>
 
-        <?php if ($profile["img_name"] != null): ?>
 
-          <div class="image-radius">
-
-            <img src="/upload/image/<?= htmlspecialchars($profile["img_name"]) ?>" style="height: 5em; width: 5em; border-radius: 50%; object-fit: cover;" />
-
-          </div>
-
-        <?php endif; ?>
 
       <?php endforeach; ?>
    
