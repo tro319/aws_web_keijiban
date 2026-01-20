@@ -134,7 +134,7 @@ if (!empty($_POST["user_name"]) && !empty($_POST["email"])) {
 		  ":password" => $hashPass,
 		  ":introd" => $introd,
 		  ":img" => $imageName,
-      ":id" => $loginID,
+      	  ":id" => $loginID,
 	  ]);
 
       
