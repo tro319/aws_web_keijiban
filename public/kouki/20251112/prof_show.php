@@ -59,6 +59,8 @@ $profilePosts = $stmt->fetchAll();
       <?php endif; ?>
 
       <p>ユーザーネーム: <?= htmlspecialchars($profile["name"]) ?></p>
+
+      <p>メールアドレス: <?= htmlspecialchars($profile["email"]) ?></p>
       
       <?php if(!empty($profile["introd"])): ?>
 
