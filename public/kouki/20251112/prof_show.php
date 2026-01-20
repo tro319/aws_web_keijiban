@@ -90,7 +90,7 @@ $profilePosts = $stmt->fetchAll();
 
   <?php endif; ?>
 
-  <div class="edit_link">
+  <div class="link-text edit_link">
 
     <a href="prof_edit.php">プロフィール編集へ</a>
 
