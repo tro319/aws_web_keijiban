@@ -308,7 +308,7 @@ $get_result = $get_stmt->fetchAll();
 
 	let resizedBlob = null;
 
-	document.getElementById("image_input").addEventListener("change", function(e) {
+	document.getElementById("image_input").addEventListener("change", async(e) {
 
 		const file = e.target.files[0];
 
