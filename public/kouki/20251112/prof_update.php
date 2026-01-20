@@ -285,7 +285,7 @@ $get_result = $get_stmt->fetchAll();
 
           <div class="image-radius">
 
-            <img src="/upload/image/<?= htmlspecialchars($profile["img_name"]) ?>" style="display: none; height: 5em; width: 5em; border-radius: 50%; object-fit: cover;" />
+            <img src="/upload/image/<?= htmlspecialchars($profile["img_name"]) ?>" style="height: 5em; width: 5em; border-radius: 50%; object-fit: cover;" />
 
           </div>
 
