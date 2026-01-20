@@ -43,9 +43,44 @@ if (!empty($_POST["user_name"]) && !empty($_POST["email"]) && !empty($_POST["pas
 	
 	$hash_pass = password_hash($_POST["password"], PASSWORD_DEFAULT);
 
+	// 画像取得
+
+	$imageName = null;
+
+	if (!empty($_FILES["image_file"])) {
+
+  		$tmp = $_FILES["image_file"]["tmp_name"];
+
+  		$imageName = time() . bin2hex(random_bytes(25)) . ".png";
+
+  		$filePath = "/var/www/public/upload/image/" . $imageName;
+
+  		$success = move_uploaded_file($tmp, $filePath);
+
+  		if (!$success) {
+    
+    		var_dump("move_failed", $tmp, $filePath, error_get_last());
+
+  		}
+
+  		$_SESSION["prof_img"] = $imageName;
+		
+	}
+
+	// 自己紹介文取得
+
+	$introd = null;
+
+	if (!empty($_POST["introd"])) {
+
+		$introd = htmlspecialchars($_POST["introd"]);
+
+	}
+	
+
 	// sql
 	
-	$sql = "INSERT INTO users (name, email, password) VALUES(:user_name, :email, :password)";
+	$sql = "INSERT INTO users (name, email, password, ,introd, img_name) VALUES(:user_name, :email, :password, :introd, :img)";
 
 	// INSERTする
 	
@@ -55,7 +90,10 @@ if (!empty($_POST["user_name"]) && !empty($_POST["email"]) && !empty($_POST["pas
 		":user_name" => $_POST["user_name"],
 		":email" => $_POST["email"],
 		":password" => $hash_pass,
+		":introd" => $introd,
+		":img" => $imageName,
 	]);
+	
 	header("HTTP/1.1 303 See Other");
 	header("Location: ./user_finish.php");
 	return;
@@ -65,9 +103,9 @@ if (!empty($_POST["user_name"]) && !empty($_POST["email"]) && !empty($_POST["pas
 ?>
 
 
-<h1>会員登録</h1>
+<h1>ユーザー登録</h1>
 
-	<form method="post">
+	<form method="post" enctype="multipart/form-data">
 
 		<label>
 
@@ -104,6 +142,25 @@ if (!empty($_POST["user_name"]) && !empty($_POST["email"]) && !empty($_POST["pas
 
 
 		<br>
+
+		<label>
+
+			<span>自己紹介</span>
+
+			<textarea name="introd" maxlength="1000"></textarea>
+				
+		</label>
+
+		<br>
+
+		
+  		<div class="img-input">
+
+    		<input type="file" accept="image/*" name="image_file" id="image_input">
+
+  		</div>
+
+  		<br>
 
 
 		<input type="submit" value="登録" />
