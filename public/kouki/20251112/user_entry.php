@@ -104,7 +104,13 @@ if (!empty($_POST["user_name"]) && !empty($_POST["email"]) && !empty($_POST["pas
 ?>
 
 
-<h1>ユーザー登録</h1>
+<h2 class="sub-title">ユーザー登録</h2>
+
+<?php if (!empty($_GET["err"]) && $_GET["err"] == 1): ?>
+
+  <p style="color: #F00;">入力されたメールアドレスはすでに登録されています。</p>
+
+<?php endif; ?>
 
 	<form method="post" enctype="multipart/form-data">
 
@@ -169,22 +175,20 @@ if (!empty($_POST["user_name"]) && !empty($_POST["email"]) && !empty($_POST["pas
 
 	</form>
 
-	<canvas id="canvas" style="display: none;"></canvas>
+	
 
 	<h2 class="sub-title">選択された画像</h2>
 
 	<div class="image-radius">
 	    
 	    <img id="preview" style="display: none; height: 5em; width: 5em; border-radius: 50%; object-fit: cover;">
+
+		<canvas id="canvas" style="display: none;"></canvas>
 		
 	</div>
 
 
-<?php if (!empty($_GET["err"]) && $_GET["err"] == 1): ?>
 
-  <p style="color: #F00;">入力されたメールアドレスはすでに登録されています。</p>
-
-<?php endif; ?>
 
 <div class="link-text pre-link">
 
@@ -195,7 +199,9 @@ if (!empty($_POST["user_name"]) && !empty($_POST["email"]) && !empty($_POST["pas
 
 <script>
 
-	document.getElementById("image_input").addEventListener("change", function(e) {
+	let resizedBlob = null;
+
+	document.getElementById("image_input").addEventListener("change", async(e) => {
 
 		const file = e.target.files[0];
 
@@ -206,6 +212,66 @@ if (!empty($_POST["user_name"]) && !empty($_POST["email"]) && !empty($_POST["pas
 		preview.src = URL.createObjectURL(file);
 
 		preview.style.display = "block";
+
+		const bitmap = await createImageBitmap(file);
+
+		const max = 1000;
+
+		let w = bitmap.width;
+
+		let h = bitmap.height;
+
+		if (w > h && w > max) {
+
+			h = h * (max / w);
+
+			w = max;
+
+		} else if (h > max) {
+
+			w = w * (max / h);
+
+			h = max;
+
+		}
+
+		const canvas = document.getElementById("canvas");
+
+		canvas.width = w;
+
+		canvas.height = h;
+
+		const ctx = canvas.getContext("2d");
+
+		ctx.drawImage(bitmap, 0, 0, w, h);
+
+		resizedBlob = await new Promise((resolve) => 
+			canvas.toBlob((blob) => resolve(blob), "image/png", 0.9)
+
+		);
+
+	});
+
+	const form = document.querySelector("form");
+
+	form.addEventListener("submit", async (e) => {
+
+		e.preventDefault();
+
+		const formData = new FormData(form);
+
+		if (resizedBlob) {
+
+			formData.set("image_file", resizedBlob, "upload.png");
+
+		}
+
+		await fetch("prof_update.php", {
+			method: "POST",
+			body: formData
+		});
+
+		window.location.href="prof_update.php";
 
 	});
 
