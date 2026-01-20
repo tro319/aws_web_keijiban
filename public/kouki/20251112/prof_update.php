@@ -16,6 +16,7 @@ $err = null;
 
     header("HTTP/1.1 303 See Other");
     header("Location: ./login.php");
+	return;
 
   }
 
@@ -23,7 +24,7 @@ $err = null;
 
 $dbh = new PDO("mysql:host=mysql;dbname=example_db", "root", "");
 
-if (!empty($_POST["user_name"]) && !empty($_POST["email"]) && !empty($_POST["password"])) {
+if (!empty($_POST["user_name"]) && !empty($_POST["email"])) {
 
 
   // ユーザーネーム重複チェック
@@ -50,6 +51,7 @@ if (!empty($_POST["user_name"]) && !empty($_POST["email"]) && !empty($_POST["pas
 
       header("HTTP/1.1 303 See Other");
       header("Location: ./prof_update.php?err=1");  
+	  return;
 
     }
 
