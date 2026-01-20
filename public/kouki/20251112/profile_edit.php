@@ -20,6 +20,7 @@ if (empty($_SESSION["login_id"])) {
     exit;
 }
 
+$imageName = null;
 
 if (!empty($_FILES["image_file"])) {
 
@@ -129,7 +130,7 @@ if (!empty($loginID)) {
 
   <label> 自己紹介
 
-    <textarea id="introd" name="introd" maxlength="1000" required></textarea>
+    <textarea id="introd" name="introd" maxlength="1000"></textarea>
 
 
   </label>
