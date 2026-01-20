@@ -353,7 +353,7 @@ $get_result = $get_stmt->fetchAll();
 		ctx.drawImage(bitmap, 0, 0, w, h);
 
 		resizedBlob = await new Promise((resolve) => 
-			canvas.toBlob((blob) => resolve(blob), "image/png", 0.9);
+			canvas.toBlob((blob) => resolve(blob), "image/png", 0.9)
 
 		);
 
