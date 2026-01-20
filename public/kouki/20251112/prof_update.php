@@ -79,15 +79,6 @@ if (!empty($_POST["user_name"]) && !empty($_POST["email"])) {
 
 }
 
-
-var_dump($name_check);
-
-var_dump($email_check);
-
-
-
-
-
   if (!empty($_POST["password"])) {
 
 
