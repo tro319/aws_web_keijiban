@@ -251,8 +251,6 @@ $get_result = $get_stmt->fetchAll();
 
 	</form>
 
-	<canvas id="canvas" style="display: none;"></canvas>
-
 	<h2 class="sub-title">選択された画像</h2>
 
 	<div class="image-radius">
@@ -308,6 +306,8 @@ $get_result = $get_stmt->fetchAll();
 
 <script>
 
+	let resizedBlob = null;
+
 	document.getElementById("image_input").addEventListener("change", function(e) {
 
 		const file = e.target.files[0];
@@ -353,7 +353,7 @@ $get_result = $get_stmt->fetchAll();
 		ctx.drawImage(bitmap, 0, 0, w, h);
 
 		resizedBlob = await new Promise((resolve) => 
-			canvas.toBlob((blob) => resolve(blob), "image/png", 0.9));
+			canvas.toBlob((blob) => resolve(blob), "image/png", 0.9);
 
 		);
 
