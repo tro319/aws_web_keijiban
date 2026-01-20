@@ -1,0 +1,310 @@
+<?php
+session_start();
+
+
+
+// エラー有無格納変数初期化
+
+$err = null; 
+
+// ログインチェック
+
+  $loginID = $_SESSION["login_id"] ?? "";
+
+
+// DBに接続
+
+$dbh = new PDO("mysql:host=mysql;dbname=example_db", "root", "");
+
+if (!empty($_POST["user_name"]) && !empty($_POST["email"]) && !empty($_POST["password"])) {
+
+
+  // ユーザーネーム重複チェック
+  
+  $sql_name = "SELECT name FROM users WHERE name = :user_name";
+
+  $stmt_name = $dbh->prepare($sql_name);
+
+  $stmt_name->execute([
+
+    ":name" => $_POST["user_name"],
+
+  ]); 
+
+
+  $result_check = $stmt_name->fetch();
+
+  if (!empty($result_check)) {
+    
+    $err = "ユーザーネームが重複しています。";
+
+    if (!empty($err)) {
+
+      header("HTTP/1.1 303 See Other");
+      header("Location: ./user_update.php?err=1");  
+
+    }
+
+  }
+
+  // メールアドレス重複チェック
+  
+  $sql_email = "SELECT email FROM users WHERE email = :email";
+
+  $stmt_email = $dbh->prepare($sql_email);
+
+  $stmt_email->execute([
+
+    ":email" => $_POST["email"],
+  
+  ]);
+
+  $result_check = $stmt_email->fetch();
+
+
+  if (!empty($result_check)) {
+
+    $err = "メールアドレスが重複しています。";
+
+    if (!empty($err)) {
+      header("HTTP/1.1 303 See Other");
+      header("Location: ./user_update.php?err=1");
+      return;
+
+
+    }
+	  
+  }
+
+}
+
+  if (!empty($_POST["password"])) {
+
+
+	  // パスワードハッシュ化
+	
+  	$hashPass = password_hash($_POST["password"], PASSWORD_DEFAULT);
+
+  }
+
+	// 画像取得
+
+	$imageName = null;
+
+	if (!empty($_FILES["image_file"])) {
+
+  		$tmp = $_FILES["image_file"]["tmp_name"];
+
+  		$imageName = time() . bin2hex(random_bytes(25)) . ".png";
+
+  		$filePath = "/var/www/public/upload/image/" . $imageName;
+
+  		$success = move_uploaded_file($tmp, $filePath);
+
+  		if (!$success) {
+    
+    		var_dump("move_failed", $tmp, $filePath, error_get_last());
+
+  		}
+
+  		$_SESSION["prof_img"] = $imageName;
+		
+	}
+
+	// 自己紹介文取得
+
+	$introd = null;
+
+	if (!empty($_POST["introd"])) {
+
+		$introd = htmlspecialchars($_POST["introd"]);
+
+	}
+
+
+  if (!empty($_POST)) {	
+
+	  // sql
+	
+	  $sql = "UPDATE users SET name = :user_name, email = :email, password = :password, introd = :introd, img_name = :img WHERE id = :id";
+
+	  // UPDATEする
+	
+	  $update_stmt = $dbh->prepare($sql);
+
+	  $update_stmt->execute([
+	  	":user_name" => $_POST["user_name"],
+		  ":email" => $_POST["email"],
+		  ":password" => $hashPass,
+		  ":introd" => $introd,
+		  ":img" => $imageName,
+	  ]);
+
+    $success = "ユーザー情報更新が完了しました。";
+	
+	  header("HTTP/1.1 303 See Other");
+	  header("Location: ./user_update.php");
+	  return;
+
+  
+
+}
+
+$sql = "SELECT * FROM users WHERE id = :id";
+
+$get_stmt = $dbh->prepare($sql);
+
+$get_stmt->execute([
+  
+  ":id" => $loginID,
+
+]);
+
+$get_result = $get_stmt->fetchAll();
+
+?>
+
+
+<h1>ユーザー更新フォーム</h1>
+
+	<form method="post" enctype="multipart/form-data">
+
+		<label>
+
+			<span>名前</span>
+
+			<input type="text" name="user_name" maxlength="50"  required />
+			
+
+		</label>
+
+
+
+		<br>
+
+		<label>
+
+			<span>メールアドレス</span>
+	
+			<input type"email" name="email" maxlength="256" required />
+
+		</label>
+
+
+		<br>
+
+		
+		<label>
+
+			<span>パスワード</span>
+
+			<input type="password" name="password" maxlength="30" required />
+
+		</label>
+
+
+		<br>
+
+		<label>
+
+			<span>自己紹介</span>
+
+			<textarea name="introd" maxlength="1000"></textarea>
+				
+		</label>
+
+		<br>
+
+		
+  	<div class="img-input">
+
+    	<input type="file" accept="image/*" name="image_file" id="image_input">
+
+  	</div>
+
+  	<br>
+
+
+		<input type="submit" value="更新" />
+
+
+	</form>
+
+	<canvas id="canvas" style="display: none;"></canvas>
+
+	<h2 class="sub-title">選択された画像</h2>
+
+	<div class="image-radius">
+	    
+	    <img id="preview" style="display: none; height: 5em; width: 5em; border-radius: 50%; object-fit: cover;">
+		
+	</div>
+
+
+  <hr>
+
+  <h2 class="sub-title">ユーザー情報</h2>
+  
+  <div class="user-info">
+
+
+      <?php foreach ($get_result ->$profile): ?>
+
+        <p>ユーザーネーム: <?= htmlspecialchars($profile["name"]) ?></p>
+
+        <p>メールアドレス: <?= htmlspecialchars($profile["email"]) ?></p>
+
+        <?php if (!empty($profile["introd"])): ?>
+
+          <p>自己紹介: <?= htmlspecialchars($profile["introd"]) ?></p>
+
+        <?php endif; ?>
+
+        <?php if (!empty($profile["img_name"])): ?>
+
+          <div class="image_radius">
+
+            <img src="/upload/image/<?= htmlspecialchars($profile["img_name"]) ?>" />
+
+          </div>
+
+        <?php endif; ?>
+
+      <?php endforeach; ?>
+   
+  </div>
+
+
+<?php if (!empty($_GET["err"]) && $_GET["err"] == 1): ?>
+
+  <p style="color: #F00;">入力されたメールアドレスはすでに登録されています。</p>
+
+<?php endif; ?>
+
+<div class="link-text pre-link">
+
+	<a href="login.php">ユーザーログインへ</a>
+
+</div>
+
+
+<script>
+
+	document.getElementById("image_input").addEventListener("change", function(e) {
+
+		const file = e.target.files[0];
+
+		if (!file) return;
+
+		const preview = document.getElementById("preview");
+
+		preview.src = URL.createObjectURL(file);
+
+		preview.style.display = "block";
+
+	});
+
+</script>
+
+
+
