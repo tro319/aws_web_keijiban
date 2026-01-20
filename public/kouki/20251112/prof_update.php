@@ -12,6 +12,13 @@ $err = null;
   $loginID = $_SESSION["login_id"] ?? "";
 
 
+  if ($loginID == "") {
+
+    header("HTTP/1.1 303 See Other");
+    header("Location: ./login.php");
+
+  }
+
 // DBに接続
 
 $dbh = new PDO("mysql:host=mysql;dbname=example_db", "root", "");
@@ -21,13 +28,14 @@ if (!empty($_POST["user_name"]) && !empty($_POST["email"]) && !empty($_POST["pas
 
   // ユーザーネーム重複チェック
   
-  $sql_name = "SELECT name FROM users WHERE name = :user_name";
+  $sql_name = "SELECT name FROM users WHERE name = :user_name AND id != :id";
 
   $stmt_name = $dbh->prepare($sql_name);
 
   $stmt_name->execute([
 
-    ":name" => $_POST["user_name"],
+    ":user_name" => $_POST["user_name"],
+    ":id" => $loginID,
 
   ]); 
 
@@ -41,7 +49,7 @@ if (!empty($_POST["user_name"]) && !empty($_POST["email"]) && !empty($_POST["pas
     if (!empty($err)) {
 
       header("HTTP/1.1 303 See Other");
-      header("Location: ./user_update.php?err=1");  
+      header("Location: ./prof_update.php?err=1");  
 
     }
 
@@ -49,13 +57,14 @@ if (!empty($_POST["user_name"]) && !empty($_POST["email"]) && !empty($_POST["pas
 
   // メールアドレス重複チェック
   
-  $sql_email = "SELECT email FROM users WHERE email = :email";
+  $sql_email = "SELECT email FROM users WHERE email = :email AND id != :id";
 
   $stmt_email = $dbh->prepare($sql_email);
 
   $stmt_email->execute([
 
     ":email" => $_POST["email"],
+    ":id" => $loginID,
   
   ]);
 
@@ -68,7 +77,7 @@ if (!empty($_POST["user_name"]) && !empty($_POST["email"]) && !empty($_POST["pas
 
     if (!empty($err)) {
       header("HTTP/1.1 303 See Other");
-      header("Location: ./user_update.php?err=1");
+      header("Location: ./prof_update.php?err=1");
       return;
 
 
@@ -138,12 +147,13 @@ if (!empty($_POST["user_name"]) && !empty($_POST["email"]) && !empty($_POST["pas
 		  ":password" => $hashPass,
 		  ":introd" => $introd,
 		  ":img" => $imageName,
+      ":id" => $loginID,
 	  ]);
 
     $success = "ユーザー情報更新が完了しました。";
 	
 	  header("HTTP/1.1 303 See Other");
-	  header("Location: ./user_update.php");
+	  header("Location: ./prof_update.php");
 	  return;
 
   
