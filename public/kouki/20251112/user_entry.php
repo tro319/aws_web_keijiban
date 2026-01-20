@@ -37,6 +37,7 @@ if (!empty($_POST["user_name"]) && !empty($_POST["email"]) && !empty($_POST["pas
 
 
     }
+	  
   }
 
 	// パスワードハッシュ化
@@ -184,6 +185,12 @@ if (!empty($_POST["user_name"]) && !empty($_POST["email"]) && !empty($_POST["pas
   <p style="color: #F00;">入力されたメールアドレスはすでに登録されています。</p>
 
 <?php endif; ?>
+
+<div class="link-text pre-link">
+
+	<a href="login.php">ユーザーログインへ</a>
+
+</div>
 
 
 <script>
