@@ -274,7 +274,7 @@ $get_result = $get_stmt->fetchAll();
   </div>
 
 
-<?php if ($success != null): ?>
+<?php if (!empty($success)): ?>
 
   <p style="color: #0F0;"><?= $success ?></p>
 
