@@ -41,19 +41,14 @@ if (!empty($_POST["user_name"]) && !empty($_POST["email"])) {
   ]); 
 
 
-  $result_check = $stmt_name->fetch();
+  $name_check = $stmt_name->fetch();
 
-  if (!empty($result_check)) {
-    
-    $err = "ユーザーネームが重複しています。";
-
-    if (!empty($err)) {
+  if (!empty($name_check)) {
 
       header("HTTP/1.1 303 See Other");
-      header("Location: ./prof_update.php?err=1");  
+      header("Location: ./prof_update.php?err=name");  
 	  return;
 
-    }
 
   }
 
@@ -70,20 +65,15 @@ if (!empty($_POST["user_name"]) && !empty($_POST["email"])) {
   
   ]);
 
-  $result_check = $stmt_email->fetch();
+  $email_check = $stmt_email->fetch();
 
 
-  if (!empty($result_check)) {
+  if (!empty($email_check)) {
 
-    $err = "メールアドレスが重複しています。";
-
-    if (!empty($err)) {
       header("HTTP/1.1 303 See Other");
-      header("Location: ./prof_update.php?err=1");
+      header("Location: ./prof_update.php?err=email");
       return;
 
-
-    }
 	  
   }
 
@@ -290,11 +280,20 @@ $get_result = $get_stmt->fetchAll();
   </div>
 
 
-<?php if (!empty($_GET["err"]) && $_GET["err"] == 1): ?>
+<?php if (!empty($_GET["err"]) && $_GET["err"] == "name"): ?>
+
+  <p style="color: #F00;">入力されたユーザーネームはすでに登録されています。</p>
+
+<?php endif; ?>
+
+
+<?php if (!empty($_GET["err"]) && $_GET["err"] == "email"): ?>
 
   <p style="color: #F00;">入力されたメールアドレスはすでに登録されています。</p>
 
 <?php endif; ?>
+
+
 
 <div class="link-text pre-link">
 
