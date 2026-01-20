@@ -352,35 +352,21 @@ $get_result = $get_stmt->fetchAll();
 
 		ctx.drawImage(bitmap, 0, 0, w, h);
 
-		resizedBlob = await new Promise((resolve) => 
-			canvas.toBlob((blob) => resolve(blob), "image/png", 0.9)
+	    canvas.toBlob((blob) => {
+			const fileInput = document.getElementById("image_input");
 
-		);
+			const newFile = new File([blob], "upload.png", { type: "image/png" });
 
-	});
+			const dataTransfer = new DataTransfer();
 
-	const form = document.querySelector("form");
+			dataTransfer.items.add(newFile);
 
-	form.addEventListener("submit", async (e) => {
+			fileInput.files = dataTransfer.files;
 
-		e.preventDefault();
-
-		const formData = new FormData(form);
-
-		if (resizedBlob) {
-
-			formData.set("image_file", resizedBlob, "upload.png");
-
-		}
-
-		await fetch("prof_update.php", {
-			method: "POST",
-			body: formData
-		});
-
-		window.location.href="prof_update.php";
+		}, "image/png", 0.9);
 
 	});
+
 
 </script>
 
