@@ -258,6 +258,8 @@ $get_result = $get_stmt->fetchAll();
 	<div class="image-radius">
 	    
 	    <img id="preview" style="display: none; height: 5em; width: 5em; border-radius: 50%; object-fit: cover;">
+
+		<canvas id="canvas" style="display: none;"></canvas>
 		
 	</div>
 
@@ -317,6 +319,66 @@ $get_result = $get_stmt->fetchAll();
 		preview.src = URL.createObjectURL(file);
 
 		preview.style.display = "block";
+
+		const bitmap = await createImageBitmap(file);
+
+		const max = 1000;
+
+		let w = bitmap.width;
+
+		let h = bitmap.height;
+
+		if (w > h && w > max) {
+
+			h = h * (max / w);
+
+			w = max;
+
+		} else if (h > max) {
+
+			w = w * (max / h);
+
+			h = max;
+
+		}
+
+		const canvas = document.getElementById("canvas");
+
+		canvas.width = w;
+
+		canvas.height = h;
+
+		const ctx = canvas.getContext("2d");
+
+		ctx.drawImage(bitmap, 0, 0, w, h);
+
+		resizedBlob = await new Promise((resolve) => 
+			canvas.toBlob((blob) => resolve(blob), "image/png", 0.9));
+
+		);
+
+	});
+
+	const form = document.querySelector("form");
+
+	form.addEventListener("submit", async (e) => {
+
+		e.preventDefault();
+
+		const formData = new FormData(form);
+
+		if (resizedBlob) {
+
+			formData.set("image_file", resizedBlob, "upload.png");
+
+		}
+
+		await fetch("prof_update.php", {
+			method: "POST",
+			body: formData
+		});
+
+		window.location.href="prof_update.php";
 
 	});
 
