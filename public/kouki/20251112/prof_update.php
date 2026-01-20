@@ -142,7 +142,7 @@ if (!empty($_POST["user_name"]) && !empty($_POST["email"])) {
       ":id" => $loginID,
 	  ]);
 
-    $success = "ユーザー情報更新が完了しました。";
+      $success = "ユーザー情報更新が完了しました。";
 	
 	  header("HTTP/1.1 303 See Other");
 	  header("Location: ./prof_update.php");
@@ -275,6 +275,13 @@ $get_result = $get_stmt->fetchAll();
       <?php endforeach; ?>
    
   </div>
+
+
+<?php if ($success != null): ?>
+
+  <p style="color: #0F0;"><?= $success ?></p>
+
+<?php endif; ?>
 
 
 <?php if (!empty($_GET["err"]) && $_GET["err"] == "name"): ?>
