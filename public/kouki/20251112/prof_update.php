@@ -283,9 +283,9 @@ $get_result = $get_stmt->fetchAll();
 
         <?php if ($profile["img_name"] != null): ?>
 
-          <div class="image_radius">
+          <div class="image-radius">
 
-            <img src="/upload/image/<?= htmlspecialchars($profile["img_name"]) ?>" />
+            <img src="/upload/image/<?= htmlspecialchars($profile["img_name"]) ?>" style="display: none; height: 5em; width: 5em; border-radius: 50%; object-fit: cover;" />
 
           </div>
 
