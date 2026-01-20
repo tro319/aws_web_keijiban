@@ -168,12 +168,98 @@ if (!empty($_POST["user_name"]) && !empty($_POST["email"]) && !empty($_POST["pas
 
 	</form>
 
+	<canvas id="canvas" style="display: none;"></canvas>
+
+	<h2 class="sub-title">選択された画像</h2>
+
+	<div class="image-radius">
+
+		<?php if(empty($_SESSION["prof_img"])): ?>
+	
+	    	<p>現在未設定</p>
+	
+	  	<?php elseif(!empty($_SESSION["prof_img"])): ?>
+	    
+	    	<img src="/upload/image/<?= htmlspecialchars($_SESSION["prof_img"]) ?>" style="height: 5em; width: 5em; border-radius: 50%; object-fit: cover;">
+	
+	
+	  	<?php endif; ?>
+		
+	</div>
+
 
 <?php if (!empty($_GET["err"]) && $_GET["err"] == 1): ?>
 
   <p style="color: #F00;">入力されたメールアドレスはすでに登録されています。</p>
 
 <?php endif; ?>
+
+
+<script>
+
+
+document.querySelector("button[type='submit']").addEventListener("click", async(e) => {
+
+  e.preventDefault();
+
+  const file = document.getElementById("image_input").files[0];
+	
+  const bitmap = await createImageBitmap(file);
+
+  
+  const max = 1000;
+
+  let w = bitmap.width;
+
+  let h = bitmap.height;
+
+  if (w > h && w > max) {
+
+    h = h * ( max / w );
+
+    w = max;
+
+  } else if (h > max) {
+
+    w = w * ( max / h );
+    
+    h = max;
+
+  }
+
+  const canvas = document.getElementById("canvas");
+
+  canvas.width = w;
+
+  canvas.height = h;  
+
+
+  const ctx = canvas.getContext("2d");
+
+  ctx.drawImage(bitmap, 0, 0, w, h);
+
+
+  canvas.toBlob(async (blob) => {
+    
+    const formData = new FormData();
+
+    formData.append("image_file", blob, "upload.png");
+
+
+    await fetch("user_entry.php", {
+    
+      method: "POST",
+      body: formData
+
+    });
+
+    window.location.href = "user_entry.php";
+
+  }, "image/png", 0.9);
+
+});
+
+</script>
 
 
 
