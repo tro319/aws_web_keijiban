@@ -44,6 +44,30 @@ if (!$postResult) {
 
    <?php if (!empty($postResult)): ?>
 
+            <?php if ($postResult["pic_name1"] != null): ?>
+
+            <div class="images-cover post-images-cover">
+    
+                <ul class="images post-images">
+
+                    <li>
+
+                        <div class="image-radius">
+
+                
+                            <img src="/upload/image/<?= htmlspecialchars($postResult["pic_name1"]) ?>">
+
+                
+                        </div>
+            
+                    </li>
+
+                </ul>
+
+            </div>
+
+        <?php endif; ?>
+
 
     <p>投稿内容: <?= nl2br(htmlspecialchars($postResult["content"])) ?></p>
 
