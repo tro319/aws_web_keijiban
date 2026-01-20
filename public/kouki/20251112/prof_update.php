@@ -89,6 +89,9 @@ if (!empty($_POST["user_name"]) && !empty($_POST["email"])) {
 
 }
 
+var_dump($result_check);
+
+
   if (!empty($_POST["password"])) {
 
 
