@@ -256,13 +256,13 @@ $get_result = $get_stmt->fetchAll();
 
         <p>メールアドレス: <?= htmlspecialchars($profile["email"]) ?></p>
 
-        <?php if (!empty($profile["introd"])): ?>
+        <?php if ($profile["introd"] != null): ?>
 
           <p>自己紹介: <?= htmlspecialchars($profile["introd"]) ?></p>
 
         <?php endif; ?>
 
-        <?php if (!empty($profile["img_name"])): ?>
+        <?php if ($profile["img_name"] != null): ?>
 
           <div class="image_radius">
 
