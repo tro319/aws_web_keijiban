@@ -20,7 +20,7 @@ $sqlGet = "
         board_posts.id,
         board_posts.user_id,
         board_posts.content,
-        board_post.pic_name1,
+        board_posts.pic_name1,
         board_posts.created_at,
         users.name,
         users.img_name
