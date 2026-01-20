@@ -137,10 +137,10 @@ if (!empty($_POST["user_name"]) && !empty($_POST["email"])) {
       ":id" => $loginID,
 	  ]);
 
-      $success = "ユーザー情報更新が完了しました。";
+      
 	
 	  header("HTTP/1.1 303 See Other");
-	  header("Location: ./prof_update.php");
+	  header("Location: ./prof_update.php?result=success");
 	  return;
 
   
@@ -272,9 +272,9 @@ $get_result = $get_stmt->fetchAll();
   </div>
 
 
-<?php if (!empty($success)): ?>
+<?php if (!empty($_GET["result"]) && $_GET["result"] == "success"): ?>
 
-  <p style="color: #0F0;"><?= $success ?></p>
+  <p style="color: #0F0;">ユーザー情報更新が完了しました。</p>
 
 <?php endif; ?>
 
