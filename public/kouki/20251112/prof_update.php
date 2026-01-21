@@ -2,12 +2,11 @@
 session_start();
 
 
-// ログインチェック
 
-  $loginID = $_SESSION["login_id"] ?? "";
+  $loginID = $_SESSION["login_id"];
 
 
-  if ($loginID == "") {
+  if ($loginID == null) {
 
     header("HTTP/1.1 303 See Other");
     header("Location: ./login.php");
@@ -147,6 +146,7 @@ if (!empty($_POST["user_name"]) && !empty($_POST["email"])) {
 
 }
 
+
 $sql = "SELECT * FROM users WHERE id = :id";
 
 $stmt = $dbh->prepare($sql);
@@ -162,7 +162,7 @@ $getResult = $stmt->fetch();
 ?>
 
 
-<h1>ユーザー更新フォーム</h1>
+<h2 class="sub-title">ユーザー更新フォーム</h2>
 
 
 
@@ -251,6 +251,7 @@ $getResult = $stmt->fetch();
 
 	</form>
 
+
 	<h2 class="sub-title">選択された画像</h2>
 
 	<div class="image-radius">
@@ -299,7 +300,7 @@ $getResult = $stmt->fetch();
 
 
 
-<div class="link-text pre-link">
+<div class="link-texts">
 
 	<a href="login.php">ユーザーログインへ</a>
 

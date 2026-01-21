@@ -14,19 +14,19 @@ if (!empty($_POST["user_name"]) && !empty($_POST["email"]) && !empty($_POST["pas
 
   // メールアドレス重複チェック
   
-  $sql_email = "SELECT email FROM users WHERE email = :email";
+  $sqlEmail = "SELECT email FROM users WHERE email = :email";
 
-  $stmt_email = $dbh->prepare($sql_email);
+  $stmtEmail = $dbh->prepare($sqlEmail);
 
-  $stmt_email->execute([
+  $stmtEmail->execute([
     ":email" => $_POST["email"],
   
   ]);
 
-  $result_check = $stmt_email->fetch();
+  $emailCheck = $stmtEmail->fetch();
 
 
-  if (!empty($result_check)) {
+  if (!empty($emailCheck)) {
 
     $err = "メールアドレスが重複しています。";
 
@@ -85,18 +85,19 @@ if (!empty($_POST["user_name"]) && !empty($_POST["email"]) && !empty($_POST["pas
 
 	// INSERTする
 	
-	$insert_stmt = $dbh->prepare($sql);
+	$stmt = $dbh->prepare($sql);
 
-	$insert_stmt->execute([
+	$stmt->execute([
 		":user_name" => $_POST["user_name"],
 		":email" => $_POST["email"],
 		":password" => $hashPass,
 		":introd" => $introd,
 		":img" => $imageName,
 	]);
+
 	
 	header("HTTP/1.1 303 See Other");
-	header("Location: ./user_finish.php");
+	header("Location: ./login.php");
 	return;
 
 }
@@ -183,14 +184,14 @@ if (!empty($_POST["user_name"]) && !empty($_POST["email"]) && !empty($_POST["pas
 	    
 	    <img id="preview" style="display: none; height: 5em; width: 5em; border-radius: 50%; object-fit: cover;">
 
-		<canvas id="canvas" style="display: none;"></canvas>
+		  <canvas id="canvas" style="display: none;"></canvas>
 		
 	</div>
 
 
 
 
-<div class="link-text pre-link">
+<div class="link-texts">
 
 	<a href="login.php">ユーザーログインへ</a>
 

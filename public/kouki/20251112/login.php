@@ -42,7 +42,7 @@ if (!empty($_POST["email"]) && !empty($_POST["password"])) {
 
 
     header("HTTP/1.1 303 See Other");
-    header("Location: ./prof_show.php");
+    header("Location: ./timeline.php");
     exit;
 }
 ?>

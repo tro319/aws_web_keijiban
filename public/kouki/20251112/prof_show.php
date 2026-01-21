@@ -5,11 +5,11 @@ $dbh = new PDO("mysql:host=mysql;dbname=example_db", "root", "");
 
 $loginID = $_SESSION["login_id"];
 
-if (empty($loginID)) {
+if ($loginID == null) {
 
   header("HTTP/1.1 303 See Other");
   header("Location: ./login.php");
-  exit;
+  return;
 
 }
 
@@ -42,7 +42,7 @@ $profilePosts = $stmt->fetchAll();
   <h3 class="sub_title">登録情報</h3>
 
 
-  <div class="user_info" style="padding: 25px 35px; margin: 30px 45px;">
+  <div class="user-info" style="padding: 25px 35px; margin: 30px 45px;">
 
  
   
@@ -50,7 +50,7 @@ $profilePosts = $stmt->fetchAll();
       
       <?php if(!empty($profile["img_name"])): ?>
 
-        <div class="prof_img">
+        <div class="image-radius">
 
           <img src="/upload/image/<?= htmlspecialchars(basename($profile["img_name"])) ?>" style="width: 5em; height: 5em; object-fit:cover; border-radius: 50%;" />   
 
@@ -73,13 +73,13 @@ $profilePosts = $stmt->fetchAll();
   </div>
 
 
-  <h3 class="sub_title">My投稿一覧</h3>
+  <h3 class="sub-title">My投稿一覧</h3>
 
   <?php if(!empty($profilePosts)): ?>
 
     <?php foreach($profilePosts as $profPost): ?>
 
-      <div class="post_info">
+      <div class="post-info">
 
         <p><?= nl2br(htmlspecialchars($profPost["content"])) ?></p>
         <p><?= htmlspecialchars($profPost["created_at"]) ?></p>
@@ -90,7 +90,7 @@ $profilePosts = $stmt->fetchAll();
 
   <?php endif; ?>
 
-  <div class="link-text edit_link">
+  <div class="link-texts">
 
     <a href="prof_update.php">プロフィール編集へ</a>
 

@@ -1,17 +1,19 @@
 <?php
 session_start();
 
-$loginID = $_SESSION["login_id"] ?? "";
+$loginID = $_SESSION["login_id"];
+
+if ($loginID == null) {
+
+  header("HTTP/1.1 303 See Other");
+  header("Location: ./login.php");
+  return;
+
+}
+
 
 $dbh = new PDO("mysql:host=mysql;dbname=example_db", "root", "");
 
-if ($loginID == "") {
-    
-    header("HTTP/1.1 303 See Other");
-    header("Location: login.php");
-    return;
-    
-}
 
 // 投稿処理
 if (!empty($_POST["content"])) {
@@ -47,8 +49,8 @@ if (isset($_FILES["image_file1"]) && $_FILES["image_file1"]["error"] == 0) {
 if (!empty($_POST)) {
 
     $sql = "INSERT INTO board_posts (user_id, content, pic_name1) VALUES (:user_id, :content, :img1)";
-    $insert_stmt = $dbh->prepare($sql);
-    $insert_stmt->execute([
+    $stmt = $dbh->prepare($sql);
+    $stmt->execute([
         ":user_id" => $loginID,
         ":content" => $content,
         ":img1" => $imageName1,
@@ -57,7 +59,7 @@ if (!empty($_POST)) {
     $_SESSION["post_success"] = "投稿しました。";
 
     header("HTTP/1.1 303 See Other");
-    header("Location: board.php");
+    header("Location: ./board.php");
     return;
     
 }
