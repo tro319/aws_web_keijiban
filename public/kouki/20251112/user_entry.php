@@ -165,7 +165,7 @@ if (!empty($_POST)) {
 
 			<span>メールアドレス</span>
 	
-			<input type"email" name="email" maxlength="256" required />
+			<input type="email" name="email" maxlength="256" required />
 
 		</label>
 
