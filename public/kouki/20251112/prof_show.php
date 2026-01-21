@@ -1,8 +1,6 @@
 <?php
 session_start();
 
-$dbh = new PDO("mysql:host=mysql;dbname=example_db", "root", "");
-
 $loginID = $_SESSION["login_id"];
 
 if ($loginID == null) {
@@ -13,6 +11,8 @@ if ($loginID == null) {
 
 }
 
+
+$dbh = new PDO("mysql:host=mysql;dbname=example_db", "root", "");
 
 $sql = "SELECT * FROM users WHERE id = :id";
 
