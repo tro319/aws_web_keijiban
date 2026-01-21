@@ -6,6 +6,11 @@ session_start();
 $dbh = new PDO("mysql:host=mysql;dbname=example_db", "root", "");
 
 
+// ここを追加するだけ
+$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
+
+
+
 if (!empty($_POST["user_name"]) && !empty($_POST["email"]) && !empty($_POST["password"])) {
 
 
