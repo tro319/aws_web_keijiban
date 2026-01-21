@@ -60,10 +60,6 @@ if (!empty($_POST["user_name"]) && !empty($_POST["email"]) && !empty($_POST["pas
 	
   $hashPass = password_hash($_POST["password"], PASSWORD_DEFAULT);
 
-}
-
-
-
 	// 画像取得
 
 	$imageName = null;
@@ -99,7 +95,7 @@ if (!empty($_POST["user_name"]) && !empty($_POST["email"]) && !empty($_POST["pas
 	}
 
 
-if (!empty($_POST)) {
+
 	
 
 	// sql
@@ -124,7 +120,13 @@ if (!empty($_POST)) {
 	return;
 
 
+
+
 }
+
+
+
+
 
 
 ?>
