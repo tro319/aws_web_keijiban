@@ -9,8 +9,32 @@ $err = null;
 
 $dbh = new PDO("mysql:host=mysql;dbname=example_db", "root", "");
 
+
 if (!empty($_POST["user_name"]) && !empty($_POST["email"]) && !empty($_POST["password"])) {
 
+
+  // ユーザーネーム重複チェック
+  
+  $sqlName = "SELECT name FROM users WHERE name = :user_name";
+
+  $stmtName = $dbh->prepare($sqlName);
+
+  $stmtName->execute([
+
+	":user_name" => $_POST["user_name"],
+
+  ]); 
+
+
+  $nameCheck = $stmtName->fetch();
+
+  if (!empty($nameCheck)) {
+
+	  header("HTTP/1.1 303 See Other");
+	  header("Location: ./prof_update.php?err=name");  
+		return;
+	  
+  }
 
   // メールアドレス重複チェック
   
@@ -19,7 +43,8 @@ if (!empty($_POST["user_name"]) && !empty($_POST["email"]) && !empty($_POST["pas
   $stmtEmail = $dbh->prepare($sqlEmail);
 
   $stmtEmail->execute([
-    ":email" => $_POST["email"],
+
+	":email" => $_POST["email"],
   
   ]);
 
@@ -28,21 +53,20 @@ if (!empty($_POST["user_name"]) && !empty($_POST["email"]) && !empty($_POST["pas
 
   if (!empty($emailCheck)) {
 
-    $err = "メールアドレスが重複しています。";
-
-    if (!empty($err)) {
       header("HTTP/1.1 303 See Other");
-      header("Location: ./user_entry.php?err=1");
+      header("Location: ./prof_update.php?err=email");
       return;
 
-
-    }
 	  
   }
 
-	// パスワードハッシュ化
+  // パスワードハッシュ化
 	
-	$hashPass = password_hash($_POST["password"], PASSWORD_DEFAULT);
+  $hashPass = password_hash($_POST["password"], PASSWORD_DEFAULT);
+
+}
+
+
 
 	// 画像取得
 
