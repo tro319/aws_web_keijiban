@@ -11,7 +11,7 @@ session_start();
 
     header("HTTP/1.1 303 See Other");
     header("Location: ./login.php");
-	return;
+  	return;
 
   }
 
@@ -24,11 +24,11 @@ if (!empty($_POST["user_name"]) && !empty($_POST["email"])) {
 
   // ユーザーネーム重複チェック
   
-  $sql_name = "SELECT name FROM users WHERE name = :user_name AND id != :id";
+  $sqlName = "SELECT name FROM users WHERE name = :user_name AND id != :id";
 
-  $stmt_name = $dbh->prepare($sql_name);
+  $stmtName = $dbh->prepare($sqlName);
 
-  $stmt_name->execute([
+  $stmtName->execute([
 
     ":user_name" => $_POST["user_name"],
     ":id" => $loginID,
@@ -36,34 +36,34 @@ if (!empty($_POST["user_name"]) && !empty($_POST["email"])) {
   ]); 
 
 
-  $name_check = $stmt_name->fetch();
+  $nameCheck = $stmtName->fetch();
 
-  if (!empty($name_check)) {
+  if (!empty($nameCheck)) {
 
       header("HTTP/1.1 303 See Other");
       header("Location: ./prof_update.php?err=name");  
-	  return;
+	    return;
 
 
   }
 
   // メールアドレス重複チェック
   
-  $sql_email = "SELECT email FROM users WHERE email = :email AND id != :id";
+  $sqlEmail = "SELECT email FROM users WHERE email = :email AND id != :id";
 
-  $stmt_email = $dbh->prepare($sql_email);
+  $stmtEmail = $dbh->prepare($sqlEmail);
 
-  $stmt_email->execute([
+  $stmtEmail->execute([
 
     ":email" => $_POST["email"],
     ":id" => $loginID,
   
   ]);
 
-  $email_check = $stmt_email->fetch();
+  $emailCheck = $stmtEmail->fetch();
 
 
-  if (!empty($email_check)) {
+  if (!empty($emailCheck)) {
 
       header("HTTP/1.1 303 See Other");
       header("Location: ./prof_update.php?err=email");
@@ -126,9 +126,9 @@ if (!empty($_POST["user_name"]) && !empty($_POST["email"])) {
 
 	  // UPDATEする
 	
-	  $update_stmt = $dbh->prepare($sql);
+	  $stmt = $dbh->prepare($sql);
 
-	  $update_stmt->execute([
+	  $stmt->execute([
 	  	":user_name" => $_POST["user_name"],
 		  ":email" => $_POST["email"],
 		  ":password" => $hashPass,
@@ -149,15 +149,15 @@ if (!empty($_POST["user_name"]) && !empty($_POST["email"])) {
 
 $sql = "SELECT * FROM users WHERE id = :id";
 
-$get_stmt = $dbh->prepare($sql);
+$stmt = $dbh->prepare($sql);
 
-$get_stmt->execute([
+$stmt->execute([
   
   ":id" => $loginID,
 
 ]);
 
-$get_result = $get_stmt->fetchAll();
+$getResult = $stmt->fetch();
 
 ?>
 
@@ -194,7 +194,7 @@ $get_result = $get_stmt->fetchAll();
 
 			<span>名前</span>
 
-			<input type="text" name="user_name" maxlength="50"  required />
+			<input type="text" name="user_name" maxlength="50" <?php if (!empty($getResult)): ?> value="<?= htmlspecialchars($getResult["name"]) ?>" <?php endif; ?> required />
 			
 
 		</label>
@@ -207,7 +207,7 @@ $get_result = $get_stmt->fetchAll();
 
 			<span>メールアドレス</span>
 	
-			<input type="email" name="email" maxlength="256" required />
+			<input type="email" name="email" maxlength="256" <?php if (!empty($getResult)): ?> value="<?= htmlspecialchars($getResult["email"]) ?>" <?php endif; ?> required />
 
 		</label>
 
@@ -230,7 +230,7 @@ $get_result = $get_stmt->fetchAll();
 
 			<span>自己紹介</span>
 
-			<textarea name="introd" maxlength="1000"></textarea>
+			<textarea name="introd" maxlength="1000"><?php if (!empty($getResult)): ?> <?= htmlspecialchars($getResult["introd"]) ?> <?php endif; ?></textarea>
 				
 		</label>
 
@@ -269,31 +269,31 @@ $get_result = $get_stmt->fetchAll();
   <div class="user-info">
 
 
-      <?php foreach ($get_result as $profile): ?>
+      <?php if (!empty($getResult)): ?>
 
-	      <?php if ($profile["img_name"] != null): ?>
+	      <?php if ($getResult["img_name"] != null): ?>
 
           <div class="image-radius">
 
-            <img src="/upload/image/<?= htmlspecialchars($profile["img_name"]) ?>" style="height: 5em; width: 5em; border-radius: 50%; object-fit: cover;" />
+            <img src="/upload/image/<?= htmlspecialchars($getResult["img_name"]) ?>" style="height: 5em; width: 5em; border-radius: 50%; object-fit: cover;" />
 
           </div>
 
         <?php endif; ?>
 
-        <p>ユーザーネーム: <?= htmlspecialchars($profile["name"]) ?></p>
+        <p>ユーザーネーム: <?= htmlspecialchars($getResult["name"]) ?></p>
 
-        <p>メールアドレス: <?= htmlspecialchars($profile["email"]) ?></p>
+        <p>メールアドレス: <?= htmlspecialchars($getResult["email"]) ?></p>
 
-        <?php if ($profile["introd"] != null): ?>
+        <?php if ($getResult["introd"] != null): ?>
 
-          <p>自己紹介: <?= htmlspecialchars($profile["introd"]) ?></p>
+          <p>自己紹介: <?= htmlspecialchars($getResult["introd"]) ?></p>
 
         <?php endif; ?>
 
 
 
-      <?php endforeach; ?>
+      <?php endif; ?>
    
   </div>
 

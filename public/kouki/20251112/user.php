@@ -1,7 +1,15 @@
 <?php
 session_start();
 
-$loginId = $_SESSION["login_id"] ?? "";
+$loginID = $_SESSION["login_id"];
+
+
+if ($loginID == null) {
+
+  header("HTTP/1.1 303 See Other");
+  header("Location: ./login.php");
+
+}
 
 $dbh = new PDO("mysql:host=mysql;dbname=example_db", "root", "");
 
@@ -12,27 +20,27 @@ if (empty($_GET["id"])) {
 
 }
 
-$userId = intval($_GET["id"]);
+$userID = intval($_GET["id"]);
 
 $sql = "SELECT * FROM users WHERE id = :id";
 
 $stmt = $dbh->prepare($sql);
 
-$stmt->execute([":id" => $userId]);
+$stmt->execute([":id" => $userID]);
 
 $userResult = $stmt->fetch();
 
 $isFollowing = false;
 
-if (!empty($loginId) && $loginId != $userId) {
+if (!empty($loginID) && $loginID != $userID) {
 
   $sql = "SELECT 1 FROM followings WHERE follower_id = :my_id AND follow_id = :target_id";
 
   $stmt = $dbh->prepare($sql);
 
   $stmt->execute([
-    ":my_id" => $loginId,
-    ":target_id" => $userId
+    ":my_id" => $loginID,
+    ":target_id" => $userID
   ]);
 
   $isFollowing = $stmt->fetch() ? true : false;
@@ -45,7 +53,7 @@ $sql = "SELECT * FROM board_posts JOIN users ON board_posts.user_id = users.id W
 
 $stmt = $dbh->prepare($sql);
 
-$stmt->execute([":id" => $userId]);
+$stmt->execute([":id" => $userID]);
 
 $userPosts = $stmt->fetchAll();
 
@@ -84,12 +92,12 @@ if (!$userResult) {
 </div>
 
 
-<?php if (!empty($loginId) && $loginId != $userId): ?>
+<?php if ($loginID != $userID): ?>
 
 
   <div style="follow_btn_cover">
 
-    <button id="follow_btn" data-following="<?= $isFollowing ? '1' : '0' ?>" data-target="<?= $userId ?>"><?= $isFollowing ? "フォローをやめる" : "フォローする" ?></button>
+    <button id="follow_btn" data-following="<?= $isFollowing ? '1' : '0' ?>" data-target="<?= $userID ?>"><?= $isFollowing ? "フォローをやめる" : "フォローする" ?></button>
 
   </div>
 

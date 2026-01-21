@@ -3,9 +3,9 @@ session_start();
 
 $dbh = new PDO("mysql:host=mysql;dbname=example_db", "root", "");
 
-$loginId = $_SESSION["login_id"];
+$loginID = $_SESSION["login_id"];
 
-if (empty($loginId)) {
+if (empty($loginID)) {
 
   header("HTTP/1.1 303 See Other");
   header("Location: ./login.php");
@@ -18,7 +18,7 @@ $sql = "SELECT * FROM users WHERE id = :id";
 
 $stmt = $dbh->prepare($sql);
 
-$stmt->execute([":id" => $loginId]);
+$stmt->execute([":id" => $loginID]);
 
 $profile = $stmt->fetch();
 
@@ -27,7 +27,7 @@ $sql = "SELECT * FROM board_posts WHERE user_id = :user_id ORDER BY created_at D
 
 $stmt = $dbh->prepare($sql);
 
-$stmt->execute(["user_id" => $loginId]);
+$stmt->execute(["user_id" => $loginID]);
 
 $profilePosts = $stmt->fetchAll();
 
@@ -93,5 +93,11 @@ $profilePosts = $stmt->fetchAll();
   <div class="link-text edit_link">
 
     <a href="prof_update.php">プロフィール編集へ</a>
+
+    <a href="post.php">投稿する</a>
+
+    <a href="board.php">投稿一覧へ</a>
+
+    <a href="timeline.php">タイムラインへ</a>
 
   </div>
