@@ -18,7 +18,7 @@ session_start();
 
 $dbh = new PDO("mysql:host=mysql;dbname=example_db", "root", "");
 
-if (!empty($_POST["user_name"]) && !empty($_POST["email"])) {
+if (!empty($_POST)) {
 
 
   // ユーザーネーム重複チェック
@@ -71,7 +71,7 @@ if (!empty($_POST["user_name"]) && !empty($_POST["email"])) {
 	  
   }
 
-}
+
 
   if (!empty($_POST["password"])) {
 
@@ -86,7 +86,7 @@ if (!empty($_POST["user_name"]) && !empty($_POST["email"])) {
 
 	$imageName = null;
 
-	if (isset($_FILES["image_file"]) && $_FILES["image_file"]["error"] == 0) {
+	if ($_FILES["image_file"]["error"] == 0) {
 
   		$tmp = $_FILES["image_file"]["tmp_name"];
 
@@ -117,7 +117,7 @@ if (!empty($_POST["user_name"]) && !empty($_POST["email"])) {
 	}
 
 
-  if (!empty($_POST)) {	
+  	
 
 	  // sql
 	
@@ -230,7 +230,7 @@ $getResult = $stmt->fetch();
 
 			<span>自己紹介</span>
 
-			<textarea name="introd" maxlength="1000"><?php if (!empty($getResult)): ?> <?= htmlspecialchars($getResult["introd"]) ?> <?php endif; ?></textarea>
+			<textarea name="introd" maxlength="1000"><?php if (!empty($getResult)): ?><?= htmlspecialchars($getResult["introd"] ?? "") ?><?php endif; ?></textarea>
 				
 		</label>
 

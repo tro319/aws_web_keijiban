@@ -81,6 +81,16 @@ $profilePosts = $stmt->fetchAll();
 
       <div class="post-info">
 
+        <?php if ($profPost["pic_name1"] != null): ?>
+
+        <div class="image-box">
+
+          <img src="/upload/image/<?= $profPost["pic_name1"] ?>" />
+
+        </div>        
+
+        <?php endif; ?>
+
         <p><?= nl2br(htmlspecialchars($profPost["content"])) ?></p>
         <p><?= htmlspecialchars($profPost["created_at"]) ?></p>
 

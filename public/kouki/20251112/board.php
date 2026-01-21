@@ -38,7 +38,6 @@ $posts = $stmt->fetchAll();
 ?>
 
 
-<h1>掲示板</h1>
 
 <?php if (!empty($_SESSION["post_success"])): ?>
 
@@ -50,19 +49,24 @@ $posts = $stmt->fetchAll();
 
 <?php endif; ?>
 
-<!-- 投稿フォームは別ページ -->
-<p><a href="post.php">▶ 投稿する</a></p>
+
+<div class="link-texts">
+
+  <!-- 投稿フォームは別ページ -->
+  <a href="post.php">▶ 投稿する</a>
+
+</div>
 
 <hr>
 
+<h2 class="sub-title">投稿一覧</h2>
 
-<h2>投稿一覧</h2>
 
 <div class="inner">
 
 <?php foreach ($posts as $post): ?>
 
-    <div class="content" style="border:1px solid #ccc; padding:1em; margin-bottom:1em;">
+    <div class="post-info" style="border:1px solid #ccc; padding:1em; margin-bottom:1em;">
 
         <!-- 投稿内容 -->
 

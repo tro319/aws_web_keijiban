@@ -101,7 +101,18 @@ if (!$userResult) {
 
   </div>
 
+
+ <?php elseif ($loginID == $userID): ?>
+
+
+  <div class="link-texts">
+
+    <a href="prof_show.php">プロフィールへ</a>
+
+  </div>
+
 <?php endif; ?>
+
 
 
 
@@ -114,6 +125,16 @@ if (!$userResult) {
   <?php foreach ($userPosts as $post): ?>
 
     <div class="article board_info" style="padding: 25px 40px; marign: 30px auto;">
+
+     <?php if ($post["pic_name1"] != null): ?> 
+
+      <div class="image-box">
+
+          <img src="/upload/image/<?= $post["pic_name1"] ?>" />
+
+      </div>
+
+      <?php endif; ?>
 
       <p>投稿文: <?= nl2br(htmlspecialchars($post["content"])) ?></p>
 

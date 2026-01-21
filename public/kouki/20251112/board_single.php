@@ -44,12 +44,22 @@ if (!$postResult) {
 
 ?>
 
+<div class="link-texts">
+
+  <a href="post.php">投稿する</a>
+
+</div>
+
+<hr>
+
 <!-- 投稿情報 一件分 -->
 
 
-<h2 class="page_title">投稿情報</h2>
+<h2 class="sub-title">投稿詳細</h2>
 
-<div class="article post_info" style="padding: 25px 40px;">
+<div class="inner">
+
+<div class="article post-info" style="padding: 25px 40px;">
 
    <?php if (!empty($postResult)): ?>
 
@@ -92,6 +102,8 @@ if (!$postResult) {
 
   <?php endif; ?>
 
+
+</div>
 
 </div>
 

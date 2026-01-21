@@ -15,6 +15,8 @@ if ($loginID == null) {
 $dbh = new PDO("mysql:host=mysql;dbname=example_db", "root", "");
 
 
+if (!empty($_POST)) {
+
 // 投稿処理
 if (!empty($_POST["content"])) {
 
@@ -22,11 +24,14 @@ if (!empty($_POST["content"])) {
 
 }
 
+
+
+
 // 画像取得
 
 $imageName = null;
 
-if (isset($_FILES["image_file1"]) && $_FILES["image_file1"]["error"] == 0) {
+if ($_FILES["image_file1"]["error"] == 0) {
 
     $tmp = $_FILES["image_file1"]["tmp_name"];
 
@@ -46,7 +51,6 @@ if (isset($_FILES["image_file1"]) && $_FILES["image_file1"]["error"] == 0) {
     
 }
 
-if (!empty($_POST)) {
 
     $sql = "INSERT INTO board_posts (user_id, content, pic_name1) VALUES (:user_id, :content, :img1)";
     $stmt = $dbh->prepare($sql);

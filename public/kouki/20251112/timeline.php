@@ -33,20 +33,22 @@ $posts = $stmt->fetchAll();
 ?>
 
 
-<h1>タイムライン</h1>
+<div class="link-texts">
 
+  <!-- 投稿フォームは別ページ -->
+  <a href="post.php">▶ 投稿する</a>
 
-<!-- 投稿フォームは別ページ -->
-<p><a href="post.php">▶ 投稿する</a></p>
+</div>
 
 <hr>
 
-<h2>投稿一覧</h2>
+<h2 class="sub-title">タイムライン</h2>
 
 <div class="inner">
 
 <?php foreach ($posts as $post): ?>
-    <div class="content" style="border:1px solid #ccc; padding:1em; margin-bottom:1em;">
+
+    <div class="post-info" style="border:1px solid #ccc; padding:1em; margin-bottom:1em;">
 
         <!-- 投稿内容 -->
 
