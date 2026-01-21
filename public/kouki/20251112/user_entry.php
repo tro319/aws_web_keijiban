@@ -1,10 +1,6 @@
 <?php
 session_start();
 
-// エラー有無格納変数初期化
-
-$err = null; 
-
 // DBに接続
 
 $dbh = new PDO("mysql:host=mysql;dbname=example_db", "root", "");
@@ -31,7 +27,7 @@ if (!empty($_POST["user_name"]) && !empty($_POST["email"]) && !empty($_POST["pas
   if (!empty($nameCheck)) {
 
 	  header("HTTP/1.1 303 See Other");
-	  header("Location: ./prof_update.php?err=name");  
+	  header("Location: ./user_entry.php?err=name");  
 		return;
 	  
   }
@@ -54,7 +50,7 @@ if (!empty($_POST["user_name"]) && !empty($_POST["email"]) && !empty($_POST["pas
   if (!empty($emailCheck)) {
 
       header("HTTP/1.1 303 See Other");
-      header("Location: ./prof_update.php?err=email");
+      header("Location: ./user_entry.php?err=email");
       return;
 
 	  
@@ -131,11 +127,19 @@ if (!empty($_POST["user_name"]) && !empty($_POST["email"]) && !empty($_POST["pas
 
 <h2 class="sub-title">ユーザー登録</h2>
 
-<?php if (!empty($_GET["err"]) && $_GET["err"] == 1): ?>
+<?php if (!empty($_GET["err"]) && $_GET["err"] == "name"): ?>
+
+  <p style="color: #F00;">入力されたユーザーネームはすでに登録されています。</p>
+
+<?php endif; ?>
+
+
+<?php if (!empty($_GET["err"]) && $_GET["err"] == "email"): ?>
 
   <p style="color: #F00;">入力されたメールアドレスはすでに登録されています。</p>
 
 <?php endif; ?>
+
 
 	<form method="post" enctype="multipart/form-data">
 
