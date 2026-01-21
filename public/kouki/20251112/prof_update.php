@@ -37,7 +37,7 @@ if (!empty($_POST["user_name"]) && !empty($_POST["email"])) {
 
   $nameCheck = $stmtName->fetch();
 
-  if (!empty($nameCheck)) {
+  if ($nameCheck != null) {
 
       header("HTTP/1.1 303 See Other");
       header("Location: ./prof_update.php?err=name");  
@@ -62,7 +62,7 @@ if (!empty($_POST["user_name"]) && !empty($_POST["email"])) {
   $emailCheck = $stmtEmail->fetch();
 
 
-  if (!empty($emailCheck)) {
+  if ($emailCheck != null) {
 
       header("HTTP/1.1 303 See Other");
       header("Location: ./prof_update.php?err=email");
