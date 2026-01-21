@@ -29,11 +29,11 @@ if (!empty($_POST["user_name"]) && !empty($_POST["email"]) && !empty($_POST["pas
 
   $nameCheck = $stmtName->fetch();
 
-  if (!empty($nameCheck)) {
+  if ($nameCheck != null) {
 
 	  header("HTTP/1.1 303 See Other");
 	  header("Location: ./user_entry.php?err=name");  
-		return;
+	  return;
 	  
   }
 
@@ -52,7 +52,7 @@ if (!empty($_POST["user_name"]) && !empty($_POST["email"]) && !empty($_POST["pas
   $emailCheck = $stmtEmail->fetch();
 
 
-  if (!empty($emailCheck)) {
+  if ($emailCheck != null) {
 
       header("HTTP/1.1 303 See Other");
       header("Location: ./user_entry.php?err=email");
