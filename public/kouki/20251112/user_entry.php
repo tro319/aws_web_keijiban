@@ -97,6 +97,9 @@ if (!empty($_POST["user_name"]) && !empty($_POST["email"]) && !empty($_POST["pas
 		$introd = htmlspecialchars($_POST["introd"]);
 
 	}
+
+
+if (!empty($_POST)) {
 	
 
 	// sql
@@ -120,7 +123,9 @@ if (!empty($_POST["user_name"]) && !empty($_POST["email"]) && !empty($_POST["pas
 	header("Location: ./login.php");
 	return;
 
+
 }
+
 
 ?>
 
