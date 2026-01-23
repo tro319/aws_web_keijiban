@@ -134,7 +134,13 @@ require("./header.php");
 
     <div class="post-info">
 
+                    <div class="images-cover post-images-cover">
+    
+                <ul class="images post-images">
+
      <?php if ($post["pic_name1"] != null): ?> 
+
+                  <li>
 
       <div class="image-box">
 
@@ -142,7 +148,13 @@ require("./header.php");
 
       </div>
 
+                    </li>
+
       <?php endif; ?>
+
+                </ul>
+
+                    </div>
 
       <p>投稿文: <?= nl2br(htmlspecialchars($post["content"])) ?></p>
 
