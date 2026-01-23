@@ -159,10 +159,15 @@ $stmt->execute([
 
 $getResult = $stmt->fetch();
 
+
+require("./read.php");
+require("./header.php");
 ?>
 
 
-<h2 class="sub-title">ユーザー更新フォーム</h2>
+<div class="container">
+
+<h1 class="page-title">プロフィール更新フォーム</h1>
 
 
 
@@ -188,7 +193,7 @@ $getResult = $stmt->fetch();
 
 
 
-	<form method="post" enctype="multipart/form-data">
+	<form method="post" enctype="multipart/form-data" class="form edit-form">
 
 		<label>
 
@@ -298,12 +303,6 @@ $getResult = $stmt->fetch();
    
   </div>
 
-
-
-<div class="link-texts">
-
-	<a href="login.php">ユーザーログインへ</a>
-
 </div>
 
 
@@ -373,5 +372,10 @@ $getResult = $stmt->fetch();
 
 </script>
 
+
+<?php
+require("./end.php");
+
+?>
 
 

@@ -32,14 +32,16 @@ $stmt->execute(["user_id" => $loginID]);
 $profilePosts = $stmt->fetchAll();
 
 
-
+require("./read.php");
+require("./header.php");
 ?>
 
+<div class="container">
 
-<h2 class="page_title">プロフィール</h2>
+<h1 class="page-title">プロフィール</h1>
 
 
-  <h3 class="sub_title">登録情報</h3>
+  <h2 class="sub-title">プロフィール情報</h2>
 
 
   <div class="user-info" style="padding: 25px 35px; margin: 30px 45px;">
@@ -68,12 +70,21 @@ $profilePosts = $stmt->fetchAll();
 
       <?php endif; ?>
 
-    <?php endif; ?>
+     <?php endif; ?>
+
+      <div class="edit-btn">
+
+        <a href="prof_update.php">プロフィール編集</a>
+
+      </div>
 
   </div>
 
 
-  <h3 class="sub-title">My投稿一覧</h3>
+
+  <h2 class="sub-title">My投稿一覧</h2>
+
+  <div class="post-infos">
 
   <?php if(!empty($profilePosts)): ?>
 
@@ -91,8 +102,15 @@ $profilePosts = $stmt->fetchAll();
 
         <?php endif; ?>
 
-        <p><?= nl2br(htmlspecialchars($profPost["content"])) ?></p>
-        <p><?= htmlspecialchars($profPost["created_at"]) ?></p>
+        <p>投稿文: <?= nl2br(htmlspecialchars($profPost["content"])) ?></p>
+
+        <p class="post-time">投稿日時: <?= htmlspecialchars($profPost["created_at"]) ?></p>
+
+        <div class="post-link">
+
+          <a href="board_single.php?id=<?= profPost["id"] ?>">投稿詳細へ</a>
+
+        </div>
 
       </div>
 
@@ -100,14 +118,15 @@ $profilePosts = $stmt->fetchAll();
 
   <?php endif; ?>
 
-  <div class="link-texts">
 
-    <a href="prof_update.php">プロフィール編集へ</a>
+</div>
 
-    <a href="post.php">投稿する</a>
+</div>
 
-    <a href="board.php">投稿一覧へ</a>
 
-    <a href="timeline.php">タイムラインへ</a>
+<?php
+require("./end.php");
 
-  </div>
+?>
+
+

@@ -42,24 +42,23 @@ if (!$postResult) {
 
 }
 
+
+require("./read.php");
+require("./header.php");
 ?>
 
-<div class="link-texts">
+<div class="container">
 
-  <a href="post.php">投稿する</a>
 
-</div>
+  <h1 class="page-title">投稿詳細</h1>
 
-<hr>
 
 <!-- 投稿情報 一件分 -->
 
 
-<h2 class="sub-title">投稿詳細</h2>
+<div class="posts-info">
 
-<div class="inner">
-
-<div class="article post-info" style="padding: 25px 40px;">
+<div class="post-info" style="padding: 25px 40px;">
 
    <?php if (!empty($postResult)): ?>
 
@@ -71,7 +70,7 @@ if (!$postResult) {
 
                     <li>
 
-                        <div class="image-radius">
+                        <div class="image-box">
 
                 
                             <img src="/upload/image/<?= htmlspecialchars($postResult["pic_name1"]) ?>">
@@ -88,9 +87,13 @@ if (!$postResult) {
         <?php endif; ?>
 
 
-    <p>投稿内容: <?= nl2br(htmlspecialchars($postResult["content"])) ?></p>
+    <p>投稿文: <?= nl2br(htmlspecialchars($postResult["content"])) ?></p>
 
-    <div class="user_link">
+    <p class="post-time">投稿日時: <?= nl2br(htmlspecialchars($postResult["created_at"])) ?></p>
+
+ 
+
+    <div class="user-link">
 
       <a href="user.php?id=<?= $postResult["user_id"] ?>">
 
@@ -107,12 +110,9 @@ if (!$postResult) {
 
 </div>
 
-
-
-
-<div class="link-texts">
-
-  <p><a href="board.php">◀ 掲示板に戻る</a></p>
-
 </div>
 
+<?php
+require("./end.php");
+
+?>

@@ -30,21 +30,18 @@ $stmt = $dbh->prepare($sql);
 $stmt->execute([":login_id" => $loginID]);
 $posts = $stmt->fetchAll();
 
+
+require("./read.php");
+require("./header.php");
 ?>
 
 
-<div class="link-texts">
+<div class="container">
 
-  <!-- 投稿フォームは別ページ -->
-  <a href="post.php">▶ 投稿する</a>
 
-</div>
+<h1 class="page-title">タイムライン</h1>
 
-<hr>
-
-<h2 class="sub-title">タイムライン</h2>
-
-<div class="inner">
+<div class="posts-info">
 
 <?php foreach ($posts as $post): ?>
 
@@ -61,7 +58,7 @@ $posts = $stmt->fetchAll();
 
                     <li>
 
-                        <div class="image-radius">
+                        <div class="image-box">
 
                 
                             <img src="/upload/image/<?= htmlspecialchars($post["pic_name1"]) ?>">
@@ -78,21 +75,25 @@ $posts = $stmt->fetchAll();
         <?php endif; ?>
 
         
-        <p><?= nl2br(htmlspecialchars($post["content"])) ?></p>
+        <p>投稿文: <?= nl2br(htmlspecialchars($post["content"])) ?></p>
 
-        <p style="font-size:0.8em; color:#666;">投稿日時: <?= $post["created_at"] ?></p>
+        <p class="post-time">投稿日時: <?= $post["created_at"] ?></p>
 
-        <div class="post_link">
+        <div class="post-link">
 
 
           <a href="board_single.php?id=<?= $post["id"] ?>">
 
-            <p>投稿詳細へ</p>
+            投稿詳細へ
 
-          </a>  
+          </a> 
+  
+        </div>  
           
 
           <hr>
+
+        <div class="user-link">
 
           <!-- 投稿者情報（アイコン＋名前）だけ表示してリンクにする -->
 
@@ -105,12 +106,12 @@ $posts = $stmt->fetchAll();
 
             <?php else: ?>
 
-                <div style="height:3em;width:3em;border-radius:50%;background:#ddd;display:inline-block;"></div>
+                <img src="/upload/image/dummy.png" >
 
             <?php endif; ?>
 
 
-            <strong><?= htmlspecialchars($post["name"]) ?></strong>
+            <span><?= htmlspecialchars($post["name"]) ?></span>
 
           </a>
 
@@ -119,5 +120,16 @@ $posts = $stmt->fetchAll();
     
     </div>
 
+    </hr>
    
 <?php endforeach; ?>
+
+</div>
+
+
+<?php
+require("./end.php");
+
+?>
+
+

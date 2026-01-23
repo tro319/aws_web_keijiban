@@ -65,14 +65,20 @@ if (!$userResult) {
 
 }
 
+
+require("./read.php");
+require("./header.php");
 ?>
+
+
+<div class="container">
 
 <!-- ユーザー情報 -->
 
 
-<h2 class="page_title">ユーザー情報</h2>
+<h1 class="page-title">ユーザー情報</h1>
 
-<div class="article user_info" style="padding: 25px 40px;">
+<div class="user-info" style="padding: 25px 40px;">
 
     <?php if (!empty($userResult["img_name"])): ?>
 
@@ -95,7 +101,7 @@ if (!$userResult) {
 <?php if ($loginID != $userID): ?>
 
 
-  <div style="follow_btn_cover">
+  <div class="follow-btn-cover">
 
     <button id="follow_btn" data-following="<?= $isFollowing ? '1' : '0' ?>" data-target="<?= $userID ?>"><?= $isFollowing ? "フォローをやめる" : "フォローする" ?></button>
 
@@ -105,9 +111,9 @@ if (!$userResult) {
  <?php elseif ($loginID == $userID): ?>
 
 
-  <div class="link-texts">
+  <div class="edit-btn">
 
-    <a href="prof_show.php">プロフィールへ</a>
+    <a href="prof_update.php">プロフィール編集</a>
 
   </div>
 
@@ -118,13 +124,15 @@ if (!$userResult) {
 
 <!-- ユーザーの投稿一覧 -->
 
-<h2 class="page_titile">ユーザーの投稿一覧</h2>
+<h2 class="sub-titile">ユーザーの投稿一覧</h2>
+
+<div class="post-infos">
 
 <?php if (!empty($userPosts)): ?>
 
   <?php foreach ($userPosts as $post): ?>
 
-    <div class="article board_info" style="padding: 25px 40px; marign: 30px auto;">
+    <div class="post-info" style="padding: 25px 40px; marign: 30px auto;">
 
      <?php if ($post["pic_name1"] != null): ?> 
 
@@ -138,21 +146,23 @@ if (!$userResult) {
 
       <p>投稿文: <?= nl2br(htmlspecialchars($post["content"])) ?></p>
 
-      <p class="board_datetime" style="font-size: 0.8rem; color: #666;">投稿日時: <?= $post["created_at"] ?></p>
-       
-      <hr>
+      <p class="post-time" style="font-size: 0.8rem; color: #666;">投稿日時: <?= $post["created_at"] ?></p>
 
+      <div class="post-link">
+  
+        <a href="board_single.php?id=<?= $post["id"] ?>">投稿詳細へ</a>
 
+      </div>       
 
     </div>
 
-  
+    <hr> 
 
   <?php endforeach; ?>
 
 <?php else: ?>
 
-  <div class="article board_info" style="padding: 25px 40px; margin: 30px auto;">
+  <div class="post-info" style="padding: 25px 40px; margin: 30px auto;">
 
     <p>投稿がありません</p>
 
@@ -160,9 +170,7 @@ if (!$userResult) {
 
 <?php endif; ?>
 
-<div class="back_link">
-
-  <p><a href="board.php">◀ 掲示板に戻る</a></p>
+</div>
 
 </div>
 
@@ -221,4 +229,10 @@ if (!$userResult) {
 
 </script>
 
-    
+   
+<?php
+require("./end.php");
+
+?> 
+
+

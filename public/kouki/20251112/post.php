@@ -67,12 +67,17 @@ if ($_FILES["image_file1"]["error"] == 0) {
     return;
     
 }
-    
+
+
+require("./read.php");    
+require("./header.php");
 ?>
 
-<h1>投稿フォーム</h1>
+<div class="container">
 
-<form method="POST" enctype="multipart/form-data">
+<h1 class="page-title">投稿フォーム</h1>
+
+<form method="POST" enctype="multipart/form-data" class="form post-form">
 
     <label>
 
@@ -124,8 +129,7 @@ if ($_FILES["image_file1"]["error"] == 0) {
 
 </div>
 
-
-<p><a href="board.php">▶ 掲示板に戻る</a></p>
+</div>
 
 
 <script>
@@ -195,3 +199,8 @@ if ($_FILES["image_file1"]["error"] == 0) {
 
 
 </script>
+
+<?php
+require("./end.php");
+
+?>
