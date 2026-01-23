@@ -49,12 +49,12 @@ require("./header.php");
 
         <!-- 投稿内容 -->
 
-
-        <?php if ($post["pic_name1"] != null): ?>
-
-            <div class="images-cover post-images-cover">
+                  <div class="images-cover post-images-cover">
     
                 <ul class="images post-images">
+
+
+        <?php if ($post["pic_name1"] != null): ?>
 
                     <li>
 
@@ -68,11 +68,11 @@ require("./header.php");
             
                     </li>
 
-                </ul>
+        <?php endif; ?>
+
+                                  </ul>
 
             </div>
-
-        <?php endif; ?>
 
         
         <p>投稿文: <?= nl2br(htmlspecialchars($post["content"])) ?></p>
