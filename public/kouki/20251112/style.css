@@ -3,6 +3,10 @@
   margin: 0;
 }
 
+body {
+  color: #555;
+}
+
 img {
   max-width: 100%;
 }
@@ -60,13 +64,23 @@ ul {
   color: #999;
 }
 
-.post-infos {
+.post-infos,
+.user-info,
+.form {
   max-width: 960px;
-  padding: 10px 15px;
+  padding: 15px 20px;
+  margin: 0 auto 60px auto;
+}
+
+.post-infos {
+  border-top: solid 1px #777;
 }
 
 .post-info {
-  padding: 5px 10px;
+  box-shadow: 0 0 7px #555;
+  border-radius: 15px;
+  padding: 15px 25px;
+  margin: 30px 30px 60px 30px;
 }
 
 .post-info p,
@@ -74,8 +88,40 @@ ul {
   margin: 10px 0;
 }
 
-.post-link {
+.post-info .post-link {
   margin: 15px 0;
+}
+
+.post-link a {
+  color: #6495ed;
+}
+
+.post-info .user-link {
+  margin: 15px 0;
+}
+
+.post-info .user-link a {
+  display: flex;
+  align-items: center;
+}
+
+.post-info .user-link a img,
+.user-info img {
+  width: 50px;
+  height: 50px;
+  box-shadow: 0 0 4px #888;
+  border-radius: 50%;
+}
+
+.user-info img {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 15px;
+}
+
+.post-info .user-link a span {
+  color: #555;
+  padding-left: 7px;
 }
 
 .images-cover {
@@ -98,7 +144,47 @@ ul {
 
 .images li .image-box {
   width: 100%;
+}
+
+.images li .image-box img {
   border-radius: 15px;
+}
+
+.edit-btn,
+.follow-btn-cover {
+  margin: 15px 0;
+}
+
+.edit-btn a,
+.follow-btn-cover button,
+.form .submit {
+  color: #555;
+  background-color: #ddd;
+  border-radius: 7px;
+  padding: 5px 10px;
+}
+
+.follow-btn-cover button {
+  border: none;
+}
+
+.form {
+  margin-bottom: 40px;
+}
+
+.form input,
+.form textarea,
+.form span {
+  color: #555;
+  margin: 10px 0;
+}
+
+.form textarea {
+  vertical-align: middle;
+}
+
+.form .submit {
+  border: none;
 }
 
 

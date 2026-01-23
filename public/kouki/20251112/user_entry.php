@@ -148,7 +148,7 @@ if (!empty($_POST["user_name"]) && !empty($_POST["email"]) && !empty($_POST["pas
 <?php endif; ?>
 
 
-	<form method="post" enctype="multipart/form-data">
+	<form method="post" enctype="multipart/form-data" class="form signup-form">
 
 		<label>
 
@@ -206,7 +206,7 @@ if (!empty($_POST["user_name"]) && !empty($_POST["email"]) && !empty($_POST["pas
   		<br>
 
 
-		<input type="submit" value="登録" />
+		<input type="submit" class="submit" value="登録" />
 
 
 	</form>

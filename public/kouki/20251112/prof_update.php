@@ -251,7 +251,7 @@ require("./header.php");
   	<br>
 
 
-		<input type="submit" value="更新" />
+		<input type="submit" class="submit" value="更新" />
 
 
 	</form>

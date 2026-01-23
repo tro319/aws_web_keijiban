@@ -58,7 +58,7 @@ require("./header.php");
 
 <div class="posts-info">
 
-<div class="post-info" style="padding: 25px 40px;">
+<div class="post-info">
 
    <?php if (!empty($postResult)): ?>
 

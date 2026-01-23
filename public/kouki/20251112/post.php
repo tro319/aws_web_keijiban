@@ -81,7 +81,7 @@ require("./header.php");
 
     <label>
 
-        <span>投稿文:</span>
+        <span>投稿文</span>
 
         <textarea name="content" required maxlength="1000" style="width: 300px; height: 100px;"></textarea>
         
@@ -99,7 +99,7 @@ require("./header.php");
 
     <br>
         
-    <input type="submit" value="投稿" />
+    <input type="submit" class="submit" value="投稿" />
 
 </form>
 

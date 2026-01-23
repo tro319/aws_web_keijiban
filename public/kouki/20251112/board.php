@@ -58,7 +58,7 @@ require("./header.php");
 
 <?php foreach ($posts as $post): ?>
 
-    <div class="post-info" style="border:1px solid #ccc; padding:1em; margin-bottom:1em;">
+    <div class="post-info">
 
         <!-- 投稿内容 -->
 
@@ -113,8 +113,7 @@ require("./header.php");
 
             <?php if (!empty($post["img_name"])): ?>
 
-                <img src="/upload/image/<?= htmlspecialchars($post["img_name"]) ?>"
-                    style="height: 3em; width: 3em; border-radius: 50%; object-fit: cover;">
+                <img src="/upload/image/<?= htmlspecialchars($post["img_name"]) ?>" >
 
             <?php else: ?>
 
@@ -130,7 +129,6 @@ require("./header.php");
 
     </div> 
 
-    <hr> 
 
 <?php endforeach; ?>
 

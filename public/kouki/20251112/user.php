@@ -124,7 +124,7 @@ require("./header.php");
 
 <!-- ユーザーの投稿一覧 -->
 
-<h2 class="sub-titile">ユーザーの投稿一覧</h2>
+<h2 class="sub-title">ユーザーの投稿一覧</h2>
 
 <div class="post-infos">
 
@@ -132,7 +132,7 @@ require("./header.php");
 
   <?php foreach ($userPosts as $post): ?>
 
-    <div class="post-info" style="padding: 25px 40px; marign: 30px auto;">
+    <div class="post-info">
 
      <?php if ($post["pic_name1"] != null): ?> 
 
@@ -156,7 +156,6 @@ require("./header.php");
 
     </div>
 
-    <hr> 
 
   <?php endforeach; ?>
 

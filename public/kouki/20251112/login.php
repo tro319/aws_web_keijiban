@@ -50,18 +50,30 @@ if (!empty($_POST["email"]) && !empty($_POST["password"])) {
 
 <h1>ログイン</h1>
 
-<form method="post">
+<form method="post" class="form login-form">
+
     <label>
+
         <span>メールアドレス</span>
+
         <input type="email" name="email" maxlength="256" required />
+
     </label>
+
     <br>
+
     <label>
+
         <span>パスワード</span>
+
         <input type="password" name="password" maxlength="30" minlength="4" required />
+
     </label>
+
     <br>
-    <input type="submit" value="ログイン" />
+
+    <input type="submit" class="submit" value="ログイン" />
+
 </form>
 
 <?php
