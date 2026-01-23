@@ -54,7 +54,7 @@ require("./header.php");
 
         <div class="image-radius">
 
-          <img src="/upload/image/<?= htmlspecialchars(basename($profile["img_name"])) ?>" style="width: 5em; height: 5em; object-fit:cover; border-radius: 50%;" />   
+          <img src="/upload/image/<?= htmlspecialchars(basename($profile["img_name"])) ?>" >   
 
         </div>
 

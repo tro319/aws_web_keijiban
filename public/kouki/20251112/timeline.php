@@ -41,7 +41,7 @@ require("./header.php");
 
 <h1 class="page-title">タイムライン</h1>
 
-<div class="posts-info">
+<div class="post-infos">
 
 <?php foreach ($posts as $post): ?>
 

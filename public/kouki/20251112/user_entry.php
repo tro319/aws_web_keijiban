@@ -125,14 +125,12 @@ if (!empty($_POST["user_name"]) && !empty($_POST["email"]) && !empty($_POST["pas
 }
 
 
-
-
-
-
+require("./read.php");
 ?>
 
+<div class="container">
 
-<h2 class="sub-title">ユーザー登録</h2>
+<h1 class="page-title">ユーザー登録フォーム</h1>
 
 <?php if (!empty($_GET["err"]) && $_GET["err"] == "name"): ?>
 
@@ -224,14 +222,16 @@ if (!empty($_POST["user_name"]) && !empty($_POST["email"]) && !empty($_POST["pas
 	</div>
 
 
+<hr>
 
+<div class="link-text">
 
-<div class="link-texts">
 
 	<a href="login.php">ユーザーログインへ</a>
 
 </div>
 
+</div>
 
 <script>
 
@@ -300,5 +300,10 @@ if (!empty($_POST["user_name"]) && !empty($_POST["email"]) && !empty($_POST["pas
 
 </script>
 
+
+<?php
+require("./end.php");
+
+?>
 
 

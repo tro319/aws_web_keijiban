@@ -45,10 +45,15 @@ if (!empty($_POST["email"]) && !empty($_POST["password"])) {
     header("Location: ./timeline.php");
     exit;
 }
+
+
+
+require("./read.php");
 ?>
 
+<div class="container">
 
-<h1>ログイン</h1>
+<h1 class="page-title">ユーザーログインフォーム</h1>
 
 <form method="post" class="form login-form">
 
@@ -76,6 +81,12 @@ if (!empty($_POST["email"]) && !empty($_POST["password"])) {
 
 </form>
 
+<div class="link-text">
+
+  <a href="user_entry.php">ユーザー登録へ</a>
+
+</div>
+
 <?php
 // リダイレクトで来たエラーを表示
 if (isset($_GET["er"])) {
@@ -85,4 +96,15 @@ if (isset($_GET["er"])) {
         echo "<p style='color:#F00;'>パスワードが間違っています。</p>";
     }
 }
+
 ?>
+
+</div>
+
+
+<?php
+require("./end.php");
+
+?>
+
+
