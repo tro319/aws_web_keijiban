@@ -62,11 +62,13 @@ require("./header.php");
 
    <?php if (!empty($postResult)): ?>
 
-            <?php if ($postResult["pic_name1"] != null): ?>
-
-            <div class="images-cover post-images-cover">
+              <div class="images-cover post-images-cover">
     
                 <ul class="images post-images">
+
+            <?php if ($postResult["pic_name1"] != null): ?>
+
+
 
                     <li>
 
@@ -80,11 +82,13 @@ require("./header.php");
             
                     </li>
 
+
+        <?php endif; ?>
+
+                  
                 </ul>
 
             </div>
-
-        <?php endif; ?>
 
 
     <p>投稿文: <?= nl2br(htmlspecialchars($postResult["content"])) ?></p>
