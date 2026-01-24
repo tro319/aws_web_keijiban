@@ -66,7 +66,7 @@ require("./header.php");
     
                 <ul class="images post-images">
 
-        <?php if ($post["pic_name1"] != null): ?>
+        <?php if (isset($post["pic_name1"])): ?>
 
 
 
@@ -85,6 +85,46 @@ require("./header.php");
 
 
         <?php endif; ?>
+
+        <?php if (isset($post["pic_name2"])): ?>
+
+          
+            <li>
+
+                
+              <div class="image-box">
+
+                <img src="/upload/image/<?= htmlspecialchars($post["pic_name2"]) ?>" >
+
+
+              </div>
+
+
+            </li>
+
+
+        <?php endif; ?>
+
+
+        <?php if (isset($post["pic_name3"])): ?>
+
+      
+           <li>
+
+
+              <div class="image-box">
+
+
+                 <img src="/upload/image/<?= htmlspecialchars($post["pic_name3"]) ?>" >
+
+
+              </div>
+
+
+          </li>
+
+        <?php endif; ?>
+
 
                                 </ul>
 
