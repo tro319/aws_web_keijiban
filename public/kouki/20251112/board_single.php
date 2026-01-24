@@ -23,7 +23,19 @@ if (empty($_GET["id"])) {
 
 $postID = intval($_GET["id"]);
 
-$sql = "SELECT * FROM board_posts JOIN users ON board_posts.user_id = users.id WHERE board_posts.id = :id";
+$sql = "SELECT board_posts.id,
+          board_posts.content,
+          board_posts.created_at,
+          board_posts.pic_name1,
+          board_posts.pic_name2,
+          board_posts.pic_name3,
+          board_posts.user_id,
+          users.id AS user_id,
+          users.name,
+          users.img_name
+        FROM board_posts
+        JOIN users ON board_posts.user_id = users.id
+        WHERE board_posts.id = :id";
 
 $stmt = $dbh->prepare($sql);
 
@@ -144,7 +156,7 @@ require("./header.php");
 
         <img src="/upload/image/<?= htmlspecialchars($postResult["img_name"]) ?>" width="80" height="60" />
 
-        <strong style="text-dceration: none; color: #000;"><?= htmlspecialchars($postResult["name"]) ?></strong>
+        <strong style="text-decoration: none; color: #000;"><?= htmlspecialchars($postResult["name"]) ?></strong>
 
       </a>
 

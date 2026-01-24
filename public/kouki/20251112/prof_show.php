@@ -170,7 +170,7 @@ require("./header.php");
 
         <div class="post-link">
 
-          <a href="board_single.php?id=<?= profPost["id"] ?>">投稿詳細へ</a>
+          <a href="board_single.php?id=<?= $profPost["id"] ?>">投稿詳細へ</a>
 
         </div>
 
