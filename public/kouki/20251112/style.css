@@ -7,10 +7,6 @@ body {
   color: #555;
 }
 
-img {
-  max-width: 100%;
-}
-
 a {
   text-decoration: none;
 }
@@ -145,9 +141,8 @@ ul {
 }
 
 .images li {
-  width: 500px;
-  height: auto;
-  padding: 5px;
+  flex: 0 0 500px;
+  padding: 10px;
 }
 
 .images li .image-box {
@@ -155,6 +150,7 @@ ul {
 }
 
 .images li .image-box img {
+  box-shadow: 0 0 4px #888;
   border-radius: 15px;
 }
 
@@ -201,6 +197,26 @@ ul {
 
 .link-text a {
   color: #6495ed;
+}
+
+
+@media (max-width: 768px) {
+
+   .images {
+     width: auto;
+     gap: 12px;
+     padding-left: 12px;
+   }
+
+  .images li {
+     flex: 0 0 85%;
+  }
+
+  .images li img {
+    max-height: 60vh;
+    object-fit: cover;
+  }
+
 }
 
 
