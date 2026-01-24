@@ -97,21 +97,69 @@ require("./header.php");
                 <ul class="images post-images">
 
           
+        <?php if (isset($profPost["pic_name1"])): ?>
 
-        <?php if ($profPost["pic_name1"] != null): ?>
 
-                  <li>
 
-        <div class="image-box">
+                    <li>
 
-          <img src="/upload/image/<?= $profPost["pic_name1"] ?>" />
+                        <div class="image-box">
 
-        </div>        
+                
+                            <img src="/upload/image/<?= htmlspecialchars($profPost["pic_name1"]) ?>">
 
-        </li>
+                
+                        </div>
+            
+                    </li>
+
+
 
         <?php endif; ?>
 
+  
+        <?php if (isset($profPost["pic_name2"])): ?>
+
+
+
+                    <li>
+
+                        <div class="image-box">
+
+                
+                            <img src="/upload/image/<?= htmlspecialchars($profPost["pic_name2"]) ?>">
+
+                
+                        </div>
+            
+                    </li>
+
+
+
+        <?php endif; ?>       
+
+
+                <?php if (isset($profPost["pic_name3"])): ?>
+
+
+
+                    <li>
+
+                        <div class="image-box">
+
+                
+                            <img src="/upload/image/<?= htmlspecialchars($profPost["pic_name3"]) ?>">
+
+                
+                        </div>
+            
+                    </li>
+
+
+
+        <?php endif; ?>   
+
+  
                 </ul>
 
                       </div>
