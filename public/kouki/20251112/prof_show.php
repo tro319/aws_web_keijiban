@@ -41,144 +41,144 @@ require("./header.php");
 <h1 class="page-title">プロフィール</h1>
 
 
-  <h2 class="sub-title">プロフィール情報</h2>
+<h2 class="sub-title">プロフィール情報</h2>
 
 
-  <div class="user-info" style="padding: 25px 35px; margin: 30px 45px;">
+<div class="user-info" style="padding: 25px 35px; margin: 30px 45px;">
 
- 
-  
-    <?php if(!empty($profile)): ?>
-      
-      <?php if(!empty($profile["img_name"])): ?>
 
-        <div class="image-radius">
 
-          <img src="/upload/image/<?= htmlspecialchars(basename($profile["img_name"])) ?>" >   
+<?php if(!empty($profile)): ?>
 
-        </div>
+<?php if(!empty($profile["img_name"])): ?>
 
-      <?php endif; ?>
+<div class="image-radius">
 
-      <p>ユーザーネーム: <?= htmlspecialchars($profile["name"]) ?></p>
+<img src="/upload/image/<?= htmlspecialchars(basename($profile["img_name"])) ?>" >   
 
-      <p>メールアドレス: <?= htmlspecialchars($profile["email"]) ?></p>
-      
-      <?php if(!empty($profile["introd"])): ?>
+</div>
 
-        <p>自己紹介: <?= nl2br(htmlspecialchars($profile["introd"])) ?></p>
+<?php endif; ?>
 
-      <?php endif; ?>
+<p>ユーザーネーム: <?= htmlspecialchars($profile["name"]) ?></p>
 
-     <?php endif; ?>
+<p>メールアドレス: <?= htmlspecialchars($profile["email"]) ?></p>
 
-      <div class="edit-btn">
+<?php if(!empty($profile["introd"])): ?>
 
-        <a href="prof_update.php">プロフィール編集</a>
+<p>自己紹介: <?= nl2br(htmlspecialchars($profile["introd"])) ?></p>
 
-      </div>
+<?php endif; ?>
 
-  </div>
+<?php endif; ?>
 
+<div class="edit-btn">
 
+<a href="prof_update.php">プロフィール編集</a>
 
-  <h2 class="sub-title">My投稿一覧</h2>
+</div>
 
-  <div class="post-infos">
+</div>
 
-  <?php if(!empty($profilePosts)): ?>
 
-    <?php foreach($profilePosts as $profPost): ?>
 
-      <div class="post-info">
+<h2 class="sub-title">My投稿一覧</h2>
 
-                      <div class="images-cover post-images-cover">
-    
-                <ul class="images post-images">
+<div class="post-infos">
 
-          
-        <?php if (isset($profPost["pic_name1"])): ?>
+<?php if(!empty($profilePosts)): ?>
 
+<?php foreach($profilePosts as $profPost): ?>
 
+<div class="post-info">
 
-                    <li>
+<div class="images-cover post-images-cover">
 
-                        <div class="image-box">
+<ul class="images post-images">
 
-                
-                            <img src="/upload/image/<?= htmlspecialchars($profPost["pic_name1"]) ?>">
 
-                
-                        </div>
-            
-                    </li>
+<?php if (isset($profPost["pic_name1"])): ?>
 
 
 
-        <?php endif; ?>
+<li>
 
-  
-        <?php if (isset($profPost["pic_name2"])): ?>
+<div class="image-box">
 
 
+<img src="/upload/image/<?= htmlspecialchars($profPost["pic_name1"]) ?>">
 
-                    <li>
 
-                        <div class="image-box">
+</div>
 
-                
-                            <img src="/upload/image/<?= htmlspecialchars($profPost["pic_name2"]) ?>">
+</li>
 
-                
-                        </div>
-            
-                    </li>
 
 
+<?php endif; ?>
 
-        <?php endif; ?>       
 
+<?php if (isset($profPost["pic_name2"])): ?>
 
-                <?php if (isset($profPost["pic_name3"])): ?>
 
 
+<li>
 
-                    <li>
+<div class="image-box">
 
-                        <div class="image-box">
 
-                
-                            <img src="/upload/image/<?= htmlspecialchars($profPost["pic_name3"]) ?>">
+<img src="/upload/image/<?= htmlspecialchars($profPost["pic_name2"]) ?>">
 
-                
-                        </div>
-            
-                    </li>
 
+</div>
 
+</li>
 
-        <?php endif; ?>   
 
-  
-                </ul>
 
-                      </div>
+<?php endif; ?>       
 
-        <p>投稿文: <?= nl2br(htmlspecialchars($profPost["content"])) ?></p>
 
-        <p class="post-time">投稿日時: <?= htmlspecialchars($profPost["created_at"]) ?></p>
+<?php if (isset($profPost["pic_name3"])): ?>
 
-        <div class="post-link">
 
-          <a href="board_single.php?id=<?= $profPost["id"] ?>">投稿詳細へ</a>
 
-        </div>
+<li>
 
-      </div>
+<div class="image-box">
 
-    <?php endforeach; ?>
 
-  <?php endif; ?>
+<img src="/upload/image/<?= htmlspecialchars($profPost["pic_name3"]) ?>">
+
+
+</div>
+
+</li>
+
+
+
+<?php endif; ?>   
+
+
+</ul>
+
+</div>
+
+<p>投稿文: <?= nl2br(htmlspecialchars($profPost["content"])) ?></p>
+
+<p class="post-time">投稿日時: <?= htmlspecialchars($profPost["created_at"]) ?></p>
+
+<div class="post-link">
+
+<a href="board_single.php?id=<?= $profPost["id"] ?>">投稿詳細へ</a>
+
+</div>
+
+</div>
+
+<?php endforeach; ?>
+
+<?php endif; ?>
 
 
 </div>

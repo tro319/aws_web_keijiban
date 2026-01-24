@@ -5,7 +5,7 @@ session_start();
 $loginID = $_SESSION["login_id"];
 
 if ($loginID == null) {
-  
+
   header("HTTP/1.1 303 See Other");
   header("Location: ./login.php");
   return;
@@ -18,171 +18,171 @@ $dbh = new PDO("mysql:host=mysql;dbname=example_db", "root", "");
 
 // 掲示板投稿取得（ユーザー情報 JOIN）
 $sql = "
-    SELECT 
-        board_posts.id,
-        board_posts.user_id,
-        board_posts.content,
-        board_posts.pic_name1,
-        board_posts.pic_name2,
-        board_posts.pic_name3,
-        board_posts.created_at,
-        users.name,
-        users.img_name
-    FROM board_posts
-    INNER JOIN users ON board_posts.user_id = users.id
-    ORDER BY board_posts.id DESC
-";
+SELECT 
+board_posts.id,
+  board_posts.user_id,
+  board_posts.content,
+  board_posts.pic_name1,
+  board_posts.pic_name2,
+  board_posts.pic_name3,
+  board_posts.created_at,
+  users.name,
+  users.img_name
+  FROM board_posts
+  INNER JOIN users ON board_posts.user_id = users.id
+  ORDER BY board_posts.id DESC
+  ";
 
-$stmt = $dbh->prepare($sql);
-$stmt->execute();
-$posts = $stmt->fetchAll();
+  $stmt = $dbh->prepare($sql);
+  $stmt->execute();
+  $posts = $stmt->fetchAll();
 
-require("./read.php");
-require("./header.php");
-?>
+  require("./read.php");
+  require("./header.php");
+  ?>
 
-<div class="container">
+  <div class="container">
 
   <h1 class="page-title">投稿一覧</h1>
 
-<?php if (!empty($_SESSION["post_success"])): ?>
+  <?php if (!empty($_SESSION["post_success"])): ?>
 
 
-    <p style="color:green;"><?php echo $_SESSION["post_success"]; ?></p>
+  <p style="color:green;"><?php echo $_SESSION["post_success"]; ?></p>
 
-    <?php unset($_SESSION["post_success"]); ?>
+  <?php unset($_SESSION["post_success"]); ?>
 
 
-<?php endif; ?>
+  <?php endif; ?>
 
 
-<div class="post-infos">
+  <div class="post-infos">
 
-<?php foreach ($posts as $post): ?>
+  <?php foreach ($posts as $post): ?>
 
-    <div class="post-info">
+  <div class="post-info">
 
-        <!-- 投稿内容 -->
+  <!-- 投稿内容 -->
 
-                  <div class="images-cover post-images-cover">
-    
-                <ul class="images post-images">
+  <div class="images-cover post-images-cover">
 
-        <?php if (isset($post["pic_name1"])): ?>
+  <ul class="images post-images">
 
+  <?php if (isset($post["pic_name1"])): ?>
 
 
-                    <li>
 
-                        <div class="image-box">
+  <li>
 
-                
-                            <img src="/upload/image/<?= htmlspecialchars($post["pic_name1"]) ?>">
+  <div class="image-box">
 
-                
-                        </div>
-            
-                    </li>
 
+  <img src="/upload/image/<?= htmlspecialchars($post["pic_name1"]) ?>">
 
 
-        <?php endif; ?>
+  </div>
 
-        <?php if (isset($post["pic_name2"])): ?>
+  </li>
 
-          
-            <li>
 
-                
-              <div class="image-box">
 
-                <img src="/upload/image/<?= htmlspecialchars($post["pic_name2"]) ?>" >
+  <?php endif; ?>
 
+  <?php if (isset($post["pic_name2"])): ?>
 
-              </div>
 
+  <li>
 
-            </li>
 
+  <div class="image-box">
 
-        <?php endif; ?>
+  <img src="/upload/image/<?= htmlspecialchars($post["pic_name2"]) ?>" >
 
 
-        <?php if (isset($post["pic_name3"])): ?>
+  </div>
 
-      
-           <li>
 
+  </li>
 
-              <div class="image-box">
 
+  <?php endif; ?>
 
-                 <img src="/upload/image/<?= htmlspecialchars($post["pic_name3"]) ?>" >
 
+  <?php if (isset($post["pic_name3"])): ?>
 
-              </div>
 
+  <li>
 
-          </li>
 
-        <?php endif; ?>
+  <div class="image-box">
 
 
-                                </ul>
+  <img src="/upload/image/<?= htmlspecialchars($post["pic_name3"]) ?>" >
 
-            </div>
-    
-        
-        <p>投稿文: <?= nl2br(htmlspecialchars($post["content"])) ?></p>
 
-        <p class="post-time">投稿日時: <?= $post["created_at"] ?></p>
+  </div>
 
 
-        <div class="post-link">
+  </li>
 
+  <?php endif; ?>
 
-          <a href="board_single.php?id=<?= $post["id"] ?>">
 
-            投稿詳細へ
+  </ul>
 
-          </a>
-         
-        </div> 
+  </div>
 
-          <hr>
 
-          <!-- 投稿者情報（アイコン＋名前）だけ表示してリンクにする -->
+  <p>投稿文: <?= nl2br(htmlspecialchars($post["content"])) ?></p>
 
-         <div class="user-link">
+  <p class="post-time">投稿日時: <?= $post["created_at"] ?></p>
 
-          <a href="user.php?id=<?= $post['user_id'] ?>">
 
-            <?php if (!empty($post["img_name"])): ?>
+  <div class="post-link">
 
-                <img src="/upload/image/<?= htmlspecialchars($post["img_name"]) ?>" >
 
-            <?php else: ?>
+  <a href="board_single.php?id=<?= $post["id"] ?>">
 
-                <img src="/upload/image/dummy.png">
+  投稿詳細へ
 
-            <?php endif; ?>
+  </a>
 
-            <span><?= htmlspecialchars($post["name"]) ?></span>
+  </div> 
 
-          </a>
+  <hr>
 
-      </div>
+  <!-- 投稿者情報（アイコン＋名前）だけ表示してリンクにする -->
 
-    </div> 
+  <div class="user-link">
 
+  <a href="user.php?id=<?= $post['user_id'] ?>">
 
-<?php endforeach; ?>
+  <?php if (!empty($post["img_name"])): ?>
 
-</div>
+  <img src="/upload/image/<?= htmlspecialchars($post["img_name"]) ?>" >
 
-</div>
+  <?php else: ?>
 
-<?php
-require("./end.php");
+  <img src="/upload/image/dummy.png">
 
-?>
+  <?php endif; ?>
+
+  <span><?= htmlspecialchars($post["name"]) ?></span>
+
+  </a>
+
+  </div>
+
+  </div> 
+
+
+  <?php endforeach; ?>
+
+  </div>
+
+  </div>
+
+  <?php
+  require("./end.php");
+
+  ?>

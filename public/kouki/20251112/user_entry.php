@@ -10,14 +10,14 @@ if (!empty($_POST["user_name"]) && !empty($_POST["email"]) && !empty($_POST["pas
 
 
   // ユーザーネーム重複チェック
-  
+
   $sqlName = "SELECT name FROM users WHERE name = :user_name";
 
   $stmtName = $dbh->prepare($sqlName);
 
   $stmtName->execute([
 
-	":user_name" => $_POST["user_name"],
+      ":user_name" => $_POST["user_name"],
 
   ]); 
 
@@ -26,22 +26,22 @@ if (!empty($_POST["user_name"]) && !empty($_POST["email"]) && !empty($_POST["pas
 
   if ($nameCheck != null) {
 
-	  header("HTTP/1.1 303 See Other");
-	  header("Location: ./user_entry.php?err=name");  
-	  return;
-	  
+    header("HTTP/1.1 303 See Other");
+    header("Location: ./user_entry.php?err=name");  
+    return;
+
   }
 
   // メールアドレス重複チェック
-  
+
   $sqlEmail = "SELECT email FROM users WHERE email = :email";
 
   $stmtEmail = $dbh->prepare($sqlEmail);
 
   $stmtEmail->execute([
 
-	":email" => $_POST["email"],
-  
+      ":email" => $_POST["email"],
+
   ]);
 
   $emailCheck = $stmtEmail->fetch();
@@ -49,75 +49,75 @@ if (!empty($_POST["user_name"]) && !empty($_POST["email"]) && !empty($_POST["pas
 
   if ($emailCheck != null) {
 
-      header("HTTP/1.1 303 See Other");
-      header("Location: ./user_entry.php?err=email");
-      return;
+    header("HTTP/1.1 303 See Other");
+    header("Location: ./user_entry.php?err=email");
+    return;
 
-	  
+
   }
 
   // パスワードハッシュ化
-	
+
   $hashPass = password_hash($_POST["password"], PASSWORD_DEFAULT);
 
-	// 画像取得
+  // 画像取得
 
-	$imageName = null;
+  $imageName = null;
 
-	if ($_FILES["image_file"]["error"] == 0) {
+  if ($_FILES["image_file"]["error"] == 0) {
 
-  		$tmp = $_FILES["image_file"]["tmp_name"];
+    $tmp = $_FILES["image_file"]["tmp_name"];
 
-  		$imageName = time() . bin2hex(random_bytes(25)) . ".png";
+    $imageName = time() . bin2hex(random_bytes(25)) . ".png";
 
-  		$filePath = "/var/www/public/upload/image/" . $imageName;
+    $filePath = "/var/www/public/upload/image/" . $imageName;
 
-  		$success = move_uploaded_file($tmp, $filePath);
+    $success = move_uploaded_file($tmp, $filePath);
 
-  		if (!$success) {
-    
-    		var_dump("move_failed", $tmp, $filePath, error_get_last());
+    if (!$success) {
 
-  		}
+      var_dump("move_failed", $tmp, $filePath, error_get_last());
 
-  		$_SESSION["prof_img"] = $imageName;
-		
-	}
+    }
 
-	// 自己紹介文取得
+    $_SESSION["prof_img"] = $imageName;
 
-	$introd = null;
+  }
 
-	if (!empty($_POST["introd"])) {
+  // 自己紹介文取得
 
-		$introd = htmlspecialchars($_POST["introd"]);
+  $introd = null;
 
-	}
+  if (!empty($_POST["introd"])) {
+
+    $introd = htmlspecialchars($_POST["introd"]);
+
+  }
 
 
 
-	
 
-	// sql
-	
-	$sql = "INSERT INTO users (name, email, password, introd, img_name) VALUES(:user_name, :email, :password, :introd, :img)";
 
-	// INSERTする
-	
-	$stmt = $dbh->prepare($sql);
+  // sql
 
-	$stmt->execute([
-		":user_name" => $_POST["user_name"],
-		":email" => $_POST["email"],
-		":password" => $hashPass,
-		":introd" => $introd,
-		":img" => $imageName,
-	]);
+  $sql = "INSERT INTO users (name, email, password, introd, img_name) VALUES(:user_name, :email, :password, :introd, :img)";
 
-	
-	header("HTTP/1.1 303 See Other");
-	header("Location: ./login.php");
-	return;
+  // INSERTする
+
+  $stmt = $dbh->prepare($sql);
+
+  $stmt->execute([
+      ":user_name" => $_POST["user_name"],
+      ":email" => $_POST["email"],
+      ":password" => $hashPass,
+      ":introd" => $introd,
+      ":img" => $imageName,
+  ]);
+
+
+  header("HTTP/1.1 303 See Other");
+  header("Location: ./login.php");
+  return;
 
 
 
@@ -134,92 +134,92 @@ require("./read.php");
 
 <?php if (!empty($_GET["err"]) && $_GET["err"] == "name"): ?>
 
-  <p style="color: #F00;">入力されたユーザーネームはすでに登録されています。</p>
+<p style="color: #F00;">入力されたユーザーネームはすでに登録されています。</p>
 
 <?php endif; ?>
 
 
 <?php if (!empty($_GET["err"]) && $_GET["err"] == "email"): ?>
 
-  <p style="color: #F00;">入力されたメールアドレスはすでに登録されています。</p>
+<p style="color: #F00;">入力されたメールアドレスはすでに登録されています。</p>
 
 <?php endif; ?>
 
 
-	<form method="post" enctype="multipart/form-data" class="form signup-form">
+<form method="post" enctype="multipart/form-data" class="form signup-form">
 
-		<label>
+<label>
 
-			<span>名前</span>
+<span>名前</span>
 
-			<input type="text" name="user_name" maxlength="50"  required />
-			
-
-		</label>
+<input type="text" name="user_name" maxlength="50"  required />
 
 
-
-		<br>
-
-		<label>
-
-			<span>メールアドレス</span>
-	
-			<input type="email" name="email" maxlength="256" required />
-
-		</label>
+</label>
 
 
-		<br>
 
-		
-		<label>
+<br>
 
-			<span>パスワード</span>
+<label>
 
-			<input type="password" name="password" maxlength="30" required />
+<span>メールアドレス</span>
 
-		</label>
+<input type="email" name="email" maxlength="256" required />
 
-
-		<br>
-
-		<label>
-
-			<span>自己紹介</span>
-
-			<textarea name="introd" maxlength="1000"></textarea>
-				
-		</label>
-
-		<br>
-
-		
-  		<div class="img-input">
-
-    		<input type="file" accept="image/*" name="image_file" id="image_input">
-
-  		</div>
-
-  		<br>
+</label>
 
 
-		<input type="submit" class="submit" value="登録" />
+<br>
 
 
-	</form>
+<label>
 
-	
+<span>パスワード</span>
 
-	<h2 class="sub-title">選択された画像</h2>
+<input type="password" name="password" maxlength="30" required />
 
-	<div class="image-radius">
-	    
-	    <img id="preview" style="display: none; height: 5em; width: 5em; border-radius: 50%; object-fit: cover;">
+</label>
 
-		  <canvas id="canvas" style="display: none;"></canvas>
-		
-	</div>
+
+<br>
+
+<label>
+
+<span>自己紹介</span>
+
+<textarea name="introd" maxlength="1000"></textarea>
+
+</label>
+
+<br>
+
+
+<div class="img-input">
+
+<input type="file" accept="image/*" name="image_file" id="image_input">
+
+</div>
+
+<br>
+
+
+<input type="submit" class="submit" value="登録" />
+
+
+</form>
+
+
+
+<h2 class="sub-title">選択された画像</h2>
+
+<div class="image-radius">
+
+<img id="preview" style="display: none; height: 5em; width: 5em; border-radius: 50%; object-fit: cover;">
+
+<canvas id="canvas" style="display: none;"></canvas>
+
+</div>
 
 
 <hr>
@@ -227,7 +227,7 @@ require("./read.php");
 <div class="link-text">
 
 
-	<a href="login.php">ユーザーログインへ</a>
+<a href="login.php">ユーザーログインへ</a>
 
 </div>
 
@@ -235,66 +235,66 @@ require("./read.php");
 
 <script>
 
-	let resizedBlob = null;
+let resizedBlob = null;
 
-	document.getElementById("image_input").addEventListener("change", async(e) => {
+document.getElementById("image_input").addEventListener("change", async(e) => {
 
-		const file = e.target.files[0];
+    const file = e.target.files[0];
 
-		if (!file) return;
+    if (!file) return;
 
-		const preview = document.getElementById("preview");
+    const preview = document.getElementById("preview");
 
-		preview.src = URL.createObjectURL(file);
+    preview.src = URL.createObjectURL(file);
 
-		preview.style.display = "block";
+    preview.style.display = "block";
 
-		const bitmap = await createImageBitmap(file);
+    const bitmap = await createImageBitmap(file);
 
-		const max = 1000;
+    const max = 1000;
 
-		let w = bitmap.width;
+    let w = bitmap.width;
 
-		let h = bitmap.height;
+    let h = bitmap.height;
 
-		if (w > h && w > max) {
+    if (w > h && w > max) {
 
-			h = h * (max / w);
+      h = h * (max / w);
 
-			w = max;
+      w = max;
 
-		} else if (h > max) {
+    } else if (h > max) {
 
-			w = w * (max / h);
+      w = w * (max / h);
 
-			h = max;
+      h = max;
 
-		}
+    }
 
-		const canvas = document.getElementById("canvas");
+    const canvas = document.getElementById("canvas");
 
-		canvas.width = w;
+    canvas.width = w;
 
-		canvas.height = h;
+    canvas.height = h;
 
-		const ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext("2d");
 
-		ctx.drawImage(bitmap, 0, 0, w, h);
+    ctx.drawImage(bitmap, 0, 0, w, h);
 
-		canvas.toBlob((blob) => {
-			const fileInput = document.getElementById("image_input");
+    canvas.toBlob((blob) => {
+        const fileInput = document.getElementById("image_input");
 
-			const newFile = new File([blob], "upload.png", { type: "image/png" });
+        const newFile = new File([blob], "upload.png", { type: "image/png" });
 
-			const dataTransfer = new DataTransfer();
+        const dataTransfer = new DataTransfer();
 
-			dataTransfer.items.add(newFile);
+        dataTransfer.items.add(newFile);
 
-			fileInput.files = dataTransfer.files;
+        fileInput.files = dataTransfer.files;
 
-		}, "image/png", 0.9);
+        }, "image/png", 0.9);
 
-	});
+});
 
 
 

@@ -1,10 +1,10 @@
 * {
-  padding: 0;
-  margin: 0;
+padding: 0;
+margin: 0;
 }
 
 body {
-  color: #555;
+color: #555;
 }
 
 a {
@@ -17,36 +17,36 @@ ul {
 
 .container {
   max-width: 1080px;
-  padding: 40px 15px;
-  margin: 0 auto;
+padding: 40px 15px;
+margin: 0 auto;
 }
 
 .page-title {
   font-weight: 800;
   font-size: 1.3rem;
-  padding: 30px 0;
-  margin-bottom: 40px;
+padding: 30px 0;
+         margin-bottom: 40px;
 }
 
 .sub-title {
   font-weight: 600;
   font-size: 1.15rem;
-  padding: 25px 0;
-  margin-bottom: 30px;
+padding: 25px 0;
+         margin-bottom: 30px;
 }
 
 .image-radius {
-  width: 80px;
-  height: 80px;
-  box-shadow: 0 0 4 #888;
-  border-radius: 50%;
-  margin-bottom: 15px;
+width: 80px;
+height: 80px;
+        box-shadow: 0 0 4 #888;
+        border-radius: 50%;
+        margin-bottom: 15px;
 }
 
 
 #header {
   background-color: #333;
-  padding: 25px 0;
+padding: 25px 0;
 }
 
 .header-list-cover {
@@ -55,9 +55,9 @@ ul {
 }
 
 .header-list {
-  width: 100%;
-  display: flex;
-  align-items: center;
+width: 100%;
+display: flex;
+         align-items: center;
 }
 
 .header-list li {
@@ -65,16 +65,16 @@ ul {
 }
 
 .header-list li a {
-  color: #999;
+color: #999;
 }
 
 .post-infos,
-.user-info,
-.form {
-  max-width: 960px;
-  padding: 15px 20px;
-  margin: 0 auto 60px auto;
-}
+  .user-info,
+  .form {
+    max-width: 960px;
+padding: 15px 20px;
+margin: 0 auto 60px auto;
+  }
 
 .post-infos {
   border-top: solid 1px #777;
@@ -83,49 +83,49 @@ ul {
 .post-info {
   box-shadow: 0 0 7px #555;
   border-radius: 15px;
-  padding: 15px 25px;
-  margin: 30px 30px 60px 30px;
+padding: 15px 25px;
+margin: 30px 30px 60px 30px;
 }
 
 .post-info p,
-.user-info p {
-  margin: 10px 0;
-}
+  .user-info p {
+margin: 10px 0;
+  }
 
 .post-info .post-link {
-  margin: 15px 0;
+margin: 15px 0;
 }
 
 .post-link a {
-  color: #6495ed;
+color: #6495ed;
 }
 
 .post-info .user-link {
-  margin: 15px 0;
+margin: 15px 0;
 }
 
 .post-info .user-link a {
-  display: flex;
-  align-items: center;
+display: flex;
+         align-items: center;
 }
 
 .post-info .user-link a img,
-.user-info img {
-  width: 50px;
-  height: 50px;
-  box-shadow: 0 0 4px #888;
-  border-radius: 50%;
-}
+  .user-info img {
+width: 50px;
+height: 50px;
+        box-shadow: 0 0 4px #888;
+        border-radius: 50%;
+  }
 
 .user-info img {
-  width: 80px;
-  height: 80px;
-  margin-bottom: 15px;
+width: 80px;
+height: 80px;
+        margin-bottom: 15px;
 }
 
 .post-info .user-link a span {
-  color: #555;
-  padding-left: 7px;
+color: #555;
+       padding-left: 7px;
 }
 
 .images-cover {
@@ -134,19 +134,19 @@ ul {
 }
 
 .images {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  margin-bottom: 30px;
+width: 100%;
+display: flex;
+         align-items: center;
+         margin-bottom: 30px;
 }
 
 .images li {
-  flex: 0 0 500px;
-  padding: 10px;
+flex: 0 0 500px;
+padding: 10px;
 }
 
 .images li .image-box {
-  width: 100%;
+width: 100%;
 }
 
 .images li .image-box img {
@@ -155,21 +155,21 @@ ul {
 }
 
 .edit-btn,
-.follow-btn-cover {
-  margin: 15px 0;
-}
+  .follow-btn-cover {
+margin: 15px 0;
+  }
 
 .edit-btn a,
-.follow-btn-cover button,
-.form .submit {
-  color: #555;
-  background-color: #ddd;
-  border-radius: 7px;
-  padding: 5px 10px;
-}
+  .follow-btn-cover button,
+  .form .submit {
+color: #555;
+       background-color: #ddd;
+       border-radius: 7px;
+padding: 5px 10px;
+  }
 
 .follow-btn-cover button {
-  border: none;
+border: none;
 }
 
 .form {
@@ -177,26 +177,26 @@ ul {
 }
 
 .form input,
-.form textarea,
-.form span {
-  color: #555;
-  margin: 10px 0;
-}
+  .form textarea,
+  .form span {
+color: #555;
+margin: 10px 0;
+  }
 
 .form textarea {
   vertical-align: middle;
 }
 
 .form .submit {
-  border: none;
+border: none;
 }
 
 .link-text {
-  margin: 30px 0;
+margin: 30px 0;
 }
 
 .link-text a {
-  color: #6495ed;
+color: #6495ed;
 }
 
 

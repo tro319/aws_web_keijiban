@@ -16,43 +16,43 @@ $dbh = new PDO("mysql:host=mysql;dbname=example_db", "root", "");
 
 if (empty($_GET["id"])) {
 
-    echo "投稿が指定されていません";
-    return;
+  echo "投稿が指定されていません";
+  return;
 
 }
 
 $postID = intval($_GET["id"]);
 
 $sql = "SELECT board_posts.id,
-          board_posts.content,
-          board_posts.created_at,
-          board_posts.pic_name1,
-          board_posts.pic_name2,
-          board_posts.pic_name3,
-          board_posts.user_id,
-          users.id AS user_id,
-          users.name,
-          users.img_name
-        FROM board_posts
-        JOIN users ON board_posts.user_id = users.id
-        WHERE board_posts.id = :id";
+  board_posts.content,
+  board_posts.created_at,
+  board_posts.pic_name1,
+  board_posts.pic_name2,
+  board_posts.pic_name3,
+  board_posts.user_id,
+  users.id AS user_id,
+  users.name,
+  users.img_name
+  FROM board_posts
+  JOIN users ON board_posts.user_id = users.id
+  WHERE board_posts.id = :id";
 
-$stmt = $dbh->prepare($sql);
+  $stmt = $dbh->prepare($sql);
 
-$stmt->execute([":id" => $postID]);
+  $stmt->execute([":id" => $postID]);
 
-$postResult = $stmt->fetch();
-
-
+  $postResult = $stmt->fetch();
 
 
 
-if (!$postResult) {
+
+
+  if (!$postResult) {
 
     echo "投稿が見つかりません";
     return;
 
-}
+  }
 
 
 require("./read.php");
@@ -62,7 +62,7 @@ require("./header.php");
 <div class="container">
 
 
-  <h1 class="page-title">投稿詳細</h1>
+<h1 class="page-title">投稿詳細</h1>
 
 
 <!-- 投稿情報 一件分 -->
@@ -72,95 +72,95 @@ require("./header.php");
 
 <div class="post-info">
 
-   <?php if (!empty($postResult)): ?>
+<?php if (!empty($postResult)): ?>
 
-              <div class="images-cover post-images-cover">
-    
-                <ul class="images post-images">
+<div class="images-cover post-images-cover">
 
-            <?php if (isset($postResult["pic_name1"])): ?>
+<ul class="images post-images">
 
-
-
-                    <li>
-
-                        <div class="image-box">
-
-                
-                            <img src="/upload/image/<?= htmlspecialchars($postResult["pic_name1"]) ?>">
-
-                
-                        </div>
-            
-                    </li>
-
-
-        <?php endif; ?>
-
-              
-            <?php if (isset($postResult["pic_name2"])): ?>
+<?php if (isset($postResult["pic_name1"])): ?>
 
 
 
-                    <li>
+<li>
 
-                        <div class="image-box">
-
-                
-                            <img src="/upload/image/<?= htmlspecialchars($postResult["pic_name2"]) ?>">
-
-                
-                        </div>
-            
-                    </li>
+<div class="image-box">
 
 
-        <?php endif; ?>
-
-                    <?php if (isset($postResult["pic_name3"])): ?>
+<img src="/upload/image/<?= htmlspecialchars($postResult["pic_name1"]) ?>">
 
 
+</div>
 
-                    <li>
-
-                        <div class="image-box">
-
-                
-                            <img src="/upload/image/<?= htmlspecialchars($postResult["pic_name3"]) ?>">
-
-                
-                        </div>
-            
-                    </li>
+</li>
 
 
-        <?php endif; ?>
-
-        
-
-                  
-                </ul>
-
-            </div>
+<?php endif; ?>
 
 
-    <p>投稿文: <?= nl2br(htmlspecialchars($postResult["content"])) ?></p>
+<?php if (isset($postResult["pic_name2"])): ?>
 
-    <p class="post-time">投稿日時: <?= nl2br(htmlspecialchars($postResult["created_at"])) ?></p>
 
- 
 
-    <div class="user-link">
+<li>
 
-      <a href="user.php?id=<?= $postResult["user_id"] ?>">
+<div class="image-box">
 
-        <img src="/upload/image/<?= htmlspecialchars($postResult["img_name"]) ?>" width="80" height="60" />
 
-        <strong style="text-decoration: none; color: #000;"><?= htmlspecialchars($postResult["name"]) ?></strong>
+<img src="/upload/image/<?= htmlspecialchars($postResult["pic_name2"]) ?>">
 
-      </a>
 
-  <?php endif; ?>
+</div>
+
+</li>
+
+
+<?php endif; ?>
+
+<?php if (isset($postResult["pic_name3"])): ?>
+
+
+
+<li>
+
+<div class="image-box">
+
+
+<img src="/upload/image/<?= htmlspecialchars($postResult["pic_name3"]) ?>">
+
+
+</div>
+
+</li>
+
+
+<?php endif; ?>
+
+
+
+
+</ul>
+
+</div>
+
+
+<p>投稿文: <?= nl2br(htmlspecialchars($postResult["content"])) ?></p>
+
+<p class="post-time">投稿日時: <?= nl2br(htmlspecialchars($postResult["created_at"])) ?></p>
+
+<hr>
+
+<div class="user-link">
+
+<a href="user.php?id=<?= $postResult["user_id"] ?>">
+
+<img src="/upload/image/<?= htmlspecialchars($postResult["img_name"]) ?>" width="80" height="60" />
+
+<span><?= htmlspecialchars($postResult["name"]) ?></span>
+
+</a>
+
+<?php endif; ?>
 
 
 </div>
