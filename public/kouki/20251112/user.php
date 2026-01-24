@@ -49,7 +49,7 @@ if (!empty($loginID) && $loginID != $userID) {
 }
 
 
-$sql = "SELECT * FROM board_posts JOIN users ON board_posts.user_id = users.id WHERE user_id = :id";
+$sql = "SELECT * FROM board_posts WHERE user_id = :id";
 
 $stmt = $dbh->prepare($sql);
 
