@@ -220,13 +220,6 @@ require("./header.php");
 
   <?php endforeach; ?>
 
-<?php else: ?>
-
-  <div class="post-info" style="padding: 25px 40px; margin: 30px auto;">
-
-    <p>投稿がありません</p>
-
-  </div>  
 
 <?php endif; ?>
 
@@ -274,7 +267,7 @@ require("./header.php");
           
           } else {
   
-            btn.textContent = "フォロー解除";
+            btn.textContent = "フォローをやめる";
             btn.dataset.following = "1";
 
           }
