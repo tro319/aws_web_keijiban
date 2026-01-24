@@ -23,6 +23,8 @@ $sql = "
         board_posts.user_id,
         board_posts.content,
         board_posts.pic_name1,
+        board_posts.pic_name2,
+        board_posts.pic_name3,
         board_posts.created_at,
         users.name,
         users.img_name
