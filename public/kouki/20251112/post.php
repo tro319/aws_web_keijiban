@@ -29,35 +29,40 @@ if (!empty($_POST["content"])) {
 
 // 画像取得
 
-$imageName = null;
+$imageNames = [];
 
-if ($_FILES["image_file1"]["error"] == 0) {
+if (!empty($_FILES["image_files"]["name"][0])) {
 
-    $tmp = $_FILES["image_file1"]["tmp_name"];
+	foreach ($_FILES["image_files"]["tmp_name"] as $i => $tmp) {
 
-    $imageName1 = time() . bin2hex(random_bytes(25)) . ".png";
+		if ($_FILES["image_files"]["error"][$i] != 0) continue;
 
-    $filePath = "/var/www/public/upload/image/" . $imageName1;
+		$imageName = time() . bin2hex(random_bytes(10)) . ".png";
 
-    $success = move_uploaded_file($tmp, $filePath);
+		$filePath = "/var/www/public/upload/image/" . $imageName;
 
-    if (!$success) {
+		if (move_uploaded_file($tmp, $filePath)) {
 
-        var_dump("move_failed", $tmp, $filePath, error_get_last());
+			$imageNames[] = $imageName;
 
-    }
+		}
 
-    $_SESSION["post_img1"] = $imageName1;
-    
+	}
+
 }
+	
+    
 
 
-    $sql = "INSERT INTO board_posts (user_id, content, pic_name1) VALUES (:user_id, :content, :img1)";
+
+    $sql = "INSERT INTO board_posts (user_id, content, pic_name1, pic_name2, pic_name3) VALUES (:user_id, :content, :img1, :img2, :img3)";
     $stmt = $dbh->prepare($sql);
     $stmt->execute([
         ":user_id" => $loginID,
         ":content" => $content,
-        ":img1" => $imageName1,
+        ":img1" => $imageNames[0] ?? null,
+		":img2" => $imageNames[1] ?? null,
+		":img3" => $imageNames[2] ?? null,
     ]);
 
     $_SESSION["post_success"] = "投稿しました。";
@@ -91,9 +96,9 @@ require("./header.php");
 
     <label>
 
-        <span>画像1</span>
+        <span>画像</span>
 
-        <input type="file" accept="image/*" name="image_file1" id="image_input1" />
+        <input type="file" accept="image/*" name="image_files[]" id="image_input" multiple />
         
     </label>
 
@@ -109,23 +114,7 @@ require("./header.php");
 
 <div class="images-cover post-images-cover">
     
-    <ul class="images post-images">
-
-        <li>
-
-            <div class="image-radius">
-
-                
-                <img id="preview_img1" style="display: none; height: 5em; width: 5em; border-radius: 50%; object-fit: cover;">
-
-                <canvas id="canvas_img1" style="display: none;"></canvas>
-                
-
-            </div>
-            
-        </li>
-
-    </ul>
+    <ul class="images post-images" id="preview_list"></ul>
 
 </div>
 
@@ -136,63 +125,89 @@ require("./header.php");
 
 	let resizedBlob = null;
 
-	document.getElementById("image_input1").addEventListener("change", async(e) => {
+	document.getElementById("image_input").addEventListener("change", async(e) => {
 
-		const file = e.target.files[0];
+		const files = Array.from(e.target.files);
 
-		if (!file) return;
+		if (!files.length) return;
 
-		const preview = document.getElementById("preview_img1");
+		const previewList = document.getElementById("preview_list");
 
-		preview.src = URL.createObjectURL(file);
+		previewList.innerHTML = "";
 
-		preview.style.display = "block";
-
-		const bitmap = await createImageBitmap(file);
-
+		
 		const max = 1000;
 
-		let w = bitmap.width;
+		const dataTransfer = new DataTransfer();
 
-		let h = bitmap.height;
+		for (const file of files) {
 
-		if (w > h && w > max) {
 
-			h = h * (max / w);
+			const li = document.createElement("li");
 
-			w = max;
+			const wrap = document.createElement("div");
 
-		} else if (h > max) {
+			wrap.className = "image-box";
 
-			w = w * (max / h);
+			const img = document.createElement("img");
 
-			h = max;
+			img.className = "preview-img";
 
-		}
+			img.src = URL.createObjectURL(file);
 
-		const canvas = document.getElementById("canvas_img1");
+			wrap.appendChild(img);
 
-		canvas.width = w;
+			li.appendChild(wrap);
 
-		canvas.height = h;
+			previewList.appendChild(li);
+		
 
-		const ctx = canvas.getContext("2d");
+			// ここから画像リサイズ処理
+		
+			const bitmap = await createImageBitmap(file);
 
-		ctx.drawImage(bitmap, 0, 0, w, h);
+			let w = bitmap.width;
 
-		canvas.toBlob((blob) => {
-            
-			const fileInput = document.getElementById("image_input1");
+			let h = bitmap.height;
 
-			const newFile = new File([blob], "upload.png", { type: "image/png" });
 
-			const dataTransfer = new DataTransfer();
+			if (w > h && w > max) {
+	
+				h = h * (max / w);
+	
+				w = max;
+	
+			} else if (h > max) {
+	
+				w = w * (max / h);
+	
+				h = max;
+	
+			}
+
+			const canvas = document.createElement("canvas");
+
+			canvas.width = w;
+
+			canvas.height = h;
+
+			const ctx = canvas.getContext("2d");
+
+			ctx.drawImage(bitmap, 0, 0, w, h);
+
+			const blob = await new Promise(res =>
+				canvas.toBlob(res, "image/png", 0.9)
+			);
+
+			const newFile = new File([blob], "upload.png", {type: "image/png"});
 
 			dataTransfer.items.add(newFile);
 
-			fileInput.files = dataTransfer.files;
+		}
 
-		}, "image/png", 0.9);
+		e.target.files = dataTransfer.files;
+
+
 
 	});
 
