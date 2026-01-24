@@ -202,20 +202,6 @@ ul {
 
 @media (max-width: 768px) {
 
-   .images {
-     width: auto;
-     gap: 12px;
-     padding-left: 12px;
-   }
-
-  .images li {
-     flex: 0 0 85%;
-  }
-
-  .images li img {
-    max-height: 60vh;
-    object-fit: cover;
-  }
 
 }
 
