@@ -50,6 +50,8 @@ if (!empty($_FILES["image_files"]["name"][0])) {
 	}
 
 }
+
+$imageNames = array_slice($imageNames, 0, 3);
 	
     
 
@@ -123,6 +125,8 @@ require("./header.php");
 
 <script>
 
+	let selectedFiles = [];
+	
 	let resizedBlob = null;
 
 	document.getElementById("image_input").addEventListener("change", async(e) => {
@@ -133,6 +137,8 @@ require("./header.php");
 
 		const previewList = document.getElementById("preview_list");
 
+		selectedFiles.push(...files);
+
 		previewList.innerHTML = "";
 
 		
@@ -140,7 +146,7 @@ require("./header.php");
 
 		const dataTransfer = new DataTransfer();
 
-		for (const file of files) {
+		for (const file of selectedFiles) {
 
 
 			const li = document.createElement("li");
