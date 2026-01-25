@@ -72,8 +72,8 @@ color: #999;
   .user-info,
   .form {
     max-width: 960px;
-padding: 15px 20px;
-margin: 0 auto 60px auto;
+    padding: 15px 20px;
+    margin: 0 auto 60px auto;
   }
 
 .post-infos {
@@ -141,7 +141,7 @@ display: flex;
 }
 
 .images li {
-flex: 0 0 500px;
+flex: 0 0 auto;
 padding: 10px;
 }
 
@@ -150,8 +150,17 @@ width: 100%;
 }
 
 .images li .image-box img {
+  width: 500px;
   box-shadow: 0 0 4px #888;
   border-radius: 15px;
+}
+
+.images:has(li:nth-child(2)) {
+  justify-content: flex-start;
+}
+
+.images:not(:has(li:nth-child(2))) {
+  justify-content: center;
 }
 
 .edit-btn,
@@ -200,8 +209,11 @@ color: #6495ed;
 }
 
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
 
+  .images li .image-box img {
+    width: 300px;
+  }
 
 }
 
