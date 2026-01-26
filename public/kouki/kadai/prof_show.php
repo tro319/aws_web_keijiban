@@ -166,7 +166,7 @@ require("./header.php");
 
 <p>投稿文: <?= nl2br(htmlspecialchars($profPost["content"])) ?></p>
 
-<p class="post-time">投稿日時: <?= htmlspecialchars($profPost["created_at"]) ?></p>
+<p class="post-time">投稿日時: <?= date("Y/m/d", strtotime($profPost["created_at"])) ?></p>
 
 <div class="post-link">
 

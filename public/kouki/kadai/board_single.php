@@ -146,7 +146,7 @@ require("./header.php");
 
 <p>投稿文: <?= nl2br(htmlspecialchars($postResult["content"])) ?></p>
 
-<p class="post-time">投稿日時: <?= nl2br(htmlspecialchars($postResult["created_at"])) ?></p>
+<p class="post-time">投稿日時: <?= date("Y/m/d", strtotime($postResult["created_at"])) ?></p>
 
 <hr>
 

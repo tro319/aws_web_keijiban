@@ -124,7 +124,7 @@ board_posts.*,
 
   <p>投稿文: <?= nl2br(htmlspecialchars($post["content"])) ?></p>
 
-  <p class="post-time">投稿日時: <?= $post["created_at"] ?></p>
+  <p class="post-time">投稿日時: <?= date("Y/m/d", strtotime($post["created_at"])) ?></p>
 
   <div class="post-link">
 
