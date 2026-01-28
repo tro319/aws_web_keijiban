@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-$loginID = $_SESSION["login_id"];
+$loginID = $_SESSION["login_id"] ?? "";
 
 if ($loginID == null) {
 
@@ -154,7 +154,17 @@ require("./header.php");
 
 <a href="user.php?id=<?= $postResult["user_id"] ?>">
 
-<img src="/upload/image/<?= htmlspecialchars($postResult["img_name"]) ?>" width="80" height="60" />
+
+<?php if ($postResult["img_name"] != null): ?>
+
+<img src="/upload/image/<?= $postResult["img_name"] ?>" />
+
+<?php else: ?>
+
+<img src="/upload/image/dummy.png" />
+
+<?php endif; ?>
+
 
 <span><?= htmlspecialchars($postResult["name"]) ?></span>
 

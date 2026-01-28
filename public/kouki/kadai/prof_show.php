@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-$loginID = $_SESSION["login_id"];
+$loginID = $_SESSION["login_id"] ?? "";
 
 if ($loginID == null) {
 
@@ -50,15 +50,22 @@ require("./header.php");
 
 <?php if(!empty($profile)): ?>
 
-<?php if(!empty($profile["img_name"])): ?>
-
 <div class="image-radius">
 
-<img src="/upload/image/<?= htmlspecialchars(basename($profile["img_name"])) ?>" >   
+<?php if(!empty($profile["img_name"])): ?>
+
+
+<img src="/upload/image/<?= $profile["img_name"] ?>" />   
+
+<?php else: ?>
+
+<img src="/upload/image/dummy.png" />
+
+<?php endif; ?>
 
 </div>
 
-<?php endif; ?>
+
 
 <p>ユーザーネーム: <?= htmlspecialchars($profile["name"]) ?></p>
 

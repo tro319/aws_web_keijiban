@@ -2,7 +2,7 @@
 session_start();
 
 // セッションからログイン中ユーザーid取得
-$loginID = $_SESSION["login_id"];
+$loginID = $_SESSION["login_id"] ?? "";
 
 if ($loginID == null) {
 

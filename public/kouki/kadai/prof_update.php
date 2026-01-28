@@ -3,7 +3,7 @@ session_start();
 
 
 
-$loginID = $_SESSION["login_id"];
+$loginID = $_SESSION["login_id"] ?? ""; 
 
 
 if ($loginID == null) {
@@ -277,15 +277,21 @@ require("./header.php");
 
 <?php if (!empty($getResult)): ?>
 
-<?php if ($getResult["img_name"] != null): ?>
 
 <div class="image-radius">
 
-<img src="/upload/image/<?= htmlspecialchars($getResult["img_name"]) ?>" style="height: 5em; width: 5em; border-radius: 50%; object-fit: cover;" />
+<?php if ($getResult["img_name"] != null): ?>
 
-</div>
+
+<img src="/upload/image/<?= $getResult["img_name"] ?>" />
+
+<?php else: ?>
+
+<img src="/upload/image/dummy.png" />
 
 <?php endif; ?>
+
+</div>
 
 <p>ユーザーネーム: <?= htmlspecialchars($getResult["name"]) ?></p>
 

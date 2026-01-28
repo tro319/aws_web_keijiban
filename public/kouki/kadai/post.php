@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-$loginID = $_SESSION["login_id"];
+$loginID = $_SESSION["login_id"] ?? ""; 
 
 if ($loginID == null) {
 

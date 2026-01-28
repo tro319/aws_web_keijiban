@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-$loginID = $_SESSION["login_id"];
+$loginID = $_SESSION["login_id"] ?? "";
 
 
 if ($loginID == null) {
@@ -83,6 +83,10 @@ require("./header.php");
 <?php if (!empty($userResult["img_name"])): ?>
 
 <img src="/upload/image/<?= htmlspecialchars($userResult["img_name"]) ?>" width="80" height="65" />
+
+<?php else: ?>
+
+<img src="/upload/image/dummy.png" width="80" height="65" />
 
 <?php endif; ?>
 
