@@ -43,6 +43,8 @@ board_posts.*,
 
   <div class="post-infos">
 
+  <?php if ($posts != null): ?>
+
   <?php foreach ($posts as $post): ?>
 
   <div class="post-info">
@@ -168,6 +170,14 @@ board_posts.*,
 
 
   <?php endforeach; ?>
+
+  <?php else: ?>
+
+  <p class="none-text">投稿がありません</p>
+
+
+  <?php endif; ?>
+
 
   </div>
 

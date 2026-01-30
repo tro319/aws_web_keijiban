@@ -185,6 +185,10 @@ require("./header.php");
 
 <?php endforeach; ?>
 
+<?php else: ?>
+
+<p class="none-text">投稿がありません</p>
+
 <?php endif; ?>
 
 
